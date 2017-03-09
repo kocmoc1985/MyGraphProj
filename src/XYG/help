@@ -1,0 +1,7 @@
+1. Y_MAX - the highest scaled point on y-axis, note this means not the max y-axis value
+
+3 point.y_Scaled = (int) (point.y_Real * COEFF);
+
+4. ONE_UN_Y / ALL_SERIES_COEFF = unreal! pixels per 1 ONE_UN_Y - 100% RIGHT!!!!
+
+5. IF ONE_UN_Y = 4 --> it means 4 real! pixels per ONE_UN_Y
