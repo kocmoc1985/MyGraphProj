@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG;
+package XYG_BASIC;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -46,4 +46,23 @@ public class HelpA {
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
+    
+     public static synchronized MyPoint definePoint(Object value){
+        MyPoint point;
+
+        if (value instanceof MyPoint == false) {
+            if (value instanceof Integer) {
+                int val = (Integer) value;
+                point = new MyPoint(val,""+val);
+            } else {
+                double val = (Double) value;
+                point = new MyPoint((int) val,""+val);
+            }
+        } else {
+            point = (MyPoint) value;
+        }
+        //
+        return point;
+    }
+    
 }

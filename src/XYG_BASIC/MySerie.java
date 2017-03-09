@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG;
+package XYG_BASIC;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -14,7 +14,7 @@ import java.util.HashMap;
  * @author Administrator
  */
 public class MySerie {
-
+    
     private MyGraphXY myGraphXY;
     private ArrayList<MyPoint> points = new ArrayList<MyPoint>();
     private HashMap<Integer, MyPoint> pointsMap = new HashMap<Integer, MyPoint>();
@@ -40,12 +40,12 @@ public class MySerie {
     //
     private long MAX;
     private int POINT_INDEX;
-
+    
     public MySerie(String name) {
         this.name = name;
         adjustRenderer();
     }
-
+    
     public MySerie(String name, Color curve_color) {
         this.name = name;
         this.curveColor = curve_color;
@@ -122,7 +122,7 @@ public class MySerie {
     protected void checkRecalc(MyPoint point, int pHeight) {
         if (point.y_Real > MAX) {
             MAX = point.y_Scaled;
-
+            
             int y = point.y_Scaled;
             double coeff_temp = 1;
             double y_temp = y;
@@ -144,11 +144,11 @@ public class MySerie {
             } else if (MAX < 1000000) {
                 q = 0.000001;
             }
-
-
+            
+            
             int x = 4; // Very Important (4 is best!), if this coef is 4 it means then 1_real_pixel = 4_points on graph
             if (pHeight / y < x) {
-
+                
                 while (pHeight / (y_temp * coeff_temp) < x) {
                     coeff_temp -= q; // 0.00001 
                 }
@@ -220,7 +220,7 @@ public class MySerie {
         points.add(point);
         POINT_INDEX++;
     }
-
+    
     /**
      * Deletes all the points from the serie
      */
@@ -269,7 +269,7 @@ public class MySerie {
     public void setPointThickness(double percent) {
         point_thickness *= percent;
     }
-
+    
     public void setPointHighLightColor(Color c) {
         this.pointsHighlightColor = c;
     }
@@ -319,11 +319,11 @@ public class MySerie {
     public BasicStroke getLineRenderer() {
         return this.lineRenderer;
     }
-
+    
     public Color getCurveColor() {
         return this.curveColor;
     }
-
+    
     public Color getPointColor() {
         return this.pointsColor;
     }
@@ -354,7 +354,7 @@ public class MySerie {
     public String getName() {
         return this.name;
     }
-
+    
     public boolean nameEquals(String inName) {
         if (this.name.equals(inName)) {
             return true;
@@ -362,7 +362,7 @@ public class MySerie {
             return false;
         }
     }
-
+    
     public void highLightPointAtIndex(int pointIndex) {
         MyPoint curr_point = pointsMap.get(pointIndex);
         if (curr_point != null) {
@@ -370,7 +370,7 @@ public class MySerie {
             myGraphXY.validateFromOutside();
         }
     }
-
+    
     public void unhighLightPointAtIndex(int pointIndex) {
         MyPoint curr_point = pointsMap.get(pointIndex);
         if (curr_point != null) {

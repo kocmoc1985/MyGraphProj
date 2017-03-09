@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG;
+package XYG_BASIC;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -329,12 +329,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             if (DRAW_MARKER_INFO == 1) {
                 g2.drawString(MARKER_POINT.getSerieName(), MARKER_X + 10, MARKER_Y + 20);
             } else if (DRAW_MARKER_INFO == 2) {
-                g2.drawString(MARKER_POINT.getSerieName() + " | " + MARKER_POINT.y_Real, MARKER_X + 10, MARKER_Y + 20);
+                g2.drawString(MARKER_POINT.getSerieName() + " | " + MARKER_POINT.y_Real_display, MARKER_X + 10, MARKER_Y + 20);
             } else if (DRAW_MARKER_INFO == 3) {
-                g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Real
+                g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Real_display
                         + " | x: " + MARKER_POINT.x_Real, MARKER_X + 10, MARKER_Y + 20);
             } else if (DRAW_MARKER_INFO == 4) {
-                g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Real
+                g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Real_display
                         + " | x: " + MARKER_POINT.x_Real + " | y2: " + MARKER_POINT.y + " | x2: " + MARKER_POINT.x,
                         MARKER_X + 10, MARKER_Y + 20);
             }
@@ -577,67 +577,16 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         this.Y_MAX = 1;//!!!! Very important, this makes the scaling right!!!
     }
 
-    /**
-     * Add a point to a serie with the name x
-     *
-     * @param point
-     * @param serie_name
-     */
-//    public synchronized void addPointToSerie(MyPoint point, String serie_name) {
-//        PANEL_AREA_PREV = getWidth() * getHeight();
-//
-//        for (MySerie serie : SERIES) {
-//            if (serie.nameEquals(serie_name)) {
-//                serie.addPoint(point);
-//                waitForPanelHeightIsInitialized(); //Must be!!!!
-//                serie.checkRecalc(point, getHeight());
-//                defineMaxForXYAxis(point);//!!!
-//                //============================
-//                point.addMouseMotionListener(this); //ading the listener to the instance of MyPoint
-//                point.addMouseListener(this);
-//                add(point); // Adds the point component to the graph panel component
-//            }
-//        }
-//        notify();
-//    }
-//    
-//
-//    /**
-//     * Add a value to the serie with serie name x
-//     *
-//     * @param value
-//     * @param serie_name
-//     */
-//    public synchronized void addPointToSerie(double value, String serie_name) {
-//        PANEL_AREA_PREV = getWidth() * getHeight();
-//        MyPoint point = new MyPoint((int) Math.round(value));
-//        for (MySerie serie : SERIES) {
-//            if (serie.nameEquals(serie_name)) {
-//                serie.addPoint(point);
-//                waitForPanelHeightIsInitialized(); //Must be!!!!
-//                serie.checkRecalc(point, getHeight());
-//                defineMaxForXYAxis(point);//!!!
-//                //============================
-//                point.addMouseMotionListener(this); //ading the listener to the instance of MyPoint
-//                point.addMouseListener(this);
-//                add(point); // Adds the point component to the graph panel component
-//            }
-//        }
-//        notify();
-//    }
+    public synchronized void addDataSetToSerie(double[]values, String serie_name) {
+        for (double value : values) {
+            addPointToSerie(value, serie_name);
+        }
+    }
+   
+    
     public synchronized void addPointToSerie(Object value, String serie_name) {
         PANEL_AREA_PREV = getWidth() * getHeight();
-        MyPoint point;
-
-        if (value instanceof MyPoint == false) {
-            if (value instanceof Integer) {
-                point = new MyPoint((Integer) value);
-            } else {
-                point = new MyPoint((int) Math.round((Double) value));
-            }
-        } else {
-            point = (MyPoint) value;
-        }
+        MyPoint point = HelpA.definePoint(value);
 
         for (MySerie serie : SERIES) {
             if (serie.nameEquals(serie_name)) {
@@ -824,7 +773,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
             //==========================Batch Info displaying==================
             MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
-            MARKER_POINT.addPointInfo("y", "" + MARKER_POINT.y_Real);
+            MARKER_POINT.addPointInfo("y", "" + MARKER_POINT.y_Real_display);
             MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
             //
             HashMap<String, String> b_info_map = MARKER_POINT.getBatchInfo();
@@ -1044,7 +993,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         gp.addSerie(torq_curve);
         for (int i = 1; i < 1000; i++) {
 
-            gp.addPointToSerie(new MyPoint((int) ((Math.random() * 5000) + 1)), "torque");
+            int random =    (int) ((Math.random() * 5000) + 1); 
+            gp.addPointToSerie(new MyPoint(random,""+random), "torque");
 
 //            try {
 //                Thread.sleep(100);

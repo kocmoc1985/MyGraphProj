@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG;
+package XYG_BASIC;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -27,6 +27,7 @@ public class MyPoint extends JComponent {
     //This values corresponds to real values which are to be drawn!!!
     public int x_Real;
     public int y_Real;
+    public String y_Real_display;
     //=======================
     private String SERIE_NAME = ""; // The name to which the point corresponds
     //=======================
@@ -49,38 +50,42 @@ public class MyPoint extends JComponent {
     //===========================
     //this list hold additional info which can be shown by clicking a point
 //    private ArrayList<String> point_adittional_info = new  ArrayList<String>();
-    private String batch_info ="";
-    private HashMap<String,String>batch_info_map = new HashMap<String,String>();
+    private String batch_info = "";
+    private HashMap<String, String> batch_info_map = new HashMap<String, String>();
 
-    protected MyPoint(int x, int y) {
+    protected MyPoint(int x, int y, String y_) {
         x_Real = x;
         y_Real = y;
+
+        this.y_Real_display = y_;
 
         this.x_Scaled = x;
         this.y_Scaled = y;
         initialized_with_constructor_1 = true;
     }
 
-    protected MyPoint(int y) {
+    protected MyPoint(int y, String y_) {
         y_Real = y;
         this.y_Scaled = y;
+        this.y_Real_display = y_;
         initialized_with_constructor_2 = true;
     }
-   
+
     /**
-     * Adds a info for the given point, for displaying
-     * it later when clicking/pointing the point with 
-     * mouse
-     * @param info 
+     * Adds a info for the given point, for displaying it later when
+     * clicking/pointing the point with mouse
+     *
+     * @param info
      */
-    protected void addPointInfo(String key, String value){
+    protected void addPointInfo(String key, String value) {
 //       this.batch_info +=  " | " +  info ;
         batch_info_map.put(key, value);
     }
 
     /**
      * For adjusting of the point size
-     * @param d 
+     *
+     * @param d
      */
     protected void setPointDimenssion(int d) {
         this.POINT_D_SET = d;
@@ -92,10 +97,10 @@ public class MyPoint extends JComponent {
     }
 
     /**
-     * Sets the index of this point. The
-     * index is the position of this point in
+     * Sets the index of this point. The index is the position of this point in
      * the serie
-     * @param index 
+     *
+     * @param index
      */
     protected void setPointIndex(int index) {
         if (initialized_with_constructor_1) {
@@ -110,7 +115,8 @@ public class MyPoint extends JComponent {
 
     /**
      * Set the serie name to which the point corresponds
-     * @param serie_name 
+     *
+     * @param serie_name
      */
     protected void setSerieName(String serie_name) {
         this.SERIE_NAME = serie_name;
@@ -126,7 +132,8 @@ public class MyPoint extends JComponent {
 
     /**
      * Get the name of the serie to which this points reffers
-     * @return 
+     *
+     * @return
      */
     protected String getSerieName() {
         return this.SERIE_NAME;
@@ -134,38 +141,40 @@ public class MyPoint extends JComponent {
 
     /**
      * Get the sequence nr of the point in the serie of the point
-     * @return 
+     *
+     * @return
      */
     protected int getPointIndex() {
         return this.POINT_INDEX;
     }
-    
+
     /**
      * Get if marker should be drawn
-     * @return 
+     *
+     * @return
      */
-    protected boolean getDrawMarker(){
+    protected boolean getDrawMarker() {
         return this.MARKER_DRAW;
     }
-    
+
     /**
-     * Gets the additional batch info which
-     * was set when creating the point
-     * @return 
+     * Gets the additional batch info which was set when creating the point
+     *
+     * @return
      */
-    protected HashMap<String,String> getBatchInfo(){
+    protected HashMap<String, String> getBatchInfo() {
         return this.batch_info_map;
     }
 
     /**
-     * verifies if the mouse pointer points on a point by verifying
-     * the coordinates of the mouse pointer.
-     * This is an outdated method for checking if mouse points on
-     * a instance of MyPoint
+     * verifies if the mouse pointer points on a point by verifying the
+     * coordinates of the mouse pointer. This is an outdated method for checking
+     * if mouse points on a instance of MyPoint
+     *
      * @param x
      * @param y
-     * @return 
-     * @deprecated 
+     * @return
+     * @deprecated
      */
     protected boolean checkIfMousePointsOnPoint(int x, int y) {
         if ((x >= this.x - (POINT_D / 2) && x <= this.x + (POINT_D / 2)) && (y >= this.y - (POINT_D / 2) && y <= this.y + (POINT_D / 2))) {
@@ -178,11 +187,12 @@ public class MyPoint extends JComponent {
     }
 
     /**
-     * When you use this method the points are resized regarding
-     * on the panel size
+     * When you use this method the points are resized regarding on the panel
+     * size
+     *
      * @param g
-     * @param point_rescale_coeff 
-     * @deprecated 
+     * @param point_rescale_coeff
+     * @deprecated
      */
     protected void drawPoint(Graphics g, int point_rescale_coeff, Color pointColor) {
         if (point_rescale_coeff > 1) {
@@ -201,9 +211,9 @@ public class MyPoint extends JComponent {
     }
 
     /**
-     * 
+     *
      * @param g
-     * @param point_rescale_coeff 
+     * @param point_rescale_coeff
      */
     protected void drawPoint(Graphics g, Color pointColor) {
         Graphics2D g2d = (Graphics2D) g;

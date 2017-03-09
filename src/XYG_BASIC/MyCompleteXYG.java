@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG;
+package XYG_BASIC;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -25,17 +25,24 @@ public class MyCompleteXYG {
 
     private MyGraphContainer my_graph_container;
     private MyGraphXY my_xy_graph;
+    private String TITLE;
 
     public MyCompleteXYG(String title) {
+        this.TITLE = title;
         my_graph_container = new MyGraphContainer(title);
         my_xy_graph = new MyGraphXY();
         my_graph_container.addGraph(my_xy_graph);
     }
 
     public MyCompleteXYG(String title, int displayMode) {
+        this.TITLE = title;
         my_graph_container = new MyGraphContainer(title, displayMode);
         my_xy_graph = new MyGraphXY();
         my_graph_container.addGraph(my_xy_graph);
+    }
+    
+    public String getTitle(){
+        return this.TITLE;
     }
 
     /**
@@ -65,10 +72,13 @@ public class MyCompleteXYG {
         my_graph_container.addLegend(new LegendElement(serie.getName(), serie.getCurveColor()).getLegendElement());
     }
 
-    public void addBySerie(Object y_value, String serieName) {
+    public void addPointBySerie(Object y_value, String serieName) {
         my_xy_graph.addPointToSerie(y_value, serieName);
     }
-   
+
+    public void addDataSetBySerie(double[] y_values, String serieName) {
+        my_xy_graph.addDataSetToSerie(y_values, serieName);
+    }
 
     public void setScaleXYaxisLength(double dbl) {
         this.my_xy_graph.setScaleXYaxisLength(dbl);
@@ -163,6 +173,7 @@ public class MyCompleteXYG {
             Logger.getLogger(MyCompleteXYG.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+   
 
     public static void main(String[] args) {
         //
@@ -185,7 +196,7 @@ public class MyCompleteXYG {
         xyg.setScaleXYaxisLength(1.2);
         //
 //        xyg.setBackgroundColorOfGraph(new Color(249, 249, 249));
-        xyg.setDrawMarker(false);
+//        xyg.setDrawMarker(true);
         xyg.setMarkerDotted(true);
         xyg.setMarkerInfo(4);
         xyg.setMarkerAutoReset(true);
@@ -209,19 +220,8 @@ public class MyCompleteXYG {
         xyg.addSerie(speed_serie);
         //
         //
-        xyg.addBySerie(1201.2, "speed");
-        xyg.sleep(100);
-        xyg.addBySerie(1159, "speed");
-        xyg.sleep(100);
-        xyg.addBySerie(1325, "speed");
-        xyg.sleep(100);
-        xyg.addBySerie(1588, "speed");
-        xyg.sleep(100);
-        xyg.addBySerie(1100, "speed");
-        xyg.sleep(100);
-        xyg.addBySerie(1265, "speed");
-        xyg.sleep(100);
-        xyg.addBySerie(1333, "speed");
+        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333};
+        xyg.addDataSetBySerie(dataSet, "speed");
         //
 //        xyg.deleteAllPointsFromSerie("speed");
         //
@@ -232,15 +232,15 @@ public class MyCompleteXYG {
         torq_serie.setOverallScale(true);
         xyg.addSerie(torq_serie);
         //
-        xyg.addBySerie(256, "torq");
+        xyg.addPointBySerie(256, "torq");
         xyg.sleep(100);
-        xyg.addBySerie(389, "torq");
+        xyg.addPointBySerie(389, "torq");
         xyg.sleep(100);
-        xyg.addBySerie(456, "torq");
+        xyg.addPointBySerie(456, "torq");
         xyg.sleep(100);
-        xyg.addBySerie(157, "torq");
+        xyg.addPointBySerie(157, "torq");
         xyg.sleep(100);
-        xyg.addBySerie(125, "torq");
+        xyg.addPointBySerie(125, "torq");
         //
         //
         PointHighLighter.addSerie(speed_serie);
