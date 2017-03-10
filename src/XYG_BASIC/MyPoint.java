@@ -46,6 +46,7 @@ public class MyPoint extends JComponent {
     private int POINT_INDEX;
     //This value is for Marker so it nows if to draw or not
     private boolean MARKER_DRAW;
+    private boolean MARKER_DRAW_FORCED;
     //========================
     private boolean initialized_with_constructor_1 = false;
     private boolean initialized_with_constructor_2 = false;
@@ -67,8 +68,8 @@ public class MyPoint extends JComponent {
         this.y_Real_display = y_;
         this.initialized_with_constructor_2 = true;
     }
-    
-    public MyPoint(int y, String y_,Color c) {
+
+    public MyPoint(int y, String y_, Color c) {
         this.y_Real = y;
         this.y_Scaled = y;
         this.y_Real_display = y_;
@@ -99,8 +100,8 @@ public class MyPoint extends JComponent {
     protected void setPointHighLightColor(Color c) {
         this.HIGHLIGHT_COLOR = c;
     }
-    
-    public void setPointColor(Color c){
+
+    public void setPointColor(Color c) {
         this.POINT_COLOR_B = c;
     }
 
@@ -121,8 +122,7 @@ public class MyPoint extends JComponent {
 
     }
 
-    
-    public void setSerie(MySerie serie){
+    public void setSerie(MySerie serie) {
         this.SERIE = serie;
     }
 
@@ -134,10 +134,10 @@ public class MyPoint extends JComponent {
         return this.RECALC_COEFF;
     }
 
-    public MySerie getSerie(){
+    public MySerie getSerie() {
         return this.SERIE;
     }
-    
+
     protected String getSerieName() {
         return this.SERIE.getName();
     }
@@ -150,6 +150,14 @@ public class MyPoint extends JComponent {
     protected int getPointIndex() {
         return this.POINT_INDEX;
     }
+    
+    public Color getPointColor(){
+        if(POINT_COLOR_B != null){
+            return POINT_COLOR_B;
+        }else{
+            return POINT_COLOR;
+        }
+    }
 
     /**
      * Get if marker should be drawn
@@ -157,7 +165,20 @@ public class MyPoint extends JComponent {
      * @return
      */
     protected boolean getDrawMarker() {
-        return this.MARKER_DRAW;
+        if (MARKER_DRAW_FORCED) {
+            return true;
+        } else {
+            return this.MARKER_DRAW;
+        }
+
+    }
+    
+     protected boolean getDrawMarkerForced(){
+         return MARKER_DRAW_FORCED;
+     }
+
+    public void setDrawMarkerForced(boolean b) {
+        this.MARKER_DRAW_FORCED = b;
     }
 
     /**
@@ -220,14 +241,14 @@ public class MyPoint extends JComponent {
      */
     protected void drawPoint(Graphics g, Color pointColor) {
         Graphics2D g2d = (Graphics2D) g;
-        if (highLightSet == false ) {
+        if (highLightSet == false) {
             POINT_COLOR = pointColor;
         }
-        
-        if(POINT_COLOR_B != null){
+
+        if (POINT_COLOR_B != null) {
             POINT_COLOR = POINT_COLOR_B;
         }
-        
+
         g2d.setColor(POINT_COLOR);
         g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
         point_area = (int) 3.14 * (int) Math.pow(POINT_D / 2, 2);

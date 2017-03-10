@@ -289,7 +289,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
 
         if (DRAW_MARKER) {
-            drawMarker(g);
+            drawMarkerWhenPointing(g);
+            drawMarkerWhenFixed(g);
         }
 
         if (SCALE_XY_AXIS) {
@@ -301,54 +302,69 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         drawPointsFixedSize(g);
     }
 
-    /**
-     * Handles the marker drawing
-     *
-     * @param g
-     */
-    private void drawMarker(Graphics g) {
+    private void drawMarkerWhenFixed(Graphics g) {
+        int nrFixed = PointHighLighter.getAmmountFixed();
+        if ((nrFixed > 0 && nrFixed <= 2)) {
+            Object[] fixedPoints = PointHighLighter.getFixedPoints();
+            for (Object fixedPoint : fixedPoints) {
+                MyPoint p = (MyPoint) fixedPoint;
+                drawMarkerStandard(g, p);
+            }
+        }
+    }
+
+    private void drawMarkerStandard(Graphics g, MyPoint point) {
+        Graphics2D g2 = (Graphics2D) g;
+        ORDINARY_STROKE = (BasicStroke) g2.getStroke();
+        g2.setStroke(MARKER_STROKE);
+        g2.setPaint(point.getPointColor());
+
+        if (point.getDrawMarker()) {
+            g2.drawLine(point.x, 0, point.x, getHeight()); // X
+            g2.drawLine(0, point.y, getWidth(), point.y); // Y
+        }
+    }
+
+    private void drawMarkerWhenPointing(Graphics g) {
         if (MARKER_POINT == null) {
             return;
         }
+        //
         Graphics2D g2 = (Graphics2D) g;
-
+        //
         ORDINARY_STROKE = (BasicStroke) g2.getStroke();
-
+        //
         g2.setStroke(MARKER_STROKE);
         g2.setPaint(MARKER_COLOR);
         //=====================
         MARKER_X = MARKER_POINT.x;
         MARKER_Y = MARKER_POINT.y;
         //===================== DRAW MARKER======================================
-        if (MARKER_POINT.getDrawMarker() || AUTO_RESET_MARKER == false) {
+        if ((MARKER_POINT.getDrawMarker() || AUTO_RESET_MARKER == false) && MARKER_POINT.getDrawMarkerForced() == false) {
             g2.drawLine(MARKER_X, 0, MARKER_X, getHeight()); // X
             g2.drawLine(0, MARKER_Y, getWidth(), MARKER_Y); // Y
-
-            //=====================DRAW MARKER INFO===================================
-
-            if (DRAW_MARKER_INFO == 1) {
-                g2.drawString(MARKER_POINT.getSerieName(), MARKER_X + 10, MARKER_Y + 20);
-            } else if (DRAW_MARKER_INFO == 2) {
-                g2.drawString(MARKER_POINT.getSerieName() + " | " + MARKER_POINT.y_Real_display, MARKER_X + 10, MARKER_Y + 20);
-            } else if (DRAW_MARKER_INFO == 3) {
-                g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Real_display
-                        + " | x: " + MARKER_POINT.x_Real, MARKER_X + 10, MARKER_Y + 20);
-            } else if (DRAW_MARKER_INFO == 4) {
-                g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Real_display
-                        + " | x: " + MARKER_POINT.x_Real + " | y2: " + MARKER_POINT.y + " | x2: " + MARKER_POINT.x,
-                        MARKER_X + 10, MARKER_Y + 20);
-            }
+            drawMarkerInfo(g2);
         }
 
         //Reset to ordinary stroke 
         g2.setStroke(ORDINARY_STROKE);
     }
 
-    /**
-     * A very important method for scaling of x & y axises
-     *
-     * @param g
-     */
+    private void drawMarkerInfo(Graphics2D g2) {
+        if (DRAW_MARKER_INFO == 1) {
+            g2.drawString(MARKER_POINT.getSerieName(), MARKER_X + 10, MARKER_Y + 20);
+        } else if (DRAW_MARKER_INFO == 2) {
+            g2.drawString(MARKER_POINT.getSerieName() + " | " + MARKER_POINT.y_Real_display, MARKER_X + 10, MARKER_Y + 20);
+        } else if (DRAW_MARKER_INFO == 3) {
+            g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Real_display
+                    + " | x: " + MARKER_POINT.x_Real, MARKER_X + 10, MARKER_Y + 20);
+        } else if (DRAW_MARKER_INFO == 4) {
+            g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Real_display
+                    + " | x: " + MARKER_POINT.x_Real + " | y2: " + MARKER_POINT.y + " | x2: " + MARKER_POINT.x,
+                    MARKER_X + 10, MARKER_Y + 20);
+        }
+    }
+
     private void scaleOfXYAxis(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
 

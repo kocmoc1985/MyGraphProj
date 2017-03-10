@@ -5,6 +5,7 @@
 package XYG_BASIC;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -22,13 +23,23 @@ public class PointHighLighter {
     public static void addSerie(MySerie serie) {
         series_list.add(serie);
     }
+    
+    public static Object[] getFixedPoints(){
+        return FIXED_POINTS_MAP.values().toArray();
+    }
+    
+    public static int getAmmountFixed(){
+        return FIXED_POINTS_MAP.size();
+    }
 
     public static void setPointFixed(MyPoint point) {
+        point.setDrawMarkerForced(true);
         FIXED_POINTS_MAP.put(point.getPointIndex(), point);
         System.out.println("SIZE >>>>>>" + FIXED_POINTS_MAP.size());
     }
 
     public static void setPointUnfixed(MyPoint point) {
+        point.setDrawMarkerForced(false);
         FIXED_POINTS_MAP.remove(point.getPointIndex());
         System.out.println("SIZE >>>>>>" + FIXED_POINTS_MAP.size());
     }
