@@ -46,7 +46,6 @@ public class MyPoint extends JComponent {
     private int POINT_INDEX;
     //This value is for Marker so it nows if to draw or not
     private boolean MARKER_DRAW;
-    private boolean MARKER_DRAW_FORCED;
     //========================
     private boolean initialized_with_constructor_1 = false;
     private boolean initialized_with_constructor_2 = false;
@@ -150,13 +149,17 @@ public class MyPoint extends JComponent {
     protected int getPointIndex() {
         return this.POINT_INDEX;
     }
-    
-    public Color getPointColor(){
-        if(POINT_COLOR_B != null){
+
+    public Color getPointColor() {
+        if (POINT_COLOR_B != null) {
             return POINT_COLOR_B;
-        }else{
+        } else {
             return POINT_COLOR;
         }
+    }
+
+    public boolean isDiffMarkerPoint() {
+        return SERIE.isDiffMarkerPoint(this);
     }
 
     /**
@@ -165,20 +168,7 @@ public class MyPoint extends JComponent {
      * @return
      */
     protected boolean getDrawMarker() {
-        if (MARKER_DRAW_FORCED) {
-            return true;
-        } else {
-            return this.MARKER_DRAW;
-        }
-
-    }
-    
-     protected boolean getDrawMarkerForced(){
-         return MARKER_DRAW_FORCED;
-     }
-
-    public void setDrawMarkerForced(boolean b) {
-        this.MARKER_DRAW_FORCED = b;
+        return this.MARKER_DRAW;
     }
 
     /**
@@ -278,4 +268,11 @@ public class MyPoint extends JComponent {
         MARKER_DRAW = false;
 //        System.out.println("set ordinary");
     }
+
+    @Override
+    public String toString() {
+       return "index: " + POINT_INDEX + "  /  value: " + y_Real_display;
+    }
+    
+    
 }

@@ -66,7 +66,7 @@ public class StatisticalXYG extends MyCompleteXYG {
         this.setScaleXYaxisLength(1.2);
         //
 //        this.setBackgroundColorOfGraph(Color.BLACK);
-        this.setDrawMarker(true);
+        this.setDrawMarker(false);
         this.setMarkerDotted(true);
         this.setMarkerInfo(4);
         this.setMarkerAutoReset(false);

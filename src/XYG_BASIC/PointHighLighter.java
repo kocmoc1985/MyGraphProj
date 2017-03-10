@@ -17,7 +17,6 @@ import java.util.HashMap;
 public class PointHighLighter {
 
     private static ArrayList<MySerie> series_list = new ArrayList<MySerie>();
-    private static boolean POINT_FIXED;
     private static HashMap FIXED_POINTS_MAP = new HashMap<Integer, MyPoint>();
 
     public static void addSerie(MySerie serie) {
@@ -33,15 +32,13 @@ public class PointHighLighter {
     }
 
     public static void setPointFixed(MyPoint point) {
-        point.setDrawMarkerForced(true);
         FIXED_POINTS_MAP.put(point.getPointIndex(), point);
-        System.out.println("SIZE >>>>>>" + FIXED_POINTS_MAP.size());
+//        System.out.println("SIZE >>>>>>" + FIXED_POINTS_MAP.size());
     }
 
     public static void setPointUnfixed(MyPoint point) {
-        point.setDrawMarkerForced(false);
         FIXED_POINTS_MAP.remove(point.getPointIndex());
-        System.out.println("SIZE >>>>>>" + FIXED_POINTS_MAP.size());
+//        System.out.println("SIZE >>>>>>" + FIXED_POINTS_MAP.size());
     }
 
     public static boolean isFixed(Object obj) {

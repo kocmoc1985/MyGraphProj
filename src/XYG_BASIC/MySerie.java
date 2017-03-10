@@ -40,6 +40,8 @@ public class MySerie {
     //
     private long MAX;
     private int POINT_INDEX;
+    //========================
+    private DiffMarkerPoints DIFF_MARKER_POINTS = new DiffMarkerPoints(this);
     
     public MySerie(String name) {
         this.name = name;
@@ -88,13 +90,10 @@ public class MySerie {
         this.SCALE_SAME_ALL_SERIES = overalScaling;
         adjustRenderer();
     }
+    
+    
 
-    /**
-     * Give the Serie an instance of MyGraphXY, this is in first hand needed to
-     * gain the Overall Coeff
-     *
-     * @param myGraph
-     */
+    
     public void setMyGraphXY(MyGraphXY myGraph) {
         this.myGraphXY = myGraph;
     }
@@ -195,6 +194,10 @@ public class MySerie {
         } else {
             COEFF = myGraphXY.getALL_SERIES_COEFF();
         }
+    }
+    
+    public MyPoint getPoint(int index){
+        return this.points.get(index);
     }
 
     /**
@@ -376,5 +379,25 @@ public class MySerie {
         if (curr_point != null) {
             pointsMap.get(pointIndex).setHighlightOff();
         }
+    }
+    
+    public void addDiffMarkerPoint(MyPoint point){
+        this.DIFF_MARKER_POINTS.add(point);
+    }
+    
+    public void removeDiffMarkerPoint(MyPoint point){
+        this.DIFF_MARKER_POINTS.remove(point);
+    }
+    
+    public boolean isDiffMarkerPoint(MyPoint point){
+        return this.DIFF_MARKER_POINTS.contains(point);
+    }
+    
+    public boolean diffMarkersExist(){
+        return this.DIFF_MARKER_POINTS.exist();
+    }
+    
+    public ArrayList getDiffMarkerPoints(){
+        return this.DIFF_MARKER_POINTS.getPoints();
     }
 }

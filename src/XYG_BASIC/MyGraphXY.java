@@ -74,6 +74,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     //
     private MenuItem menu_item_fix_point = new MenuItem("Fix point");
     private MenuItem menu_item_unfix_point = new MenuItem("Unfix point");
+    private MenuItem menu_item_diff_marker_add = new MenuItem("Set diff. marker");
+    private MenuItem menu_item_diff_marker_remove = new MenuItem("Remove dif. marker");
 
     public MyGraphXY() {
         PANEL_AREA_PREV = getWidth() * getHeight();
@@ -90,6 +92,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private void init() {
         menu_item_fix_point.addActionListener(this);
         menu_item_unfix_point.addActionListener(this);
+        menu_item_diff_marker_add.addActionListener(this);
+        menu_item_diff_marker_remove.addActionListener(this);
     }
 
     /**
@@ -290,8 +294,9 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
         if (DRAW_MARKER) {
             drawMarkerWhenPointing(g);
-            drawMarkerWhenFixed(g);
         }
+
+        drawDiffMarkers(g);
 
         if (SCALE_XY_AXIS) {
             scaleOfXYAxis(g);
@@ -302,27 +307,31 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         drawPointsFixedSize(g);
     }
 
-    private void drawMarkerWhenFixed(Graphics g) {
-        int nrFixed = PointHighLighter.getAmmountFixed();
-        if ((nrFixed > 0 && nrFixed <= 2)) {
-            Object[] fixedPoints = PointHighLighter.getFixedPoints();
-            for (Object fixedPoint : fixedPoints) {
-                MyPoint p = (MyPoint) fixedPoint;
-                drawMarkerStandard(g, p);
+    private void drawDiffMarkers(Graphics g) {
+        if (SERIES.size() != 1) {
+            return;
+        }
+
+        MySerie serie = SERIES.get(0);
+
+        if (serie.diffMarkersExist()) {
+            ArrayList<MyPoint> list = serie.getDiffMarkerPoints();
+
+            for (MyPoint myPoint : list) {
+                drawMarkerStandard(g, myPoint);
             }
+
         }
     }
 
     private void drawMarkerStandard(Graphics g, MyPoint point) {
         Graphics2D g2 = (Graphics2D) g;
-        ORDINARY_STROKE = (BasicStroke) g2.getStroke();
         g2.setStroke(MARKER_STROKE);
         g2.setPaint(point.getPointColor());
 
-        if (point.getDrawMarker()) {
-            g2.drawLine(point.x, 0, point.x, getHeight()); // X
-            g2.drawLine(0, point.y, getWidth(), point.y); // Y
-        }
+        g2.drawLine(point.x, 0, point.x, getHeight()); // X
+        g2.drawLine(0, point.y, getWidth(), point.y); // Y
+
     }
 
     private void drawMarkerWhenPointing(Graphics g) {
@@ -340,14 +349,14 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         MARKER_X = MARKER_POINT.x;
         MARKER_Y = MARKER_POINT.y;
         //===================== DRAW MARKER======================================
-        if ((MARKER_POINT.getDrawMarker() || AUTO_RESET_MARKER == false) && MARKER_POINT.getDrawMarkerForced() == false) {
+        if ((MARKER_POINT.getDrawMarker() || AUTO_RESET_MARKER == false)) {
             g2.drawLine(MARKER_X, 0, MARKER_X, getHeight()); // X
             g2.drawLine(0, MARKER_Y, getWidth(), MARKER_Y); // Y
             drawMarkerInfo(g2);
         }
 
         //Reset to ordinary stroke 
-        g2.setStroke(ORDINARY_STROKE);
+//        g2.setStroke(ORDINARY_STROKE);
     }
 
     private void drawMarkerInfo(Graphics2D g2) {
@@ -808,13 +817,22 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
             popup.removeAll();
             popup.add(menu_item_fix_point);
+            addAdditionalControlsPopups();
             popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT)) {
             popup.removeAll();
             popup.add(menu_item_unfix_point);
+            addAdditionalControlsPopups();
             popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         }
+    }
 
+    private void addAdditionalControlsPopups() {
+        if (MARKER_POINT.isDiffMarkerPoint() == false) {
+            popup.add(menu_item_diff_marker_add);
+        } else if (MARKER_POINT.isDiffMarkerPoint()) {
+            popup.add(menu_item_diff_marker_remove);
+        }
     }
 
     @Override
@@ -823,6 +841,22 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             fixPoint();
         } else if (ae.getSource() == menu_item_unfix_point) {//Unfix point
             unfixPoint();
+        } else if (ae.getSource() == menu_item_diff_marker_add) {
+            addRemoveDiffMarker(MARKER_POINT, true);
+        } else if (ae.getSource() == menu_item_diff_marker_remove) {
+            addRemoveDiffMarker(MARKER_POINT, false);
+        }
+    }
+
+    private void addRemoveDiffMarker(MyPoint point, boolean add) {
+        if (SERIES.size() != 1) {
+            return;
+        }
+        //
+        if (add) {
+            SERIES.get(0).addDiffMarkerPoint(point);
+        } else {
+            SERIES.get(0).removeDiffMarkerPoint(point);
         }
     }
 
