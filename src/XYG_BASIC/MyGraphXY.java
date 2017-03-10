@@ -72,8 +72,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private double COEFF_SMALL_GRID = 1;
     private boolean DRAW_MARKER = true;
     //
-    private MenuItem menu_item_2_0 = new MenuItem("Fix point");
-    private MenuItem menu_item_2_1 = new MenuItem("Unfix point");
+    private MenuItem menu_item_fix_point = new MenuItem("Fix point");
+    private MenuItem menu_item_unfix_point = new MenuItem("Unfix point");
 
     public MyGraphXY() {
         PANEL_AREA_PREV = getWidth() * getHeight();
@@ -88,8 +88,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
 
     private void init() {
-        menu_item_2_0.addActionListener(this);
-        menu_item_2_1.addActionListener(this);
+        menu_item_fix_point.addActionListener(this);
+        menu_item_unfix_point.addActionListener(this);
     }
 
     /**
@@ -577,13 +577,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         this.Y_MAX = 1;//!!!! Very important, this makes the scaling right!!!
     }
 
-    public synchronized void addDataSetToSerie(double[]values, String serie_name) {
+    public synchronized void addDataSetToSerie(double[] values, String serie_name) {
         for (double value : values) {
             addPointToSerie(value, serie_name);
         }
     }
-   
-    
+
     public synchronized void addPointToSerie(Object value, String serie_name) {
         PANEL_AREA_PREV = getWidth() * getHeight();
         MyPoint point = HelpA.definePoint(value);
@@ -710,19 +709,16 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             if (e.getSource() instanceof MyPoint) {
                 //
                 if (MARKER_POINT != null) {
-//                    MARKER_POINT.setHighlightOff();
                     PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT.getPointIndex());
                 }
                 //
                 MARKER_POINT = (MyPoint) e.getSource();
-//                MARKER_POINT.setHighlight();
                 //
                 PointHighLighter.highLightAllPointsAtIndex(MARKER_POINT.getPointIndex());
                 //
                 repaint();
             } else {
                 if (MARKER_POINT != null) {
-//                    MARKER_POINT.setHighlightOff();
                     //
                     PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT.getPointIndex());
                     //
@@ -791,17 +787,15 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             }
 
             //=================================================================
-
-//            System.out.println("X_ord  = " + MARKER_POINT.x + " Y_ord = " + MARKER_POINT.y);
             popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
             //
-        } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.getIfPointFixed() == false) {
+        } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
             popup.removeAll();
-            popup.add(menu_item_2_0);
+            popup.add(menu_item_fix_point);
             popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
-        } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.getIfPointFixed()) {
+        } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT)) {
             popup.removeAll();
-            popup.add(menu_item_2_1);
+            popup.add(menu_item_unfix_point);
             popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         }
 
@@ -809,43 +803,39 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == menu_item_2_0) { // Fix point
+        if (ae.getSource() == menu_item_fix_point) { // Fix point
             fixPoint();
-        } else if (ae.getSource() == menu_item_2_1) {//Unfix point
+        } else if (ae.getSource() == menu_item_unfix_point) {//Unfix point
             unfixPoint();
         }
     }
 
     private void fixPoint() {
         PointHighLighter.highLightAllPointsAtIndex(MARKER_POINT.getPointIndex());
-        PointHighLighter.setPointFixed();
+        PointHighLighter.setPointFixed(MARKER_POINT);
         repaint();
     }
 
     private void unfixPoint() {
-        PointHighLighter.setPointUnfixed();
+        PointHighLighter.setPointUnfixed(MARKER_POINT);
         PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT.getPointIndex());
         repaint();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.print("");
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.print("");
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        System.out.print("");
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        System.out.print("");
     }
 
     //=======================================================
@@ -993,8 +983,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         gp.addSerie(torq_curve);
         for (int i = 1; i < 1000; i++) {
 
-            int random =    (int) ((Math.random() * 5000) + 1); 
-            gp.addPointToSerie(new MyPoint(random,""+random), "torque");
+            int random = (int) ((Math.random() * 5000) + 1);
+            gp.addPointToSerie(new MyPoint(random, "" + random), "torque");
 
 //            try {
 //                Thread.sleep(100);

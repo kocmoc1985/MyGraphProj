@@ -212,7 +212,7 @@ public class MySerie {
      * @param point
      */
     protected void addPoint(MyPoint point) {
-        point.setSerieName(name);
+        point.setSerie(this);
         point.setPointIndex(POINT_INDEX);
         point.setPointDimenssion(point_thickness);
         point.setPointHighLightColor(pointsHighlightColor);

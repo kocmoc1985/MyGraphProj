@@ -30,6 +30,7 @@ public class MyPoint extends JComponent {
     public String y_Real_display;
     //=======================
     private String SERIE_NAME = ""; // The name to which the point corresponds
+    private MySerie SERIE;
     //=======================
     private Color ORDINARY_COLOR = Color.BLUE;
     private Color HIGHLIGHT_COLOR = ORDINARY_COLOR;
@@ -120,13 +121,9 @@ public class MyPoint extends JComponent {
 
     }
 
-    /**
-     * Set the serie name to which the point corresponds
-     *
-     * @param serie_name
-     */
-    protected void setSerieName(String serie_name) {
-        this.SERIE_NAME = serie_name;
+    
+    public void setSerie(MySerie serie){
+        this.SERIE = serie;
     }
 
     protected void setRecalcCoeff(double coeff) {
@@ -137,13 +134,12 @@ public class MyPoint extends JComponent {
         return this.RECALC_COEFF;
     }
 
-    /**
-     * Get the name of the serie to which this points reffers
-     *
-     * @return
-     */
+    public MySerie getSerie(){
+        return this.SERIE;
+    }
+    
     protected String getSerieName() {
-        return this.SERIE_NAME;
+        return this.SERIE.getName();
     }
 
     /**
