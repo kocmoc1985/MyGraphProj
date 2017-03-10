@@ -232,9 +232,9 @@ public class MyCompleteXYG {
         torq_serie.setOverallScale(true);
         xyg.addSerie(torq_serie);
         //
-        xyg.addPointBySerie(256, "torq");
+        xyg.addPointBySerie(new MyPoint(256, "256", Color.green),"torq");
         xyg.sleep(100);
-        xyg.addPointBySerie(389, "torq");
+        xyg.addPointBySerie(new MyPoint(389, "389", Color.MAGENTA),"torq");
         xyg.sleep(100);
         xyg.addPointBySerie(456, "torq");
         xyg.sleep(100);

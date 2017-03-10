@@ -31,14 +31,15 @@ public class MyPoint extends JComponent {
     //=======================
     private String SERIE_NAME = ""; // The name to which the point corresponds
     //=======================
-    private int point_area;
     private Color ORDINARY_COLOR = Color.BLUE;
     private Color HIGHLIGHT_COLOR = ORDINARY_COLOR;
     private Color POINT_COLOR = Color.BLACK;
+    private Color POINT_COLOR_B = null;
     private boolean highLightSet = false;
     //point dimenssion
     private int POINT_D = 7; // default 7
     private int POINT_D_SET = 1; // default 7
+    private int point_area;
     //Coeff of this point !!! 
     private double RECALC_COEFF = 1;
     private int POINT_INDEX;
@@ -48,27 +49,30 @@ public class MyPoint extends JComponent {
     private boolean initialized_with_constructor_1 = false;
     private boolean initialized_with_constructor_2 = false;
     //===========================
-    //this list hold additional info which can be shown by clicking a point
-//    private ArrayList<String> point_adittional_info = new  ArrayList<String>();
-    private String batch_info = "";
     private HashMap<String, String> batch_info_map = new HashMap<String, String>();
 
-    protected MyPoint(int x, int y, String y_) {
-        x_Real = x;
-        y_Real = y;
-
+    public MyPoint(int x, int y, String y_) {
+        this.x_Real = x;
+        this.y_Real = y;
         this.y_Real_display = y_;
-
         this.x_Scaled = x;
         this.y_Scaled = y;
-        initialized_with_constructor_1 = true;
+        this.initialized_with_constructor_1 = true;
     }
 
-    protected MyPoint(int y, String y_) {
-        y_Real = y;
+    public MyPoint(int y, String y_) {
+        this.y_Real = y;
         this.y_Scaled = y;
         this.y_Real_display = y_;
-        initialized_with_constructor_2 = true;
+        this.initialized_with_constructor_2 = true;
+    }
+    
+    public MyPoint(int y, String y_,Color c) {
+        this.y_Real = y;
+        this.y_Scaled = y;
+        this.y_Real_display = y_;
+        this.POINT_COLOR_B = c;
+        this.initialized_with_constructor_2 = true;
     }
 
     /**
@@ -77,8 +81,7 @@ public class MyPoint extends JComponent {
      *
      * @param info
      */
-    protected void addPointInfo(String key, String value) {
-//       this.batch_info +=  " | " +  info ;
+    public void addPointInfo(String key, String value) {
         batch_info_map.put(key, value);
     }
 
@@ -94,6 +97,10 @@ public class MyPoint extends JComponent {
 
     protected void setPointHighLightColor(Color c) {
         this.HIGHLIGHT_COLOR = c;
+    }
+    
+    public void setPointColor(Color c){
+        this.POINT_COLOR_B = c;
     }
 
     /**
@@ -217,9 +224,14 @@ public class MyPoint extends JComponent {
      */
     protected void drawPoint(Graphics g, Color pointColor) {
         Graphics2D g2d = (Graphics2D) g;
-        if (highLightSet == false) {
+        if (highLightSet == false ) {
             POINT_COLOR = pointColor;
         }
+        
+        if(POINT_COLOR_B != null){
+            POINT_COLOR = POINT_COLOR_B;
+        }
+        
         g2d.setColor(POINT_COLOR);
         g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
         point_area = (int) 3.14 * (int) Math.pow(POINT_D / 2, 2);

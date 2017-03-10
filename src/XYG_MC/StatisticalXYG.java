@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -20,34 +21,36 @@ import javax.swing.JFrame;
  *
  * @author KOCMOC
  */
-public class MyStatisticalXYG extends MyCompleteXYG {
-
+public class StatisticalXYG extends MyCompleteXYG {
+    
     private MySerie serie;
-
-    public MyStatisticalXYG(String title) {
+    
+    public StatisticalXYG(String title) {
         super(title);
         initializeA();
         initializeB();
     }
-
-    public MyStatisticalXYG(String title, int displayMode) {
+    
+    public StatisticalXYG(String title, int displayMode) {
         super(title, displayMode);
         initializeA();
         initializeB();
     }
-
+    
     private void initializeB() {
         serie = new MySerie(getTitle());
         //
         serie.setPointThickness(1);
+//        serie.setPointColor(Color.red);
         serie.setCurveColor(Color.red);
         serie.setOverallScale(true);
+        serie.setDrawLines(false);
         //
         this.addSerie(serie);
         //
         PointHighLighter.addSerie(serie);
     }
-
+    
     private void initializeA() {
         this.setTitleSize(20, true);
         this.setTitleSize(20, true);
@@ -58,32 +61,50 @@ public class MyStatisticalXYG extends MyCompleteXYG {
         // setAxisScaling(...) & setDrawGrid(...) influence each other!
         this.setAxisScaling(true, true);
         this.setDrawGrid(true);
-//        this.setDisableScalingWhenGrid();
+        this.setDisableScalingWhenGrid();
         this.setGridColor(Color.black);
         this.setScaleXYaxisLength(1.2);
         //
-//        this.setBackgroundColorOfGraph(new Color(249, 249, 249));
-        this.setDrawMarker(false);
+//        this.setBackgroundColorOfGraph(Color.BLACK);
+        this.setDrawMarker(true);
         this.setMarkerDotted(true);
-        this.setMarkerInfo(4);
-        this.setMarkerAutoReset(true);
+//        this.setMarkerInfo(4);
+        this.setMarkerAutoReset(false);
     }
-
-    public void addData(ResultSet rs) {
+    
+    public void addData(ResultSet rs, String valueColName, String modeColName) {
+        try {
+            while (rs.next()) {
+                double val = rs.getDouble(valueColName);
+                String mode = rs.getString(modeColName);
+                Point p = new Point((int) val, "" + val);
+                
+                if (mode.equals("1")) {
+                    p.setPointColor(Color.red);
+                } else {
+                    p.setPointColor(Color.blue);
+                }
+                
+                p.addPointInfo("mode", mode);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StatisticalXYG.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
-
+    
     public static void main(String[] args) {
-        MyStatisticalXYG msxyg = new MyStatisticalXYG("speed", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
-
+        StatisticalXYG msxyg = new StatisticalXYG("speed", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        
         JFrame jf = new JFrame(msxyg.getTitle());
-        jf.setSize(new Dimension(800, 800));
+        jf.setSize(new Dimension(200, 200));
         jf.setLayout(new GridLayout(1, 0));
         jf.add(msxyg.getGraph());
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333,2200,2300,2159,2789,1565,1898};
+        
+        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898};
         msxyg.addDataSetBySerie(dataSet, "speed");
         //
     }
