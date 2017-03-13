@@ -2,13 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG_MC;
+package XYG_BASIC;
 
-import XYG_BASIC.HelpA;
-import XYG_BASIC.MyCompleteXYG;
-import XYG_BASIC.MyGraphContainer;
-import XYG_BASIC.MySerie;
-import XYG_BASIC.PointHighLighter;
+import XYG_MC.Point;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -16,47 +12,64 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
 /**
  *
  * @author KOCMOC
  */
-public class StatisticalXYG extends MyCompleteXYG {
+public class MyXYGB extends MyXYGA {
     
     private MySerie serie;
     
-    public StatisticalXYG(String title) {
+    public MyXYGB(String title) {
         super(title);
-        initializeA();
-        initializeB();
+        initialize();
     }
     
-    public StatisticalXYG(String title, int displayMode) {
+    public MyXYGB(String title, int displayMode) {
         super(title, displayMode);
+        initialize();
+    }
+    
+    public MySerie getSerie(){
+        return this.serie;
+    }
+    
+    public void addPoint(Object valueOrPoint){
+        addPointBySerie(valueOrPoint, getTitle());
+    }
+    
+    private void initialize(){
         initializeA();
         initializeB();
     }
     
-    private void initializeB() {
+    public void initializeB() {
         serie = new MySerie(getTitle());
         //
+        serie.setDrawPoints(true);
         serie.setPointThickness(2);
+//        serie.setPointHighLightColor(Color.red);
 //        serie.setPointColor(Color.red);
+        
+        serie.setDrawLines(true);
+//        serie.setLineThickness(4);
+        serie.setLineDotted();
         serie.setCurveColor(Color.red);
         serie.setOverallScale(true);
-        serie.setDrawLines(true);
         //
         this.addSerie(serie);
         //
         PointHighLighter.addSerie(serie);
     }
     
-    private void initializeA() {
+    public void initializeA() {
         this.setTitleSize(20, true);
         this.setTitleSize(20, true);
         this.setTitleColor(Color.black);
-//        this.setBorderHeadAndFootComponents(BorderFactory.createLineBorder(Color.darkGray));
+        this.setBorderHeadAndFootComponents(BorderFactory.createLineBorder(Color.darkGray));
         this.setHeadHeight(0.1);
         //
         // setAxisScaling(...) & setDrawGrid(...) influence each other!
@@ -69,35 +82,15 @@ public class StatisticalXYG extends MyCompleteXYG {
 //        this.setBackgroundColorOfGraph(Color.BLACK);
         this.setDrawMarker(false);
         this.setMarkerDotted(true);
-        this.setMarkerInfo(4);
+        this.setMarkerInfo(1);
         this.setMarkerAutoReset(false);
     }
     
-    public void addData(ResultSet rs, String valueColName, String modeColName) {
-        try {
-            while (rs.next()) {
-                double val = rs.getDouble(valueColName);
-                String mode = rs.getString(modeColName);
-                Point p = new Point((int) val, "" + val);
-                
-                if (mode.equals("1")) {
-                    p.setPointColor(Color.red);
-                } else {
-                    p.setPointColor(Color.blue);
-                }
-                
-                p.addPointInfo("mode", mode);
-                
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(StatisticalXYG.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
+    
     
     public static void main(String[] args) {
         //
-        StatisticalXYG msxyg = new StatisticalXYG("speed", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        MyXYGB msxyg = new MyXYGB("speed", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         JFrame jf = new JFrame(msxyg.getTitle());
         jf.setSize(new Dimension(800, 800));

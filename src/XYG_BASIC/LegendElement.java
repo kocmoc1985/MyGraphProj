@@ -20,10 +20,10 @@ import javax.swing.JPanel;
  */
 public class LegendElement extends JPanel {
 
-    private String name;
-    private Color color;
-    private JPanel container = new JPanel(new GridBagLayout());
-    private Font font = new Font("Serif", Font.PLAIN, 15);
+    private final String name;
+    private final Color color;
+    private final JPanel container = new JPanel(new GridBagLayout());
+    private final Font font = new Font("Serif", Font.PLAIN, 15);
     
     public LegendElement(String name, Color color) {
         this.setPreferredSize(new Dimension(100, 50));

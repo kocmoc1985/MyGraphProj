@@ -17,20 +17,20 @@ import javax.swing.border.Border;
  *
  * @author Administrator
  */
-public class MyCompleteXYG {
+public class MyXYGA {
 
-    private MyGraphContainer my_graph_container;
-    private MyGraphXY my_xy_graph;
-    private String TITLE;
+    private final MyGraphContainer my_graph_container;
+    private final MyGraphXY my_xy_graph;
+    private final String TITLE;
 
-    public MyCompleteXYG(String title) {
+    public MyXYGA(String title) {
         this.TITLE = title;
         my_graph_container = new MyGraphContainer(title);
         my_xy_graph = new MyGraphXY();
         my_graph_container.addGraph(my_xy_graph);
     }
 
-    public MyCompleteXYG(String title, int displayMode) {
+    public MyXYGA(String title, int displayMode) {
         this.TITLE = title;
         my_graph_container = new MyGraphContainer(title, displayMode);
         my_xy_graph = new MyGraphXY();
@@ -166,7 +166,7 @@ public class MyCompleteXYG {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException ex) {
-            Logger.getLogger(MyCompleteXYG.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MyXYGA.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
    
@@ -175,7 +175,7 @@ public class MyCompleteXYG {
         //
 //        HelpA.err_output_to_file();
         //
-        MyCompleteXYG xyg = new MyCompleteXYG("Speed", MyGraphContainer.DISPLAY_MODE_FOOT_HEAD_ENABLED);
+        MyXYGA xyg = new MyXYGA("Speed", MyGraphContainer.DISPLAY_MODE_FOOT_HEAD_ENABLED);
         //
 //        xyg.setHeadColor(Color.yellow);
 //        xyg.setFootColor(Color.yellow);
