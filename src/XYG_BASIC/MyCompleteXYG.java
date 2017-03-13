@@ -5,14 +5,10 @@
 package XYG_BASIC;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.border.Border;
@@ -248,38 +244,5 @@ public class MyCompleteXYG {
         //
 //        addMouseListenerToAllComponentsOfComponent(xyg.getGraph());
     }
-    private static Border PREV_BORDER;
-
-    public static void addMouseListenerToAllComponentsOfComponent(JComponent c) {
-        Component[] c_arr = c.getComponents();
-        for (Component component : c_arr) {
-            component.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent me) {
-                    String str = "SOURCE ELEM: " + me.getSource();
-                    System.out.println(str);
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent me) {
-                    if (me.getSource() instanceof JComponent) {
-                        JComponent jc = (JComponent) me.getSource();
-                        PREV_BORDER = jc.getBorder();
-                        jc.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-                    }
-                }
-
-                @Override
-                public void mouseExited(MouseEvent me) {
-                    if (me.getSource() instanceof JComponent) {
-                        JComponent jc = (JComponent) me.getSource();
-                        jc.setBorder(PREV_BORDER);
-                    }
-                }
-            });
-            if (component instanceof JComponent) {
-                addMouseListenerToAllComponentsOfComponent((JComponent) component);
-            }
-        }
-    }
+    
 }

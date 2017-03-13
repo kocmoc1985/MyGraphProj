@@ -36,6 +36,7 @@ public class MyPoint extends JComponent {
     private Color HIGHLIGHT_COLOR = ORDINARY_COLOR;
     private Color POINT_COLOR = Color.BLACK;
     private Color POINT_COLOR_B = null;
+    private boolean DRAW_RECT;
     private boolean highLightSet = false;
     //point dimenssion
     private int POINT_D = 7; // default 7
@@ -102,6 +103,10 @@ public class MyPoint extends JComponent {
 
     public void setPointColor(Color c) {
         this.POINT_COLOR_B = c;
+    }
+
+    public void setPointDrawRect(boolean bln) {
+        this.DRAW_RECT = bln;
     }
 
     /**
@@ -220,7 +225,13 @@ public class MyPoint extends JComponent {
             POINT_COLOR = pointColor;
         }
         g2d.setColor(POINT_COLOR);
-        g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
+
+        if (DRAW_RECT) {
+            g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
+        } else {
+            g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
+        }
+
         point_area = (int) 3.14 * (int) Math.pow(POINT_D / 2, 2);
     }
 
@@ -240,7 +251,13 @@ public class MyPoint extends JComponent {
         }
 
         g2d.setColor(POINT_COLOR);
-        g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
+        
+        if(DRAW_RECT){
+            g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D,true);
+        }else{
+            g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
+        }
+        
         point_area = (int) 3.14 * (int) Math.pow(POINT_D / 2, 2);
         //==================================IMPORTNAT=============================
         //Sets the size of the component which reffers to this point
@@ -271,8 +288,7 @@ public class MyPoint extends JComponent {
 
     @Override
     public String toString() {
-       return "index: " + POINT_INDEX + "  /  value: " + y_Real_display;
+        return "index: " + POINT_INDEX + "  /  value: " + y_Real_display;
     }
-    
-    
+
 }

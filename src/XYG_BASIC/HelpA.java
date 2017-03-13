@@ -4,6 +4,10 @@
  */
 package XYG_BASIC;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,13 +17,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.border.Border;
 
 /**
  *
  * @author KOCMOC
  */
 public class HelpA {
-
 
     public static void err_output_to_file() {
         //Write error stream to a file
@@ -46,17 +52,17 @@ public class HelpA {
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
-    
-     public static synchronized MyPoint definePoint(Object value){
+
+    public static synchronized MyPoint definePoint(Object value) {
         MyPoint point;
 
         if (value instanceof MyPoint == false) {
             if (value instanceof Integer) {
                 int val = (Integer) value;
-                point = new MyPoint(val,""+val);
+                point = new MyPoint(val, "" + val);
             } else {
                 double val = (Double) value;
-                point = new MyPoint((int) val,""+val);
+                point = new MyPoint((int) val, "" + val);
             }
         } else {
             point = (MyPoint) value;
@@ -64,5 +70,40 @@ public class HelpA {
         //
         return point;
     }
-    
+
+    private static Border PREV_BORDER;
+
+    public static void addMouseListenerToAllComponentsOfComponent(JComponent c) {
+        Component[] c_arr = c.getComponents();
+        for (Component component : c_arr) {
+            component.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent me) {
+                    String str = "SOURCE ELEM: " + me.getSource();
+                    System.out.println(str);
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent me) {
+                    if (me.getSource() instanceof JComponent) {
+                        JComponent jc = (JComponent) me.getSource();
+                        PREV_BORDER = jc.getBorder();
+                        jc.setBorder(BorderFactory.createLineBorder(Color.red, 3));
+                    }
+                }
+
+                @Override
+                public void mouseExited(MouseEvent me) {
+                    if (me.getSource() instanceof JComponent) {
+                        JComponent jc = (JComponent) me.getSource();
+                        jc.setBorder(PREV_BORDER);
+                    }
+                }
+            });
+            if (component instanceof JComponent) {
+                addMouseListenerToAllComponentsOfComponent((JComponent) component);
+            }
+        }
+    }
+
 }

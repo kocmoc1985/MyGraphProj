@@ -4,6 +4,7 @@
  */
 package XYG_MC;
 
+import XYG_BASIC.HelpA;
 import XYG_BASIC.MyCompleteXYG;
 import XYG_BASIC.MyGraphContainer;
 import XYG_BASIC.MySerie;
@@ -40,11 +41,11 @@ public class StatisticalXYG extends MyCompleteXYG {
     private void initializeB() {
         serie = new MySerie(getTitle());
         //
-        serie.setPointThickness(1);
+        serie.setPointThickness(2);
 //        serie.setPointColor(Color.red);
         serie.setCurveColor(Color.red);
         serie.setOverallScale(true);
-        serie.setDrawLines(false);
+        serie.setDrawLines(true);
         //
         this.addSerie(serie);
         //
@@ -95,17 +96,19 @@ public class StatisticalXYG extends MyCompleteXYG {
     }
     
     public static void main(String[] args) {
+        //
         StatisticalXYG msxyg = new StatisticalXYG("speed", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
-        
+        //
         JFrame jf = new JFrame(msxyg.getTitle());
-        jf.setSize(new Dimension(200, 200));
+        jf.setSize(new Dimension(800, 800));
         jf.setLayout(new GridLayout(1, 0));
         jf.add(msxyg.getGraph());
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898};
+        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898,358,965,879,253,96,1547,1625,1200};
         msxyg.addDataSetBySerie(dataSet, "speed");
         //
+//        HelpA.addMouseListenerToAllComponentsOfComponent(msxyg.getGraph());
     }
 }

@@ -37,20 +37,24 @@ public class DiffMarkerPoints {
     public void add(MyPoint point) {
         if (MARKER_POINT_1 == null && MARKER_POINT_2 == null) {
             MARKER_POINT_1 = point;
+            reset();
         } else if (MARKER_POINT_1 != null && MARKER_POINT_2 == null) {
             MARKER_POINT_2 = point;
             //
+            addProperties();
             System.out.println("SUMM: " + calcSum());
             System.out.println("AV: " + calcAv());
             //
         } else if (MARKER_POINT_1 != null && MARKER_POINT_2 != null) {
             MARKER_POINT_1 = point;
             MARKER_POINT_2 = null;
+            reset();
         }
         System.out.println("" + toString());
     }
 
     public void remove(MyPoint point) {
+        reset();
         if (MARKER_POINT_1 == point) {
             MARKER_POINT_1 = null;
         } else if (MARKER_POINT_2 == point) {
@@ -87,6 +91,25 @@ public class DiffMarkerPoints {
         }
     }
 
+    private void reset() {
+        for (MyPoint myPoint : draw_rect_points_list) {
+            myPoint.setPointDrawRect(false);
+        }
+        draw_rect_points_list = new ArrayList<MyPoint>();
+    }
+
+    private ArrayList<MyPoint> draw_rect_points_list = new ArrayList<MyPoint>();
+
+    private void addProperties() {
+        if (bothExist()) {
+            for (int i = MARKER_POINT_1.getPointIndex(); i <= MARKER_POINT_2.getPointIndex(); i++) {
+                MyPoint mp = serie.getSerie().get(i);
+                mp.setPointDrawRect(true);
+                draw_rect_points_list.add(mp);
+            }
+        }
+    }
+
     public int calcSum() {
         int sum = 0;
         if (bothExist()) {
@@ -96,8 +119,8 @@ public class DiffMarkerPoints {
         }
         return sum;
     }
-    
-     public int calcAv() {
+
+    public int calcAv() {
         int sum = 0;
         int c = 0;
         if (bothExist()) {
@@ -106,7 +129,7 @@ public class DiffMarkerPoints {
                 sum += serie.getSerie().get(i).y_Real;
             }
         }
-        return (sum/c);
+        return (sum / c);
     }
 
     @Override
