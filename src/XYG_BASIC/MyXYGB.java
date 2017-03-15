@@ -4,14 +4,9 @@
  */
 package XYG_BASIC;
 
-import XYG_MC.Point;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
@@ -50,12 +45,12 @@ public class MyXYGB extends MyXYGA {
         serie = new MySerie(getTitle());
         //
         serie.setDrawPoints(true);
-        serie.setPointThickness(2);
+        serie.setPointThickness(1);
 //        serie.setPointHighLightColor(Color.red);
 //        serie.setPointColor(Color.red);
         
         serie.setDrawLines(true);
-//        serie.setLineThickness(4);
+        serie.setLineThickness(1);
         serie.setLineDotted();
         serie.setCurveColor(Color.red);
         serie.setOverallScale(true);
@@ -69,7 +64,7 @@ public class MyXYGB extends MyXYGA {
         this.setTitleSize(20, true);
         this.setTitleSize(20, true);
         this.setTitleColor(Color.black);
-        this.setBorderHeadAndFootComponents(BorderFactory.createLineBorder(Color.darkGray));
+//        this.setBorderHeadAndFootComponents(BorderFactory.createLineBorder(Color.darkGray));
         this.setHeadHeight(0.1);
         //
         // setAxisScaling(...) & setDrawGrid(...) influence each other!
@@ -90,7 +85,7 @@ public class MyXYGB extends MyXYGA {
     
     public static void main(String[] args) {
         //
-        MyXYGB msxyg = new MyXYGB("speed", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        MyXYGB msxyg = new MyXYGB("speed", MyGraphContainer.DISPLAY_MODE_FOOT_DISABLED);
         //
         JFrame jf = new JFrame(msxyg.getTitle());
         jf.setSize(new Dimension(800, 800));
@@ -102,6 +97,6 @@ public class MyXYGB extends MyXYGA {
         double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898,358,965,879,253,96,1547,1625,1200};
         msxyg.addDataSetBySerie(dataSet, "speed");
         //
-//        HelpA.addMouseListenerToAllComponentsOfComponent(msxyg.getGraph());
+        HelpA.addMouseListenerToAllComponentsOfComponent(jf.getRootPane());
     }
 }

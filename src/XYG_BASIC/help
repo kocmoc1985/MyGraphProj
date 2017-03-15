@@ -1,3 +1,8 @@
+OBS! The "READY WRAPPERS" ARE MyXYGA & MyXYGB
+
+
+
+
 1. Y_MAX - the highest scaled point on y-axis, note this means not the max y-axis value
 
 3 point.y_Scaled = (int) (point.y_Real * COEFF);

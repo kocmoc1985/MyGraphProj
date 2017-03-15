@@ -30,7 +30,7 @@ public class MyGraphContainer implements ComponentListener {
     private JPanel foot = new JPanel(new GridBagLayout());
     private JPanel body = new JPanel(new GridBagLayout());
     private JLabel head_label = new JLabel("Ram position");
-    private JPanel PARENT = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));//new GridLayout(2,0);
+    private JPanel PARENT = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));//new GridLayout(2,0); //new FlowLayout(FlowLayout.CENTER, 0, 0)
     private static double HEAD_COEFF_H;
     private static double HEAD_COEFF_W;
     private static double GRAPH_COEFF_H;
@@ -76,6 +76,8 @@ public class MyGraphContainer implements ComponentListener {
      */
     public MyGraphContainer(String head_label, int displayMode) {
         if (displayMode == DISPLAY_MODE_FULL_SCREEN) {// graph fullScreen mode
+            PARENT.setLayout(new GridLayout(1,1));
+            body.setLayout(new BorderLayout());
             this.DISPLAY_HEAD = false;
             this.DISPLAY_FOOT = false;
             GRAPH_COEFF_H = 0.99;
@@ -83,9 +85,9 @@ public class MyGraphContainer implements ComponentListener {
         } else if (displayMode == DISPLAY_MODE_FOOT_DISABLED) {
             this.DISPLAY_FOOT = false;
             HEAD_COEFF_H = 0.1;
-            HEAD_COEFF_W = 0.99;
+            HEAD_COEFF_W = 1;
             GRAPH_COEFF_H = (0.99 - HEAD_COEFF_H);
-            GRAPH_COEFF_W = 0.99;
+            GRAPH_COEFF_W = 1;
         } else if (displayMode == DISPLAY_MODE_FOOT_HEAD_ENABLED) {
             HEAD_COEFF_H = 0.1;
             HEAD_COEFF_W = 0.99;
@@ -243,6 +245,7 @@ public class MyGraphContainer implements ComponentListener {
         PARENT.revalidate();
         head.revalidate();
         body.revalidate();
+        GRAPH.revalidate();
     }
 
     private void recalc() {
@@ -250,6 +253,7 @@ public class MyGraphContainer implements ComponentListener {
             head.setPreferredSize(new Dimension((int) (PARENT.getWidth() * HEAD_COEFF_W), (int) (PARENT.getHeight() * HEAD_COEFF_H)));
             foot.setPreferredSize(new Dimension((int) (PARENT.getWidth() * HEAD_COEFF_W), (int) (PARENT.getHeight() * HEAD_COEFF_H)));
             GRAPH.setPreferredSize(new Dimension((int) (PARENT.getWidth() * GRAPH_COEFF_W), (int) (PARENT.getHeight() * GRAPH_COEFF_H)));
+            
             refresh();
         }
     }
