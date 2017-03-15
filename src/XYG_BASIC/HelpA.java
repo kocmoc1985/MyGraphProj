@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -52,6 +54,30 @@ public class HelpA {
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
+    
+    public static double roundDouble(double number) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        DecimalFormatSymbols s = DecimalFormatSymbols.getInstance();
+        s.setDecimalSeparator('.');
+        twoDForm.setDecimalFormatSymbols(s);
+        return Double.valueOf(twoDForm.format(number));
+    }
+    
+    public static int findCoeff(double value) {
+        if (value <= 0) {
+            return 1;
+        }
+        int temp = 1;
+        for (int i = 0; i < 10; i++) {
+            if ((1000000 - value) % 1 != 0) {
+                value *= 10;
+                temp *= 10;
+            } else {
+                break;
+            }
+        }
+        return temp;
+    }
 
     public static synchronized MyPoint definePoint(Object value) {
         MyPoint point;
@@ -59,10 +85,10 @@ public class HelpA {
         if (value instanceof MyPoint == false) {
             if (value instanceof Integer) {
                 int val = (Integer) value;
-                point = new MyPoint(val, "" + val);
+                point = new MyPoint(val, val);
             } else {
                 double val = (Double) value;
-                point = new MyPoint((int) val, "" + val);
+                point = new MyPoint((int) val, val);
             }
         } else {
             point = (MyPoint) value;

@@ -7,7 +7,6 @@ package XYG_BASIC;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
 /**
@@ -69,23 +68,22 @@ public class MyXYGB extends MyXYGA {
         //
         // setAxisScaling(...) & setDrawGrid(...) influence each other!
         this.setAxisScaling(true, true);
-        this.setDrawGrid(true);
+//        this.setDrawGrid(true);
         this.setDisableScalingWhenGrid();
         this.setGridColor(Color.black);
-        this.setScaleXYaxisLength(1.2);
+//        this.setScaleXYaxisLength(1.2);
         //
 //        this.setBackgroundColorOfGraph(Color.BLACK);
-        this.setDrawMarker(false);
+        this.setDrawMarker(true);
         this.setMarkerDotted(true);
         this.setMarkerInfo(1);
         this.setMarkerAutoReset(false);
     }
     
     
-    
     public static void main(String[] args) {
         //
-        MyXYGB msxyg = new MyXYGB("speed", MyGraphContainer.DISPLAY_MODE_FOOT_DISABLED);
+        MyXYGB msxyg = new MyXYGB("speed", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         JFrame jf = new JFrame(msxyg.getTitle());
         jf.setSize(new Dimension(800, 800));
@@ -94,9 +92,14 @@ public class MyXYGB extends MyXYGA {
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898,358,965,879,253,96,1547,1625,1200};
+//        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898,358,965,879,253,96,1547,1625,1200};
+        
+        double[] dataSet = {3.5,1.7,2.3,1.3,4.5,7.8,6.7,8.7};
+//        
+//        double[] dataSet = {1,2,3,4,5,6,7};
+        
         msxyg.addDataSetBySerie(dataSet, "speed");
         //
-        HelpA.addMouseListenerToAllComponentsOfComponent(jf.getRootPane());
+//        HelpA.addMouseListenerToAllComponentsOfComponent(jf.getRootPane());
     }
 }

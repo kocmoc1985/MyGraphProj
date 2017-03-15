@@ -91,7 +91,9 @@ public class MySerie {
         adjustRenderer();
     }
     
-    
+    public void setBelowZeroCoeff(int coeff){
+        myGraphXY.setBelowZeroCoeff(coeff);
+    }
 
     
     public void setMyGraphXY(MyGraphXY myGraph) {

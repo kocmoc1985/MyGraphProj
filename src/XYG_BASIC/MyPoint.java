@@ -27,7 +27,7 @@ public class MyPoint extends JComponent {
     //This values corresponds to real values which are to be drawn!!!
     public int x_Real;
     public int y_Real;
-    public String y_Real_display;
+    public double y_Real_display;
     //=======================
     private String SERIE_NAME = ""; // The name to which the point corresponds
     private MySerie SERIE;
@@ -53,7 +53,7 @@ public class MyPoint extends JComponent {
     //===========================
     private HashMap<String, String> batch_info_map = new HashMap<String, String>();
 
-    public MyPoint(int x, int y, String y_) {
+    public MyPoint(int x, int y, double y_) {
         this.x_Real = x;
         this.y_Real = y;
         this.y_Real_display = y_;
@@ -62,19 +62,29 @@ public class MyPoint extends JComponent {
         this.initialized_with_constructor_1 = true;
     }
 
-    public MyPoint(int y, String y_) {
+    public MyPoint(int y, double y_) {
         this.y_Real = y;
         this.y_Scaled = y;
         this.y_Real_display = y_;
         this.initialized_with_constructor_2 = true;
     }
 
-    public MyPoint(int y, String y_, Color c) {
+    public MyPoint(int y, double y_, Color c) {
         this.y_Real = y;
         this.y_Scaled = y;
         this.y_Real_display = y_;
         this.POINT_COLOR_B = c;
         this.initialized_with_constructor_2 = true;
+    }
+
+    //#BELOW ZERO
+    private void smallValuesCheck(double y_) {
+        if (y_ > 10) {
+            return;
+        }
+        double val = HelpA.roundDouble(y_);
+        int coeff = HelpA.findCoeff(val);
+        SERIE.setBelowZeroCoeff(coeff);
     }
 
     /**
@@ -128,6 +138,7 @@ public class MyPoint extends JComponent {
 
     public void setSerie(MySerie serie) {
         this.SERIE = serie;
+        smallValuesCheck(y_Real_display);
     }
 
     protected void setRecalcCoeff(double coeff) {
@@ -251,17 +262,17 @@ public class MyPoint extends JComponent {
         }
 
         g2d.setColor(POINT_COLOR);
-        
-        if(DRAW_RECT){
-            g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D,true);
-        }else{
+
+        if (DRAW_RECT) {
+            g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
+        } else {
             g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
         }
-        
+
         point_area = (int) 3.14 * (int) Math.pow(POINT_D / 2, 2);
         //==================================IMPORTNAT=============================
         //Sets the size of the component which reffers to this point
-        this.setLocation((x - POINT_D / 2), (int) (y - POINT_D / 2));
+//        this.setLocation((x - POINT_D / 2), (int) (y - POINT_D / 2));
         this.setSize(POINT_D, POINT_D);
     }
 

@@ -77,7 +77,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private MenuItem menu_item_unfix_point = new MenuItem("Unfix point");
     private MenuItem menu_item_diff_marker_add = new MenuItem("Set diff. marker");
     private MenuItem menu_item_diff_marker_remove = new MenuItem("Remove dif. marker");
-
+    private int VALUE_BELOW_ZERO_COEFF = 1;
+    
     public MyGraphXY() {
         PANEL_AREA_PREV = getWidth() * getHeight();
         this.add(popup);
@@ -265,10 +266,14 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
     /**
      * Displays different kind of information depending on the mode.
-     * <p>Mode 1 - Show serie name
-     * <p>Mode 2 - Show serie name & y value
-     * <p>Mode 3 - Show serie name & x y vales
-     * <p>Mode 4 - Show serie name & both real & unreal x y values
+     * <p>
+     * Mode 1 - Show serie name
+     * <p>
+     * Mode 2 - Show serie name & y value
+     * <p>
+     * Mode 3 - Show serie name & x y vales
+     * <p>
+     * Mode 4 - Show serie name & both real & unreal x y values
      *
      * @param mode
      */
@@ -291,7 +296,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // Paint background
         super.setBackground(BACKGROUND_COLOR);
-
 
         if (DRAW_MARKER) {
             drawMarkerWhenPointing(g);
@@ -386,7 +390,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
 
         //=================================X-axis scaling=========================
-
         if (SCALE_X_AXIS) {
             int j = 0; // step identifier
 
@@ -429,10 +432,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             }
         }
 
-
-
         //==================================Y - axis scaling========================
-
         if (SCALE_Y_AXIS) {
             //Nr of ONE_UNIT_Y per getHeight. Note that Y_MAX is not the same
             //but is the highest point in graph expressed in ONE_UNIT_Y
@@ -446,7 +446,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             // how many unreal points there is in one real point/pixel
             double unreal_points_per_real = max_unreal_points / getHeight();
 
-            int jj = 0; // step identifier
+            double jj = 0; // step identifier
 
             int vvv = (int) (Y_MAX / ALL_SERIES_COEFF);
             if (vvv > 100000 && vvv < 1000000) {
@@ -464,9 +464,9 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             }
 
             int mm = 1; // frequency regulator
-            int fix_coef_2 = 5; // this coef is for fixing the scaling of y-axis
+            int fix_coef_2 = 1; // this coef is for fixing the scaling of y-axis
             for (int i = 1; i < getHeight(); i++) {
-                double x = (double) Math.round(i * unreal_points_per_real);
+                double x = (i * unreal_points_per_real);
                 if (x > (jj * mm) && x < (jj * mm) + unreal_points_per_real + 1) {
                     if (SHOW_GRID) {
                         g2.setPaint(GRID_COLOR);
@@ -479,7 +479,16 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                         mm++;
                     } else {
                         g2.setPaint(GRID_COLOR);
-                        g2.drawString("" + jj * mm, (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
+
+                        //#BELOW_ZERO
+                        if (VALUE_BELOW_ZERO_COEFF != 1) {
+                            double a = (double) jj;
+                            double b = (double) mm;
+                            g2.drawString("" + ((a * b) / VALUE_BELOW_ZERO_COEFF), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
+                        } else {
+                            g2.drawString("" + jj * mm, (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
+                        }
+
                         g2.drawRect(0, (getHeight() - (i - fix_coef_2)), (int) (5 * COEFF_SMALL_GRID), 1);
                         mm++;
                     }
@@ -488,6 +497,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             }
         }
         g2.setStroke(ORDINARY_STROKE);
+    }
+
+    public void setBelowZeroCoeff(int coeff) {
+        if (coeff > VALUE_BELOW_ZERO_COEFF) {
+            VALUE_BELOW_ZERO_COEFF = coeff;
+            System.out.println("COEFF SET: " + coeff);
+        }
     }
 
     /**
@@ -702,7 +718,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 //                if (x_static == 1) {
 //                    System.out.println("");
 //                }
-
                 countUnit();
 
                 act_serie.get(i).x = (int) (Math.round(ONE_UNIT_X * x_static));
@@ -795,7 +810,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
             //==========================Batch Info displaying==================
             MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
-            MARKER_POINT.addPointInfo("y", "" + MARKER_POINT.y_Real_display);
+            MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Real_display / VALUE_BELOW_ZERO_COEFF));//#BELOW ZERO
             MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
             //
             HashMap<String, String> b_info_map = MARKER_POINT.getBatchInfo();
@@ -1002,7 +1017,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         jf.add(gr_container.getGraph());
         jf.setVisible(true);
 
-
 //        MySerie speed_curve = new MySerie("speed", true, Color.green, true, Color.BLUE);
 //        speed_curve.setLineDotted();
 //        speed_curve.setLineThickness(2.0f);
@@ -1026,7 +1040,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 //        System.out.println("");
 //'''''''''''
 //        System.out.println("AAA coef_speed = " + speed_curve.COEFF);
-
         MySerie torq_curve = new MySerie("torque", true, Color.RED, true, Color.YELLOW);
         torq_curve.setOverallScale(false);
         torq_curve.setPointThickness(1);
@@ -1035,7 +1048,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         for (int i = 1; i < 1000; i++) {
 
             int random = (int) ((Math.random() * 5000) + 1);
-            gp.addPointToSerie(new MyPoint(random, "" + random), "torque");
+            gp.addPointToSerie(new MyPoint(random, random), "torque");
 
 //            try {
 //                Thread.sleep(100);

@@ -6,6 +6,7 @@
 package XYG_MC;
 
 import XYG_BASIC.MyGraphContainer;
+import XYG_BASIC.MyPoint;
 import XYG_BASIC.MyXYGB;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -35,7 +36,7 @@ public class MCStatsCommonG extends MyXYGB {
             while (rs.next()) {
                 double val = rs.getDouble(valueColName);
                 String mode = rs.getString(modeColName);
-                Point p = new Point((int) val, "" + val);
+                MyPoint p = new MyPoint((int) val, val);
                 
                 if (mode.equals("1")) {
                     p.setPointColor(Color.red);

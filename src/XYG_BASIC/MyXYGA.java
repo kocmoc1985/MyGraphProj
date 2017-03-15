@@ -228,9 +228,9 @@ public class MyXYGA {
         torq_serie.setOverallScale(true);
         xyg.addSerie(torq_serie);
         //
-        xyg.addPointBySerie(new MyPoint(256, "256", Color.green),"torq");
+        xyg.addPointBySerie(new MyPoint(256, 256.0, Color.green),"torq");
         xyg.sleep(100);
-        xyg.addPointBySerie(new MyPoint(389, "389", Color.MAGENTA),"torq");
+        xyg.addPointBySerie(new MyPoint(389, 389.0, Color.MAGENTA),"torq");
         xyg.sleep(100);
         xyg.addPointBySerie(456, "torq");
         xyg.sleep(100);
