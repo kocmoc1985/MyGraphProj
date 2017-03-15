@@ -44,7 +44,7 @@ public class MyXYGB extends MyXYGA {
         serie = new MySerie(getTitle());
         //
         serie.setDrawPoints(true);
-        serie.setPointThickness(1);
+        serie.setPointThickness(2);
 //        serie.setPointHighLightColor(Color.red);
 //        serie.setPointColor(Color.red);
         
@@ -92,11 +92,13 @@ public class MyXYGB extends MyXYGA {
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-//        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898,358,965,879,253,96,1547,1625,1200};
+        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898,358,965,879,253,96,1547,1625,1200};
         
-        double[] dataSet = {3.5,1.7,2.3,1.3,4.5,7.8,6.7,8.7};
+//        double[] dataSet = {3.5,1.7,2.3,1.3,4.5,7.8,6.7,8.7};
 //        
-//        double[] dataSet = {1,2,3,4,5,6,7};
+//        double[] dataSet = {0.7,1.3,3.2,0.7,4.8};
+        
+//        double[] dataSet = {0.35,0.24,0.78,0.47,0.52};
         
         msxyg.addDataSetBySerie(dataSet, "speed");
         //

@@ -21,6 +21,8 @@ import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -77,8 +79,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private MenuItem menu_item_unfix_point = new MenuItem("Unfix point");
     private MenuItem menu_item_diff_marker_add = new MenuItem("Set diff. marker");
     private MenuItem menu_item_diff_marker_remove = new MenuItem("Remove dif. marker");
-    private int VALUE_BELOW_ZERO_COEFF = 1;
-    
+
     public MyGraphXY() {
         PANEL_AREA_PREV = getWidth() * getHeight();
         this.add(popup);
@@ -459,6 +460,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 jj = 50;
             } else if (vvv > 10 && vvv < 100) {
                 jj = 5;
+            } else if (vvv > 5 && vvv < 10) {
+                jj = 1;
+            } else if (vvv > 1 && vvv < 3) {
+                jj = 0.5;
+            } else if (vvv > 0 && vvv < 3) {
+                jj = 0.1;
             } else {
                 jj = 1;
             }
@@ -473,22 +480,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                         g2.drawRect(0, (getHeight() - (i - fix_coef_2)), getWidth(), 1);
                         //
                         if (SHOW_GRID_AND_SCALE) {
-                            g2.drawString("" + jj * mm, (int) (1 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 + 5));
+                            g2.drawString("" + round_(jj * mm) , (int) (1 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 + 5));
                         }
                         //
                         mm++;
                     } else {
                         g2.setPaint(GRID_COLOR);
-
-                        //#BELOW_ZERO
-                        if (VALUE_BELOW_ZERO_COEFF != 1) {
-                            double a = (double) jj;
-                            double b = (double) mm;
-                            g2.drawString("" + ((a * b) / VALUE_BELOW_ZERO_COEFF), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
-                        } else {
-                            g2.drawString("" + jj * mm, (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
-                        }
-
+                        g2.drawString("" + round_(jj * mm), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
                         g2.drawRect(0, (getHeight() - (i - fix_coef_2)), (int) (5 * COEFF_SMALL_GRID), 1);
                         mm++;
                     }
@@ -498,12 +496,17 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
         g2.setStroke(ORDINARY_STROKE);
     }
-
-    public void setBelowZeroCoeff(int coeff) {
-        if (coeff > VALUE_BELOW_ZERO_COEFF) {
-            VALUE_BELOW_ZERO_COEFF = coeff;
-            System.out.println("COEFF SET: " + coeff);
+    
+     private String round_(double number) {
+        String format = "#.#";
+        if (number > 10) {
+            format = "#";
         }
+        DecimalFormat twoDForm = new DecimalFormat(format);//"#.##"
+        DecimalFormatSymbols s = DecimalFormatSymbols.getInstance();
+        s.setDecimalSeparator('.');
+        twoDForm.setDecimalFormatSymbols(s);
+        return (twoDForm.format(number));
     }
 
     /**
@@ -713,11 +716,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             for (int i = 0; i < act_serie.size(); i++) {
 
                 int x_static = act_serie.get(i).x_Scaled;
-                int y_static = act_serie.get(i).y_Scaled;
+                double y_static = act_serie.get(i).y_Scaled;
 
-//                if (x_static == 1) {
-//                    System.out.println("");
-//                }
                 countUnit();
 
                 act_serie.get(i).x = (int) (Math.round(ONE_UNIT_X * x_static));
@@ -810,7 +810,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
             //==========================Batch Info displaying==================
             MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
-            MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Real_display / VALUE_BELOW_ZERO_COEFF));//#BELOW ZERO
+            MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Real_display));//#BELOW ZERO
             MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
             //
             HashMap<String, String> b_info_map = MARKER_POINT.getBatchInfo();
@@ -926,24 +926,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
     //=================================================================
 
-    /**
-     * Dont work so well with lines visible the points are rescaled depending on
-     * the window size
-     *
-     * @param g
-     * @deprecated
-     */
-    private void drawPointVariousPointSize(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        //====================================================
-        for (MySerie serie : SERIES) {
-            for (MyPoint point : serie.getSerie()) {
-                point.drawPoint(g, (getWidth() * getHeight()) / PANEL_AREA_PREV, serie.getPointColor());
-            }
-        }
-    }
+    
 
     /**
      * Returns the object on which the mouse points

@@ -4,6 +4,7 @@
  */
 package XYG_BASIC;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  */
 public class DiffMarkerPoints {
 
-    private MySerie serie;
+    private final MySerie serie;
     private MyPoint MARKER_POINT_1;
     private MyPoint MARKER_POINT_2;
 
@@ -38,12 +39,13 @@ public class DiffMarkerPoints {
         if (MARKER_POINT_1 == null && MARKER_POINT_2 == null) {
             MARKER_POINT_1 = point;
             reset();
+        } else if (MARKER_POINT_1 == null && MARKER_POINT_2 != null) {
+            MARKER_POINT_1 = point;
+            go();
         } else if (MARKER_POINT_1 != null && MARKER_POINT_2 == null) {
             MARKER_POINT_2 = point;
             //
-            addProperties();
-            System.out.println("SUMM: " + calcSum());
-            System.out.println("AV: " + calcAv());
+            go();
             //
         } else if (MARKER_POINT_1 != null && MARKER_POINT_2 != null) {
             MARKER_POINT_1 = point;
@@ -51,6 +53,12 @@ public class DiffMarkerPoints {
             reset();
         }
         System.out.println("" + toString());
+    }
+
+    private void go() {
+        addProperties();
+        System.out.println("SUMM: " + calcSum());
+        System.out.println("AV: " + calcAv());
     }
 
     public void remove(MyPoint point) {
@@ -94,6 +102,7 @@ public class DiffMarkerPoints {
     private void reset() {
         for (MyPoint myPoint : draw_rect_points_list) {
             myPoint.setPointDrawRect(false);
+            myPoint.resetPointColor();
         }
         draw_rect_points_list = new ArrayList<MyPoint>();
     }
@@ -104,6 +113,7 @@ public class DiffMarkerPoints {
         if (bothExist()) {
             for (int i = MARKER_POINT_1.getPointIndex(); i <= MARKER_POINT_2.getPointIndex(); i++) {
                 MyPoint mp = serie.getSerie().get(i);
+                mp.setPointColor(Color.MAGENTA);
                 mp.setPointDrawRect(true);
                 draw_rect_points_list.add(mp);
             }

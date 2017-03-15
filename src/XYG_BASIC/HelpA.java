@@ -54,15 +54,9 @@ public class HelpA {
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
-    
-    public static double roundDouble(double number) {
-        DecimalFormat twoDForm = new DecimalFormat("#.##");
-        DecimalFormatSymbols s = DecimalFormatSymbols.getInstance();
-        s.setDecimalSeparator('.');
-        twoDForm.setDecimalFormatSymbols(s);
-        return Double.valueOf(twoDForm.format(number));
-    }
-    
+
+   
+
     public static int findCoeff(double value) {
         if (value <= 0) {
             return 1;

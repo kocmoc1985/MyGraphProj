@@ -38,7 +38,7 @@ public class MySerie {
     //========================
     public double COEFF = 1;
     //
-    private long MAX;
+    private double MAX;
     private int POINT_INDEX;
     //========================
     private DiffMarkerPoints DIFF_MARKER_POINTS = new DiffMarkerPoints(this);
@@ -91,10 +91,6 @@ public class MySerie {
         adjustRenderer();
     }
     
-    public void setBelowZeroCoeff(int coeff){
-        myGraphXY.setBelowZeroCoeff(coeff);
-    }
-
     
     public void setMyGraphXY(MyGraphXY myGraph) {
         this.myGraphXY = myGraph;
@@ -124,7 +120,7 @@ public class MySerie {
         if (point.y_Real > MAX) {
             MAX = point.y_Scaled;
             
-            int y = point.y_Scaled;
+            double y = point.y_Scaled;
             double coeff_temp = 1;
             double y_temp = y;
 

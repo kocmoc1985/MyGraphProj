@@ -7,6 +7,7 @@ package XYG_BASIC;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.HashMap;
 import javax.swing.JComponent;
 
@@ -22,7 +23,7 @@ public class MyPoint extends JComponent {
     //====================== 
     //This are beeing scaled
     public int x_Scaled;
-    public int y_Scaled;
+    public double y_Scaled;
     //=======================
     //This values corresponds to real values which are to be drawn!!!
     public int x_Real;
@@ -36,6 +37,7 @@ public class MyPoint extends JComponent {
     private Color HIGHLIGHT_COLOR = ORDINARY_COLOR;
     private Color POINT_COLOR = Color.BLACK;
     private Color POINT_COLOR_B = null;
+    private Color INITIAL_POINT_COLOR = null;
     private boolean DRAW_RECT;
     private boolean highLightSet = false;
     //point dimenssion
@@ -58,33 +60,24 @@ public class MyPoint extends JComponent {
         this.y_Real = y;
         this.y_Real_display = y_;
         this.x_Scaled = x;
-        this.y_Scaled = y;
+        this.y_Scaled = y_;
         this.initialized_with_constructor_1 = true;
     }
 
     public MyPoint(int y, double y_) {
         this.y_Real = y;
-        this.y_Scaled = y;
+        this.y_Scaled = y_;
         this.y_Real_display = y_;
         this.initialized_with_constructor_2 = true;
     }
 
     public MyPoint(int y, double y_, Color c) {
         this.y_Real = y;
-        this.y_Scaled = y;
+        this.y_Scaled = y_;
         this.y_Real_display = y_;
+        this.INITIAL_POINT_COLOR = c;
         this.POINT_COLOR_B = c;
         this.initialized_with_constructor_2 = true;
-    }
-
-    //#BELOW ZERO
-    private void smallValuesCheck(double y_) {
-        if (y_ > 10) {
-            return;
-        }
-        double val = HelpA.roundDouble(y_);
-        int coeff = HelpA.findCoeff(val);
-        SERIE.setBelowZeroCoeff(coeff);
     }
 
     /**
@@ -114,7 +107,11 @@ public class MyPoint extends JComponent {
     public void setPointColor(Color c) {
         this.POINT_COLOR_B = c;
     }
-
+    
+    public void resetPointColor(){
+        this.POINT_COLOR_B =  this.INITIAL_POINT_COLOR;
+    }
+    
     public void setPointDrawRect(boolean bln) {
         this.DRAW_RECT = bln;
     }
@@ -138,7 +135,6 @@ public class MyPoint extends JComponent {
 
     public void setSerie(MySerie serie) {
         this.SERIE = serie;
-        smallValuesCheck(y_Real_display);
     }
 
     protected void setRecalcCoeff(double coeff) {
@@ -217,36 +213,6 @@ public class MyPoint extends JComponent {
     }
 
     /**
-     * When you use this method the points are resized regarding on the panel
-     * size
-     *
-     * @param g
-     * @param point_rescale_coeff
-     * @deprecated
-     */
-    protected void drawPoint(Graphics g, int point_rescale_coeff, Color pointColor) {
-        if (point_rescale_coeff > 1) {
-            point_rescale_coeff = (int) (point_rescale_coeff * 0.15);
-        } else {
-            point_rescale_coeff = 1;
-        }
-        POINT_D *= point_rescale_coeff;
-        Graphics2D g2d = (Graphics2D) g;
-        if (highLightSet == false) {
-            POINT_COLOR = pointColor;
-        }
-        g2d.setColor(POINT_COLOR);
-
-        if (DRAW_RECT) {
-            g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
-        } else {
-            g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
-        }
-
-        point_area = (int) 3.14 * (int) Math.pow(POINT_D / 2, 2);
-    }
-
-    /**
      *
      * @param g
      * @param point_rescale_coeff
@@ -272,7 +238,7 @@ public class MyPoint extends JComponent {
         point_area = (int) 3.14 * (int) Math.pow(POINT_D / 2, 2);
         //==================================IMPORTNAT=============================
         //Sets the size of the component which reffers to this point
-//        this.setLocation((x - POINT_D / 2), (int) (y - POINT_D / 2));
+        this.setLocation((x - POINT_D / 2), (int) (y - POINT_D / 2));
         this.setSize(POINT_D, POINT_D);
     }
 
