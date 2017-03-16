@@ -79,6 +79,10 @@ public class MyXYGA {
     public void setScaleXYaxisLength(double dbl) {
         this.my_xy_graph.setScaleXYaxisLength(dbl);
     }
+    
+    public void setLimits(double min,double max){
+        this.my_xy_graph.setLimits(min, max);
+    }
 
     public void setDrawGrid(boolean b) {
         this.my_xy_graph.setDrawGrid(b);
