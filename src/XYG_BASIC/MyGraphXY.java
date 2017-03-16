@@ -732,8 +732,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      * @param point
      */
     private void defineMaxForXYAxis(MyPoint point) {
-        if (point.x_Scaled > X_MAX / 1.05) {
-            X_MAX = (int) ((point.x_Scaled));//1.2 Note this is important value!
+        if (point.x_Real > X_MAX / 1.05) {
+            X_MAX = (int) ((point.x_Real));//1.2 Note this is important value!
             X_MAX *= 1.05;
         }
         if (point.y_Scaled > Y_MAX / 1.2) {
@@ -765,7 +765,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             //
             for (int i = 0; i < act_serie.size(); i++) {
 
-                int x_static = act_serie.get(i).x_Scaled;
+                int x_static = act_serie.get(i).x_Real;
                 double y_static = act_serie.get(i).y_Scaled;
 
                 countUnit();
