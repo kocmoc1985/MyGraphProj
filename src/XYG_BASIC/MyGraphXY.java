@@ -379,12 +379,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         if (DRAW_MARKER_INFO == 1) {
             g2.drawString(MARKER_POINT.getSerieName(), MARKER_X + 10, MARKER_Y + 20);
         } else if (DRAW_MARKER_INFO == 2) {
-            g2.drawString(MARKER_POINT.getSerieName() + " | " + MARKER_POINT.y_Scaled, MARKER_X + 10, MARKER_Y + 20);
+            g2.drawString(MARKER_POINT.getSerieName() + " | " + MARKER_POINT.y_Display, MARKER_X + 10, MARKER_Y + 20);
         } else if (DRAW_MARKER_INFO == 3) {
-            g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Scaled
+            g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Display
                     + " | x: " + MARKER_POINT.x_Real, MARKER_X + 10, MARKER_Y + 20);
         } else if (DRAW_MARKER_INFO == 4) {
-            g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Scaled
+            g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Display
                     + " | x: " + MARKER_POINT.x_Real + " | y2: " + MARKER_POINT.y + " | x2: " + MARKER_POINT.x,
                     MARKER_X + 10, MARKER_Y + 20);
         }
@@ -860,7 +860,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
             //==========================Batch Info displaying==================
             MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
-            MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Scaled));
+            MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
             MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
             //
             HashMap<String, String> b_info_map = MARKER_POINT.getBatchInfo();
