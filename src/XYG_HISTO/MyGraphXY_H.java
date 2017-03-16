@@ -27,25 +27,17 @@ public class MyGraphXY_H extends MyGraphXY {
 
     @Override
     public void scaleX(Graphics2D g2) {
+
         if (SCALE_X_AXIS) {
             int j = 0; // step identifier
 
             int vv = (int) (X_MAX);
-//            if (vv > 100000 && vv < 1000000) {
-//                j = 10000;
-//            } else if (vv > 10000 && vv < 100000) {
-//                j = 1000;
-//            } else if (vv > 1000 && vv < 10000) {
-//                j = 100;
-//            } else if (vv > 100 && vv < 1000) {
-//                j = 50;
-//            } else if (vv > 10 && vv < 100) {
-//                j = 5;
-//            } else {
-//                j = 1;
-//            }
 
-            j = 1;
+            if (vv > 10 && vv < 30) {
+                j = 2;
+            } else {
+                j = 1;
+            }
 
             int m = 1; // frequency regulator
             for (int i = 1; i < getWidth(); i++) {
@@ -66,12 +58,12 @@ public class MyGraphXY_H extends MyGraphXY {
 
                         if (xValuesList != null) {
                             try {
-                                g2.drawString("" + xValuesList.get((j * m) - 1), i - 10, (int) (getHeight() - 3 * COEFF_SMALL_GRID) - 1);
+                                g2.drawString("" + xValuesList.get((j * m) - 1), i - 10, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 5);
                             } catch (IndexOutOfBoundsException ex) {
-                                g2.drawString("" + (j * m), i - 3, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 3);
+                                g2.drawString("" + (j * m), i - 3, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 5);
                             }
                         } else {
-                            g2.drawString("" + (j * m), i - 3, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 3);
+                            g2.drawString("" + (j * m), i - 3, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 5);
                         }
 
                         g2.drawRect(i, (int) (getHeight() - 5 * COEFF_SMALL_GRID), 1, (int) (5 * COEFF_SMALL_GRID));
@@ -110,6 +102,5 @@ public class MyGraphXY_H extends MyGraphXY {
         popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         //
     }
-    
-    
+
 }

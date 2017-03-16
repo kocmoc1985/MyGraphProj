@@ -5,9 +5,9 @@
 package XYG_HISTO;
 
 import XYG_BASIC.MyGraphContainer;
-import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MyXYGB;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.sql.ResultSet;
@@ -96,6 +96,30 @@ public class HistograM extends MyXYGB {
         map.put(key, value);
     }
 
+    @Override
+    public void initializeA() {
+          this.setTitleSize(20, true);
+        this.setTitleSize(20, true);
+        this.setTitleColor(Color.black);
+//        this.setBorderHeadAndFootComponents(BorderFactory.createLineBorder(Color.darkGray));
+        this.setHeadHeight(0.1);
+        //
+        // setAxisScaling(...) & setDrawGrid(...) influence each other!
+        this.setAxisScaling(true, true);
+//        this.setDrawGrid(true);
+        this.setDisableScalingWhenGrid();
+        this.setGridColor(Color.black);
+        this.setScaleXYaxisLength(1.9);
+        //
+//        this.setBackgroundColorOfGraph(Color.BLACK);
+        this.setDrawMarker(true);
+        this.setMarkerDotted(true);
+        this.setMarkerInfo(1);
+        this.setMarkerAutoReset(false);
+    }
+    
+    
+
     public static void main(String[] args) {
         //
         HistograM hm = new HistograM("speed", new MyGraphXY_H(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
@@ -108,7 +132,7 @@ public class HistograM extends MyXYGB {
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        double[] dataSet = {1.5,1.5,1.5,1.5,3.2,3.2,4.3,4.3,4.5};
+        double[] dataSet = {1.5,1.5,1.5,1.5,3.2,3.2,4.3,4.3,4.5,5.5,5.5,5.5,5.2,5.2,5.2,7.8,7.8,8.3,8.3,8.6,8.9,9.2,9.2,9.2};
 
 //        msxyg.addDataSetBySerie(dataSet, "speed");
 
