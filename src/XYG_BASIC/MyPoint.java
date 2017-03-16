@@ -27,6 +27,7 @@ public class MyPoint extends JComponent {
     public int x_Real;
     public int y_Real;
     public double y_Display;
+    public double x_Display;
     //=======================
     private MySerie SERIE;
     //=======================
@@ -75,6 +76,11 @@ public class MyPoint extends JComponent {
         this.INITIAL_POINT_COLOR = c;
         this.POINT_COLOR_B = c;
         this.initialized_with_constructor_2 = true;
+    }
+    
+    
+    public void setDisplayValueX(double x_){
+        this.x_Display = x_;
     }
 
     /**
@@ -146,7 +152,7 @@ public class MyPoint extends JComponent {
         return this.SERIE;
     }
 
-    protected String getSerieName() {
+    public String getSerieName() {
         return this.SERIE.getName();
     }
 
@@ -185,7 +191,7 @@ public class MyPoint extends JComponent {
      *
      * @return
      */
-    protected HashMap<String, String> getBatchInfo() {
+    public HashMap<String, String> getBatchInfo() {
         return this.batch_info_map;
     }
 

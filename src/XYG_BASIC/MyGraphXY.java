@@ -39,17 +39,17 @@ import javax.swing.JPanel;
  */
 public class MyGraphXY extends JPanel implements ComponentListener, MouseListener, Runnable, MouseMotionListener, ActionListener {
 
-    private double X_MAX = 1;
+    public double X_MAX = 1;
     private double Y_MAX = 1;
     private final ArrayList<MySerie> SERIES = new ArrayList<MySerie>();
-    private double ONE_UNIT_X = 1;
-    private double ONE_UNIT_Y = 1;
+    public double ONE_UNIT_X = 1;
+    public double ONE_UNIT_Y = 1;
     private int PANEL_AREA_PREV;
-    private PopupMenu popup = new PopupMenu("Popup");
+    public PopupMenu popup = new PopupMenu("Popup");
     //==========================================
     private int MARKER_X;
     private int MARKER_Y;
-    private MyPoint MARKER_POINT;
+    public MyPoint MARKER_POINT;
     private Color MARKER_COLOR = Color.BLACK;
     private float[] MARKER_DOTTED = new float[]{10.0f, 6.0f};
     private int DRAW_MARKER_INFO;
@@ -62,16 +62,16 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     //==========================================
     private double ALL_SERIES_COEFF = 1;
     //==========================================
-    private boolean SHOW_GRID = false;
-    private boolean SHOW_GRID_AND_SCALE = true;
-    private Color GRID_COLOR = Color.LIGHT_GRAY;
+    public boolean SHOW_GRID = false;
+    public boolean SHOW_GRID_AND_SCALE = true;
+    public Color GRID_COLOR = Color.LIGHT_GRAY;
     private Color BACKGROUND_COLOR = new Color(249, 249, 249);
     private boolean SHOW_POP_UP = true;
     private boolean SEARCH_POINT_POS = true;
     private boolean SCALE_XY_AXIS = true;
-    private boolean SCALE_X_AXIS = true;
+    public boolean SCALE_X_AXIS = true;
     private boolean SCALE_Y_AXIS = true;
-    private double COEFF_SMALL_GRID = 1;
+    public double COEFF_SMALL_GRID = 1;
     private boolean DRAW_MARKER = true;
     //
     private MenuItem menu_item_fix_point = new MenuItem("Fix point");
@@ -81,7 +81,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private double LIMIT_MIN;
     private double LIMIT_MAX;
     //
-    private boolean IS_HISTOGRAM = false;
 
     public MyGraphXY() {
         PANEL_AREA_PREV = getWidth() * getHeight();
@@ -135,11 +134,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 1.0f,
                 new float[]{1.0f, 1.0f}, //// to make dotted {10.0f, 6.0f} // undoted {1.0f, 1.0f}
                 0.0f);
-    }
-    
-    
-    public void setGraphTypeHistogram(){
-        this.IS_HISTOGRAM = true;
     }
 
     /**
@@ -273,29 +267,10 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
     }
 
-    /**
-     * Displays different kind of information depending on the mode.
-     * <p>
-     * Mode 1 - Show serie name
-     * <p>
-     * Mode 2 - Show serie name & y value
-     * <p>
-     * Mode 3 - Show serie name & x y vales
-     * <p>
-     * Mode 4 - Show serie name & both real & unreal x y values
-     *
-     * @param mode
-     */
     public void setMarkerInfo(int mode) {
         DRAW_MARKER_INFO = mode;
     }
 
-    /**
-     * If set to true the marker is invisible when not pointing on a point. If
-     * false it stays drawn on the last pointed point
-     *
-     * @param set
-     */
     public void setMarkerAutoReset(boolean set) {
         this.AUTO_RESET_MARKER = set;
     }
@@ -319,7 +294,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         drawLines(g);
 
         drawPointsFixedSize(g);
-        
+
         drawLimits(g);
     }
 
@@ -400,7 +375,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             return;
         }
 
-        //=================================X-axis scaling=========================
+        scaleX(g2);
+        scaleY(g2);
+
+        g2.setStroke(ORDINARY_STROKE);
+    }
+
+    public void scaleX(Graphics2D g2) {
         if (SCALE_X_AXIS) {
             int j = 0; // step identifier
 
@@ -442,8 +423,9 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 }
             }
         }
+    }
 
-        //==================================Y - axis scaling========================
+    public void scaleY(Graphics2D g2) {
         if (SCALE_Y_AXIS) {
             //Nr of ONE_UNIT_Y per getHeight. Note that Y_MAX is not the same
             //but is the highest point in graph expressed in ONE_UNIT_Y
@@ -490,7 +472,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                         g2.drawRect(0, (getHeight() - (i - fix_coef_2)), getWidth(), 1);
                         //
                         if (SHOW_GRID_AND_SCALE) {
-                            g2.drawString("" + round_(jj * mm) , (int) (1 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 + 5));
+                            g2.drawString("" + round_(jj * mm), (int) (1 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 + 5));
                         }
                         //
                         mm++;
@@ -504,10 +486,9 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 }
             }
         }
-        g2.setStroke(ORDINARY_STROKE);
     }
-    
-     private String round_(double number) {
+
+    private String round_(double number) {
         String format = "#.#";
         if (number > 10) {
             format = "#";
@@ -564,7 +545,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             System.out.println("" + ex);
         }
     }
-    
+
     private void drawLimits(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
 
@@ -595,9 +576,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
         g2.setStroke(ORDINARY_STROKE);
     }
-    
-    
-     public void setLimits(double min, double max) {
+
+    public void setLimits(double min, double max) {
         if (min > 0 && max > 0) {
             LIMIT_MIN = min;
             LIMIT_MAX = max;
@@ -852,34 +832,39 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
 
     //===============================================================
+    public void myPointClicked() {
+        popup.removeAll();
+
+        //==========================Batch Info displaying==================
+        MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
+        MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
+        MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
+        //
+        HashMap<String, String> b_info_map = MARKER_POINT.getBatchInfo();
+        //
+        Set set = b_info_map.keySet();
+        Iterator it = set.iterator();
+        while (it.hasNext()) {
+            try {
+                String key = (String) it.next();
+                String value = (String) b_info_map.get(key);
+                popup.add(new MenuItem(key + ": " + value));
+            } catch (NoSuchElementException ex1) {
+                System.out.println("" + ex1);
+            }
+        }
+
+        //=================================================================
+        popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
+        //
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
         if (e.getSource() instanceof MyPoint && SHOW_POP_UP && e.getButton() == 1) {
-            popup.removeAll();
-
-            //==========================Batch Info displaying==================
-            MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
-            MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
-            MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
-            //
-            HashMap<String, String> b_info_map = MARKER_POINT.getBatchInfo();
-            //
-            Set set = b_info_map.keySet();
-            Iterator it = set.iterator();
-            while (it.hasNext()) {
-                try {
-                    String key = (String) it.next();
-                    String value = (String) b_info_map.get(key);
-                    popup.add(new MenuItem(key + ": " + value));
-                } catch (NoSuchElementException ex1) {
-                    System.out.println("" + ex1);
-                }
-            }
-
-            //=================================================================
-            popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
-            //
+            myPointClicked();
+            
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
             popup.removeAll();
             popup.add(menu_item_fix_point);
@@ -975,7 +960,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
     }
     //=================================================================
-
 
     public void getParentContainer() {
         JPanel parent = (JPanel) this.getParent().getParent();

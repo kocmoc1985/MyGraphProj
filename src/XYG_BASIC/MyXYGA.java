@@ -23,21 +23,21 @@ public class MyXYGA {
     private final MyGraphXY my_xy_graph;
     private final String TITLE;
 
-    public MyXYGA(String title) {
+    public MyXYGA(String title, MyGraphXY xY) {
         this.TITLE = title;
         my_graph_container = new MyGraphContainer(title);
-        my_xy_graph = new MyGraphXY();
+        my_xy_graph = xY;
         my_graph_container.addGraph(my_xy_graph);
     }
 
-    public MyXYGA(String title, int displayMode) {
+    public MyXYGA(String title, MyGraphXY xY, int displayMode) {
         this.TITLE = title;
         my_graph_container = new MyGraphContainer(title, displayMode);
-        my_xy_graph = new MyGraphXY();
+        my_xy_graph = xY;
         my_graph_container.addGraph(my_xy_graph);
     }
-    
-    public String getTitle(){
+
+    public String getTitle() {
         return this.TITLE;
     }
 
@@ -75,16 +75,12 @@ public class MyXYGA {
     public void addDataSetBySerie(double[] y_values, String serieName) {
         my_xy_graph.addDataSetToSerie(y_values, serieName);
     }
-    
-    public void setGraphTypeHistogram(){
-        my_xy_graph.setGraphTypeHistogram();
-    }
 
     public void setScaleXYaxisLength(double dbl) {
         this.my_xy_graph.setScaleXYaxisLength(dbl);
     }
-    
-    public void setLimits(double min,double max){
+
+    public void setLimits(double min, double max) {
         this.my_xy_graph.setLimits(min, max);
     }
 
@@ -177,13 +173,12 @@ public class MyXYGA {
             Logger.getLogger(MyXYGA.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
 
     public static void main(String[] args) {
         //
 //        HelpA.err_output_to_file();
         //
-        MyXYGA xyg = new MyXYGA("Speed", MyGraphContainer.DISPLAY_MODE_FOOT_HEAD_ENABLED);
+        MyXYGA xyg = new MyXYGA("Speed",new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FOOT_HEAD_ENABLED);
         //
 //        xyg.setHeadColor(Color.yellow);
 //        xyg.setFootColor(Color.yellow);
@@ -236,9 +231,9 @@ public class MyXYGA {
         torq_serie.setOverallScale(true);
         xyg.addSerie(torq_serie);
         //
-        xyg.addPointBySerie(new MyPoint(256, 256.0, Color.green),"torq");
+        xyg.addPointBySerie(new MyPoint(256, 256.0, Color.green), "torq");
         xyg.sleep(100);
-        xyg.addPointBySerie(new MyPoint(389, 389.0, Color.MAGENTA),"torq");
+        xyg.addPointBySerie(new MyPoint(389, 389.0, Color.MAGENTA), "torq");
         xyg.sleep(100);
         xyg.addPointBySerie(456, "torq");
         xyg.sleep(100);
@@ -252,5 +247,4 @@ public class MyXYGA {
         //
 //        addMouseListenerToAllComponentsOfComponent(xyg.getGraph());
     }
-    
 }

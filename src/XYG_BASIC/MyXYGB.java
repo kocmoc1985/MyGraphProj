@@ -17,13 +17,13 @@ public class MyXYGB extends MyXYGA {
     
     public MySerie serie;
     
-    public MyXYGB(String title) {
-        super(title);
+    public MyXYGB(String title,MyGraphXY xY) {
+        super(title,xY);
         initialize();
     }
     
-    public MyXYGB(String title, int displayMode) {
-        super(title, displayMode);
+    public MyXYGB(String title,MyGraphXY xY, int displayMode) {
+        super(title,xY, displayMode);
         initialize();
     }
     
@@ -83,7 +83,7 @@ public class MyXYGB extends MyXYGA {
     
     public static void main(String[] args) {
         //
-        MyXYGB msxyg = new MyXYGB("speed", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        MyXYGB msxyg = new MyXYGB("speed",new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         JFrame jf = new JFrame(msxyg.getTitle());
         jf.setSize(new Dimension(800, 800));
