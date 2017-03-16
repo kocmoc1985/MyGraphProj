@@ -21,16 +21,13 @@ public class MyPoint extends JComponent {
     public int x;
     public int y;
     //====================== 
-    //This are beeing scaled
     public int x_Scaled;
     public double y_Scaled;
     //=======================
     //This values corresponds to real values which are to be drawn!!!
     public int x_Real;
     public int y_Real;
-    public double y_Real_display;
     //=======================
-    private String SERIE_NAME = ""; // The name to which the point corresponds
     private MySerie SERIE;
     //=======================
     private Color ORDINARY_COLOR = Color.BLUE;
@@ -58,7 +55,6 @@ public class MyPoint extends JComponent {
     public MyPoint(int x, int y, double y_) {
         this.x_Real = x;
         this.y_Real = y;
-        this.y_Real_display = y_;
         this.x_Scaled = x;
         this.y_Scaled = y_;
         this.initialized_with_constructor_1 = true;
@@ -67,14 +63,12 @@ public class MyPoint extends JComponent {
     public MyPoint(int y, double y_) {
         this.y_Real = y;
         this.y_Scaled = y_;
-        this.y_Real_display = y_;
         this.initialized_with_constructor_2 = true;
     }
 
     public MyPoint(int y, double y_, Color c) {
         this.y_Real = y;
         this.y_Scaled = y_;
-        this.y_Real_display = y_;
         this.INITIAL_POINT_COLOR = c;
         this.POINT_COLOR_B = c;
         this.initialized_with_constructor_2 = true;
@@ -193,26 +187,6 @@ public class MyPoint extends JComponent {
     }
 
     /**
-     * verifies if the mouse pointer points on a point by verifying the
-     * coordinates of the mouse pointer. This is an outdated method for checking
-     * if mouse points on a instance of MyPoint
-     *
-     * @param x
-     * @param y
-     * @return
-     * @deprecated
-     */
-    protected boolean checkIfMousePointsOnPoint(int x, int y) {
-        if ((x >= this.x - (POINT_D / 2) && x <= this.x + (POINT_D / 2)) && (y >= this.y - (POINT_D / 2) && y <= this.y + (POINT_D / 2))) {
-            System.out.println("Point Coordinates: " + " x = " + x_Scaled + " y = " + y_Scaled);
-            System.out.println("Point Real vals: " + " x = " + x_Real + " y = " + y_Real);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      *
      * @param g
      * @param point_rescale_coeff
@@ -265,7 +239,7 @@ public class MyPoint extends JComponent {
 
     @Override
     public String toString() {
-        return "index: " + POINT_INDEX + "  /  value: " + y_Real_display;
+        return "index: " + POINT_INDEX + "  /  value: " + y_Scaled;
     }
 
 }

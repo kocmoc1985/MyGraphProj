@@ -15,7 +15,7 @@ import javax.swing.JFrame;
  */
 public class MyXYGB extends MyXYGA {
     
-    private MySerie serie;
+    public MySerie serie;
     
     public MyXYGB(String title) {
         super(title);

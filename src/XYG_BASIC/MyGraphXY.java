@@ -5,7 +5,6 @@
 package XYG_BASIC;
 
 import java.awt.BasicStroke;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -369,12 +368,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         if (DRAW_MARKER_INFO == 1) {
             g2.drawString(MARKER_POINT.getSerieName(), MARKER_X + 10, MARKER_Y + 20);
         } else if (DRAW_MARKER_INFO == 2) {
-            g2.drawString(MARKER_POINT.getSerieName() + " | " + MARKER_POINT.y_Real_display, MARKER_X + 10, MARKER_Y + 20);
+            g2.drawString(MARKER_POINT.getSerieName() + " | " + MARKER_POINT.y_Scaled, MARKER_X + 10, MARKER_Y + 20);
         } else if (DRAW_MARKER_INFO == 3) {
-            g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Real_display
+            g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Scaled
                     + " | x: " + MARKER_POINT.x_Real, MARKER_X + 10, MARKER_Y + 20);
         } else if (DRAW_MARKER_INFO == 4) {
-            g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Real_display
+            g2.drawString(MARKER_POINT.getSerieName() + " | y: " + MARKER_POINT.y_Scaled
                     + " | x: " + MARKER_POINT.x_Real + " | y2: " + MARKER_POINT.y + " | x2: " + MARKER_POINT.x,
                     MARKER_X + 10, MARKER_Y + 20);
         }
@@ -810,7 +809,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
             //==========================Batch Info displaying==================
             MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
-            MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Real_display));//#BELOW ZERO
+            MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Scaled));
             MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
             //
             HashMap<String, String> b_info_map = MARKER_POINT.getBatchInfo();
@@ -926,51 +925,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
     //=================================================================
 
-    
-
-    /**
-     * Returns the object on which the mouse points
-     *
-     * @param x
-     * @param y
-     * @return
-     * @deprecated
-     */
-    private Object getObjectByMouseCursor(int x, int y) {
-        for (MySerie serie : SERIES) {
-            ArrayList<MyPoint> act_serie = serie.getSerie();
-            for (int i = 0; i < act_serie.size(); i++) {
-                if (act_serie.get(i).checkIfMousePointsOnPoint(x, y)) {
-                    return act_serie.get(i);
-                }
-            }
-        }
-        return this;
-    }
-
-    /**
-     * Highlights the point at which the mouse points an interesting but not
-     * optimal method for finding a oint in the graph area
-     *
-     * @param x
-     * @param y
-     * @deprecated
-     */
-    private void highLightPointOnMouse(int x, int y) {
-        for (MySerie serie : SERIES) {
-            ArrayList<MyPoint> act_serie = serie.getSerie();
-            for (int i = 0; i < act_serie.size(); i++) {
-                if (act_serie.get(i).checkIfMousePointsOnPoint(x, y)) {
-                    act_serie.get(i).setHighlight();
-                    //============================
-                    MARKER_POINT = act_serie.get(i);
-                } else {
-                    act_serie.get(i).setHighlightOff();
-                }
-            }
-        }
-        repaint();
-    }
 
     public void getParentContainer() {
         JPanel parent = (JPanel) this.getParent().getParent();
