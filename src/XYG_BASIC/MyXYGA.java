@@ -75,6 +75,10 @@ public class MyXYGA {
     public void addDataSetBySerie(double[] y_values, String serieName) {
         my_xy_graph.addDataSetToSerie(y_values, serieName);
     }
+    
+    public void setGraphTypeHistogram(){
+        my_xy_graph.setGraphTypeHistogram();
+    }
 
     public void setScaleXYaxisLength(double dbl) {
         this.my_xy_graph.setScaleXYaxisLength(dbl);

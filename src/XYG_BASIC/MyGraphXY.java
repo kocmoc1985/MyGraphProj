@@ -80,6 +80,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private MenuItem menu_item_diff_marker_remove = new MenuItem("Remove dif. marker");
     private double LIMIT_MIN;
     private double LIMIT_MAX;
+    //
+    private boolean IS_HISTOGRAM = false;
 
     public MyGraphXY() {
         PANEL_AREA_PREV = getWidth() * getHeight();
@@ -133,6 +135,11 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 1.0f,
                 new float[]{1.0f, 1.0f}, //// to make dotted {10.0f, 6.0f} // undoted {1.0f, 1.0f}
                 0.0f);
+    }
+    
+    
+    public void setGraphTypeHistogram(){
+        this.IS_HISTOGRAM = true;
     }
 
     /**
