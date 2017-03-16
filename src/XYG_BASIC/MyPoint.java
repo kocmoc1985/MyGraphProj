@@ -20,6 +20,7 @@ public class MyPoint extends JComponent {
     public int x;
     public int y;
     //====================== 
+    public int x_Scaled;
     public double y_Scaled;
     //=======================
     //This values corresponds to real values which are to be drawn!!!
@@ -53,6 +54,7 @@ public class MyPoint extends JComponent {
     public MyPoint(int x, int y, double y_) {
         this.x_Real = x;
         this.y_Real = y;
+        this.x_Scaled = x;
         this.y_Scaled = y_;
         this.initialized_with_constructor_1 = true;
     }
@@ -119,6 +121,7 @@ public class MyPoint extends JComponent {
         } else if (initialized_with_constructor_2) { // this one is needed when adding a point with auto x -coordinate
             this.POINT_INDEX = index;
             x_Real = index + 1;
+            this.x_Scaled = index + 1;
         }
 
     }
