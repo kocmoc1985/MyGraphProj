@@ -91,6 +91,8 @@ public class MyXYGA {
     public void setGridColor(Color c) {
         this.my_xy_graph.setGridColor(c);
     }
+    
+  
 
     public void setMarkerDotted(boolean b) {
         this.my_xy_graph.setMarkerDotted(b);

@@ -26,7 +26,7 @@ public class MySerie {
     //=============================
     private BasicStroke lineRenderer;
     private float[] renderer_line_dotted = new float[]{1.0f, 1.0f}; //undoted by default
-    private float renderer_line_thickness = 3.0f;
+    private float renderer_line_thickness = 1.0f;
     //==============================
     private int point_thickness = 7;//should be 7 by default
     private Color pointsHighlightColor = pointsColor;

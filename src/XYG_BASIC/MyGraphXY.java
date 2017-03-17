@@ -297,11 +297,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
         drawLimits(g);
     }
+    
+    
 
     private void drawDiffMarkers(Graphics g) {
-        if (SERIES.size() != 1) {
-            return;
-        }
+//        if (SERIES.size() != 1) {
+//            return;
+//        }
 
         MySerie serie = SERIES.get(0);
 
@@ -900,9 +902,9 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
 
     private void addRemoveDiffMarker(MyPoint point, boolean add) {
-        if (SERIES.size() != 1) {
-            return;
-        }
+//        if (SERIES.size() != 1) {
+//            return;
+//        }
         //
         if (add) {
             SERIES.get(0).addDiffMarkerPoint(point);
