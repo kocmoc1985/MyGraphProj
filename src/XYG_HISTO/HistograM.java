@@ -28,13 +28,17 @@ public class HistograM extends MyXYGB {
 
     private TreeMap<Double, Integer> histoMap = new TreeMap();
     private ArrayList<Double> xValuesList;
-    private MyGraphXY_H mgxyh;
+    public MyGraphXY_H mgxyh;
 
     public HistograM(String title, MyGraphXY_H xY_H, int displayMode) {
         super(title, xY_H, displayMode);
         mgxyh = (MyGraphXY_H)getGraph2();
         
     }
+    
+   public void setStepIdentifierX(int x){
+       mgxyh.setStepIdentifierX(x);
+   }
     
     public void addData(ResultSet rs, String valueColName) {
         try {
@@ -78,6 +82,7 @@ public class HistograM extends MyXYGB {
             p.setDisplayValueX(key);
             this.addPoint(p);
         }
+        System.out.println("LIST_SIZE: " + xValuesList.size());
         mgxyh.setXValues(xValuesList);
     }
 
@@ -109,7 +114,7 @@ public class HistograM extends MyXYGB {
 //        this.setDrawGrid(true);
         this.setDisableScalingWhenGrid();
         this.setGridColor(Color.black);
-        this.setScaleXYaxisLength(1.9);
+//        this.setScaleXYaxisLength(1.9);
         //
 //        this.setBackgroundColorOfGraph(Color.BLACK);
         this.setDrawMarker(true);

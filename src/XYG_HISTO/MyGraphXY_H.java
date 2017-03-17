@@ -20,9 +20,14 @@ import java.util.Set;
 public class MyGraphXY_H extends MyGraphXY {
 
     private ArrayList<Double> xValuesList;
+    private int STEP_IDENTIFIER_X_AXIS = -1;
 
     public void setXValues(ArrayList list) {
         this.xValuesList = list;
+    }
+
+    public void setStepIdentifierX(int x) {
+        this.STEP_IDENTIFIER_X_AXIS = x;
     }
 
     @Override
@@ -33,11 +38,23 @@ public class MyGraphXY_H extends MyGraphXY {
 
             int vv = (int) (X_MAX);
 
-            if (vv > 10 && vv < 30) {
-                j = 2;
+            if (vv > 500) {
+                j = 100;
+            } else if (vv > 200) {
+                j = 40;
+            } else if (vv > 100) {
+                j = 20;
+            } else if (vv > 30) {
+                j = 10;
             } else {
-                j = 1;
+                j = 2;
             }
+
+
+            if (STEP_IDENTIFIER_X_AXIS != -1) {
+                j = STEP_IDENTIFIER_X_AXIS;
+            }
+
 
             int m = 1; // frequency regulator
             for (int i = 1; i < getWidth(); i++) {
@@ -102,5 +119,4 @@ public class MyGraphXY_H extends MyGraphXY {
         popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         //
     }
-
 }
