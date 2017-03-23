@@ -67,7 +67,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public Color GRID_COLOR = Color.LIGHT_GRAY;
     private Color BACKGROUND_COLOR = new Color(249, 249, 249);
     private boolean SHOW_POP_UP = true;
-    private boolean SEARCH_POINT_POS = true;
+    private boolean HIGH_LIGHT_ALL_POINTS = true;
     private boolean SCALE_XY_AXIS = true;
     public boolean SCALE_X_AXIS = true;
     private boolean SCALE_Y_AXIS = true;
@@ -232,8 +232,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      *
      * @param search
      */
-    public void setHighLightPoints(boolean search) {
-        SEARCH_POINT_POS = search;
+    public void setPointHighLighterEnabled(boolean b) {
+        HIGH_LIGHT_ALL_POINTS = b;
     }
 
     /**
@@ -297,8 +297,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
         drawLimits(g);
     }
-    
-    
 
     private void drawDiffMarkers(Graphics g) {
 //        if (SERIES.size() != 1) {
@@ -777,31 +775,63 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      *
      * @param e
      */
-    private void highLightPointOnMouseMovement(MouseEvent e) {
-        if (SEARCH_POINT_POS) { // if visual option is on 
+    private void highLightPointsOnMouseMovement(MouseEvent e) {
+        if (HIGH_LIGHT_ALL_POINTS) { // if visual option is on 
             if (e.getSource() instanceof MyPoint) {
                 //
                 if (MARKER_POINT != null) {
-                    PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT.getPointIndex());
+                    PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT);
                 }
                 //
                 MARKER_POINT = (MyPoint) e.getSource();
                 //
-                PointHighLighter.highLightAllPointsAtIndex(MARKER_POINT.getPointIndex());
+                PointHighLighter.highLightAllPointsAtIndex(MARKER_POINT);
                 //
                 repaint();
             } else {
                 if (MARKER_POINT != null) {
                     //
-                    PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT.getPointIndex());
+                    PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT);
                     //
                     repaint();
                 }
             }
         }
     }
-    //========================================================
+    private MyPoint prevPoint;
 
+    private void highLightOnePointOnMouseMovement(MouseEvent e) {
+        if (e.getSource() instanceof MyPoint) {
+            MyPoint p = (MyPoint) e.getSource();
+
+            if (p != prevPoint) {
+
+                if (PointHighLighter.isFixed(p)) {
+                    return;
+                }
+
+                if (prevPoint != null) {
+                    prevPoint.setHighlightOff();
+                }
+                prevPoint = p;
+                MySerie s = p.getSerie();
+                if (PointHighLighter.serieExists(s)) {
+                    return;
+                }
+                p.setHighlight();
+                validate();
+            }
+        } else {
+            if (prevPoint != null) {
+                prevPoint.setHighlightOff();
+                validate();
+                prevPoint = null;
+            }
+        }
+
+    }
+
+    //========================================================
     @Override
     public void mouseDragged(MouseEvent e) {
 //        System.out.print("");
@@ -809,7 +839,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        highLightPointOnMouseMovement(e);
+        highLightPointsOnMouseMovement(e);
+        highLightOnePointOnMouseMovement(e);
     }
     //===========================================================
 
@@ -866,7 +897,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
         if (e.getSource() instanceof MyPoint && SHOW_POP_UP && e.getButton() == 1) {
             myPointClicked();
-            
+
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
             popup.removeAll();
             popup.add(menu_item_fix_point);
@@ -914,15 +945,17 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
 
     private void fixPoint() {
-        PointHighLighter.highLightAllPointsAtIndex(MARKER_POINT.getPointIndex());
+        PointHighLighter.highLightAllPointsAtIndex(MARKER_POINT);
         PointHighLighter.setPointFixed(MARKER_POINT);
         repaint();
+//        validate();
     }
 
     private void unfixPoint() {
         PointHighLighter.setPointUnfixed(MARKER_POINT);
-        PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT.getPointIndex());
+        PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT);
         repaint();
+//        validate();
     }
 
     @Override
@@ -978,7 +1011,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         gp.setDrawGrid(false);
         gp.setGridColor(Color.BLACK);
         gp.setShowPopUp(true);
-        gp.setHighLightPoints(true);
+        gp.setPointHighLighterEnabled(true);
         gp.setBackgroundColor(Color.WHITE);
         gp.setScaleXYaxis(true);
         gp.setDrawMarker(false);

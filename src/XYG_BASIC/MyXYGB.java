@@ -69,6 +69,8 @@ public class MyXYGB extends MyXYGA {
         // setAxisScaling(...) & setDrawGrid(...) influence each other!
         this.setAxisScaling(true, true);
 //        this.setDrawGrid(true);
+        this.setShowPopUp(true);
+        this.setPointHighLighterEnabled(true);
         this.setDisableScalingWhenGrid();
         this.setGridColor(Color.black);
 //        this.setScaleXYaxisLength(1.2);

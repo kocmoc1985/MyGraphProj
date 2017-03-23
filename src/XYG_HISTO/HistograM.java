@@ -4,9 +4,12 @@
  */
 package XYG_HISTO;
 
+import XYG_BASIC.HelpA;
 import XYG_BASIC.MyGraphContainer;
 import XYG_BASIC.MyPoint;
+import XYG_BASIC.MySerie;
 import XYG_BASIC.MyXYGB;
+import XYG_BASIC.PointHighLighter;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -40,11 +43,11 @@ public class HistograM extends MyXYGB {
        mgxyh.setStepIdentifierX(x);
    }
     
-    public void addData(ResultSet rs, String valueColName) {
+    public void addData(ResultSet rs, String valueColName,String round) {
         try {
             while (rs.next()) {
                 double val = rs.getDouble(valueColName);
-                buildHistogramDataSet(val, histoMap);
+                buildHistogramDataSet(val, histoMap,round);
             }
 
             addPoints();
@@ -54,17 +57,17 @@ public class HistograM extends MyXYGB {
         }
     }
 
-    public void addData(double[] values) {
+    public void addData(double[] values,String round) {
         for (double val : values) {
-            buildHistogramDataSet(val, histoMap);
+            buildHistogramDataSet(val, histoMap,round);
         }
         
         addPoints();
     }
     
-     public void addData(int[] values) {
+     public void addData(int[] values,String round) {
          for (int val : values) {
-              buildHistogramDataSet(val, histoMap);
+              buildHistogramDataSet(val, histoMap,round);
          }
          addPoints();
      }
@@ -86,7 +89,10 @@ public class HistograM extends MyXYGB {
         mgxyh.setXValues(xValuesList);
     }
 
-    public void buildHistogramDataSet(double key, TreeMap map) {
+    public void buildHistogramDataSet(double key, TreeMap map,String round) {
+        if(round != null){
+            key = HelpA.roundDouble(key, round);
+        }
         if (map.containsKey(key)) {
             int val = (Integer) map.get(key);
             val++;
@@ -112,6 +118,8 @@ public class HistograM extends MyXYGB {
         // setAxisScaling(...) & setDrawGrid(...) influence each other!
         this.setAxisScaling(true, true);
 //        this.setDrawGrid(true);
+        this.setShowPopUp(true);
+        this.setPointHighLighterEnabled(true);
         this.setDisableScalingWhenGrid();
         this.setGridColor(Color.black);
 //        this.setScaleXYaxisLength(1.9);
@@ -122,7 +130,26 @@ public class HistograM extends MyXYGB {
         this.setMarkerInfo(1);
         this.setMarkerAutoReset(false);
     }
-    
+
+    @Override
+    public void initializeB() {
+        serie = new MySerie(getTitle());
+        //
+        serie.setDrawPoints(true);
+        serie.setPointThickness(1);
+//        serie.setPointHighLightColor(Color.red);
+//        serie.setPointColor(Color.red);
+        
+        serie.setDrawLines(true);
+        serie.setLineThickness(1);
+        serie.setLineDotted();
+        serie.setCurveColor(Color.red);
+        serie.setOverallScale(true);
+        //
+        this.addSerie(serie);
+        //
+        PointHighLighter.addSerie(serie);
+    }
     
 
     public static void main(String[] args) {
@@ -141,7 +168,7 @@ public class HistograM extends MyXYGB {
 
 //        msxyg.addDataSetBySerie(dataSet, "speed");
 
-        hm.addData(dataSet);
+        hm.addData(dataSet,"#");
 
 //        hm.addData(arr(200, 10, 15));
 

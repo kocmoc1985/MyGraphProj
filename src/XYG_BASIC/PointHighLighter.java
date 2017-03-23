@@ -5,7 +5,6 @@
 package XYG_BASIC;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -21,13 +20,22 @@ public class PointHighLighter {
 
     public static void addSerie(MySerie serie) {
         series_list.add(serie);
+//        System.out.println("SERIE ADDED: " + serie);
     }
-    
-    public static Object[] getFixedPoints(){
+
+    public static boolean serieExists(MySerie serie) {
+        if (series_list.contains(serie)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static Object[] getFixedPoints() {
         return FIXED_POINTS_MAP.values().toArray();
     }
-    
-    public static int getAmmountFixed(){
+
+    public static int getAmmountFixed() {
         return FIXED_POINTS_MAP.size();
     }
 
@@ -61,21 +69,29 @@ public class PointHighLighter {
         }
     }
 
-    public static void highLightAllPointsAtIndex(int pointIndex) {
-        if (isFixed(pointIndex) == true) {
+    public static void highLightAllPointsAtIndex(MyPoint point) {
+        if (series_list.contains(point.getSerie()) == false) {
+            return;
+        }
+
+        if (isFixed(point.getPointIndex()) == true) {
             return;
         }
         for (MySerie serie : series_list) {
-            serie.highLightPointAtIndex(pointIndex);
+            serie.highLightPointAtIndex(point.getPointIndex());
         }
     }
 
-    public static void unhighLightAllPointsAtIndex(int pointIndex) {
-        if (isFixed(pointIndex) == true) {
+    public static void unhighLightAllPointsAtIndex(MyPoint point) {
+        if (series_list.contains(point.getSerie()) == false) {
+            return;
+        }
+
+        if (isFixed(point.getPointIndex()) == true) {
             return;
         }
         for (MySerie serie : series_list) {
-            serie.unhighLightPointAtIndex(pointIndex);
+            serie.unhighLightPointAtIndex(point.getPointIndex());
         }
     }
 }

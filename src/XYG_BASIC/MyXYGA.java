@@ -83,16 +83,22 @@ public class MyXYGA {
     public void setLimits(double min, double max) {
         this.my_xy_graph.setLimits(min, max);
     }
-
+    
     public void setDrawGrid(boolean b) {
         this.my_xy_graph.setDrawGrid(b);
     }
 
     public void setGridColor(Color c) {
         this.my_xy_graph.setGridColor(c);
+    }    
+  
+    public void setShowPopUp(boolean b){
+        this.my_xy_graph.setShowPopUp(b);
     }
     
-  
+    public void setPointHighLighterEnabled(boolean b){
+        this.my_xy_graph.setPointHighLighterEnabled(b);
+    }
 
     public void setMarkerDotted(boolean b) {
         this.my_xy_graph.setMarkerDotted(b);
