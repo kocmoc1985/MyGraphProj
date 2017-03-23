@@ -8,6 +8,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -91,6 +93,10 @@ public class MySerie {
         adjustRenderer();
     }
     
+    
+    public void addaddDiffMarkerOutPutComponent(String calculatioName, JTextField jtf){
+        DIFF_MARKER_POINTS.addDiffMarkerOutPutComponent(calculatioName, jtf);
+    }
     
     public void setMyGraphXY(MyGraphXY myGraph) {
         this.myGraphXY = myGraph;

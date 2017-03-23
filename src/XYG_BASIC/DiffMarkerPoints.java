@@ -6,6 +6,8 @@ package XYG_BASIC;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JTextField;
 
 /**
  *
@@ -16,9 +18,18 @@ public class DiffMarkerPoints {
     private final MySerie serie;
     private MyPoint MARKER_POINT_1;
     private MyPoint MARKER_POINT_2;
+    private HashMap<String, JTextField> outPutMap = new HashMap<String, JTextField>();
+    public static final String CALC_SUMM = "SUMM";
+    public static final String CALC_AVERAGE = "AV";
 
     public DiffMarkerPoints(MySerie serie) {
         this.serie = serie;
+    }
+
+    public void addDiffMarkerOutPutComponent(String name, JTextField jtf) {
+        System.out.println("put: "  + name + "  Serie: " + serie.getName());
+        outPutMap.put(name, jtf);
+        System.out.println("");
     }
 
     public ArrayList<MyPoint> getPoints() {
@@ -59,6 +70,8 @@ public class DiffMarkerPoints {
         addProperties();
         System.out.println("SUMM: " + calcSum());
         System.out.println("AV: " + calcAv());
+        calcAndShow(CALC_SUMM);
+        calcAndShow(CALC_AVERAGE);
     }
 
     public void remove(MyPoint point) {
@@ -106,7 +119,6 @@ public class DiffMarkerPoints {
         }
         draw_rect_points_list = new ArrayList<MyPoint>();
     }
-
     private ArrayList<MyPoint> draw_rect_points_list = new ArrayList<MyPoint>();
 
     private void addProperties() {
@@ -118,6 +130,27 @@ public class DiffMarkerPoints {
                 draw_rect_points_list.add(mp);
             }
         }
+    }
+
+    public void calcAndShow(String name) {
+        if (name.equals(CALC_SUMM)) {
+            showOutPut(name, calcSum());
+        } else if (name.equals(CALC_AVERAGE)) {
+            showOutPut(name, calcAv());
+        }else{
+            System.out.println("NO SUCH CALC EXIST: " + name);
+        } 
+    }
+
+    private void showOutPut(String name, double value) {
+        System.out.println("aaaa: " + name   + "  Serie: " + serie.getName());
+        JTextField jtf = outPutMap.get(name);
+        if (jtf != null) {
+            jtf.setText("" + value);
+        } else {
+            System.out.println("NO OUTPUT COMPONENT");
+        }
+
     }
 
     public int calcSum() {

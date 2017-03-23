@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -25,6 +27,10 @@ public class MyXYGB extends MyXYGA {
     public MyXYGB(String title,MyGraphXY xY, int displayMode) {
         super(title,xY, displayMode);
         initialize();
+    }
+    
+    public void addDiffMarkerOutPutComponent(String calcName, JTextField jtf){
+        serie.addaddDiffMarkerOutPutComponent(calcName, jtf);
     }
     
     public MySerie getSerie(){
@@ -69,7 +75,7 @@ public class MyXYGB extends MyXYGA {
         // setAxisScaling(...) & setDrawGrid(...) influence each other!
         this.setAxisScaling(true, true);
 //        this.setDrawGrid(true);
-        this.setShowPopUp(true);
+        this.setShowPopUpLeftClick(true);
         this.setPointHighLighterEnabled(true);
         this.setDisableScalingWhenGrid();
         this.setGridColor(Color.black);

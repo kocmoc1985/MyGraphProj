@@ -118,7 +118,7 @@ public class HistograM extends MyXYGB {
         // setAxisScaling(...) & setDrawGrid(...) influence each other!
         this.setAxisScaling(true, true);
 //        this.setDrawGrid(true);
-        this.setShowPopUp(true);
+        this.setShowPopUpLeftClick(false);
         this.setPointHighLighterEnabled(true);
         this.setDisableScalingWhenGrid();
         this.setGridColor(Color.black);

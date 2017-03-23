@@ -92,8 +92,8 @@ public class MyXYGA {
         this.my_xy_graph.setGridColor(c);
     }    
   
-    public void setShowPopUp(boolean b){
-        this.my_xy_graph.setShowPopUp(b);
+    public void setShowPopUpLeftClick(boolean b){
+        this.my_xy_graph.setShowPopUpLeftClick(b);
     }
     
     public void setPointHighLighterEnabled(boolean b){

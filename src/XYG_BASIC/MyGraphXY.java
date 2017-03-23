@@ -66,7 +66,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public boolean SHOW_GRID_AND_SCALE = true;
     public Color GRID_COLOR = Color.LIGHT_GRAY;
     private Color BACKGROUND_COLOR = new Color(249, 249, 249);
-    private boolean SHOW_POP_UP = true;
+    private boolean SHOW_POP_UP_LEFT_CLICK = true;
     private boolean HIGH_LIGHT_ALL_POINTS = true;
     private boolean SCALE_XY_AXIS = true;
     public boolean SCALE_X_AXIS = true;
@@ -210,8 +210,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      *
      * @param show
      */
-    public void setShowPopUp(boolean show) {
-        this.SHOW_POP_UP = show;
+    public void setShowPopUpLeftClick(boolean show) {
+        this.SHOW_POP_UP_LEFT_CLICK = show;
     }
 
     /**
@@ -895,7 +895,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     @Override
     public void mouseClicked(MouseEvent e) {
 
-        if (e.getSource() instanceof MyPoint && SHOW_POP_UP && e.getButton() == 1) {
+        if (e.getSource() instanceof MyPoint && SHOW_POP_UP_LEFT_CLICK && e.getButton() == 1) {
             myPointClicked();
 
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
@@ -1010,7 +1010,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         MyGraphXY gp = new MyGraphXY();
         gp.setDrawGrid(false);
         gp.setGridColor(Color.BLACK);
-        gp.setShowPopUp(true);
+        gp.setShowPopUpLeftClick(true);
         gp.setPointHighLighterEnabled(true);
         gp.setBackgroundColor(Color.WHITE);
         gp.setScaleXYaxis(true);
