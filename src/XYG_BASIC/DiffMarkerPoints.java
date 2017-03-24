@@ -54,12 +54,12 @@ public class DiffMarkerPoints {
         ArrayList list = new ArrayList();
 
         if (MARKER_POINT_A != null) {
-            CURSOR_A.setPoint(MARKER_POINT_A);
+//            CURSOR_A.setPoint(MARKER_POINT_A);
             list.add(CURSOR_A);
         }
 
         if (MARKER_POINT_B != null) {
-            CURSOR_B.setPoint(MARKER_POINT_B);
+//            CURSOR_B.setPoint(MARKER_POINT_B);
             list.add(CURSOR_B);
         }
 
@@ -89,7 +89,10 @@ public class DiffMarkerPoints {
             MARKER_POINT_B = null;
             reset();
         }
-        System.out.println("" + toString());
+
+        CURSOR_A.setPoint(MARKER_POINT_A);
+        CURSOR_B.setPoint(MARKER_POINT_B);
+        
     }
 
     private void go() {

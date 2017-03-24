@@ -85,6 +85,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public MyGraphXY() {
         PANEL_AREA_PREV = getWidth() * getHeight();
         this.add(popup);
+        this.setLayout(null);
         setBackground(Color.WHITE);
         addMouseMotionListener(this);
         addComponentListener(this);
@@ -308,7 +309,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             for (CursorDiff cursor : list) {
                 cursor.drawCursor(g);
             }
-
         }
     }
 
