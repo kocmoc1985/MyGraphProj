@@ -280,7 +280,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // Paint background
         super.setBackground(BACKGROUND_COLOR);
-        System.out.println("Draw:..........");
+//        System.out.println("Draw:..........");
 
         if (DRAW_MARKER) {
             drawMarkerWhenPointing(g);

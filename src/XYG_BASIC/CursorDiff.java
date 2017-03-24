@@ -16,7 +16,7 @@ import javax.swing.JComponent;
  *
  * @author KOCMOC
  */
-public class CursorDiff extends JComponent {
+public class CursorDiff extends JComponent  {
     
     private MyPoint point;
     private MyGraphXY myGraphXY;
@@ -42,7 +42,7 @@ public class CursorDiff extends JComponent {
         g2.drawLine(0, point.y, myGraphXY.getWidth(), point.y); // Y
 
         this.setLocation(point.x - (point.POINT_D / 2), 0);
-        System.out.println("DrawCursor y: " + point.y + " / graphH: " + myGraphXY.getHeight());
+//        System.out.println("DrawCursor y: " + point.y + " / graphH: " + myGraphXY.getHeight());
         this.setSize(5, myGraphXY.getHeight());
         //OBS! Draw border causes an infinity loop of redraws
 //        this.setBorder(BorderFactory.createLineBorder(Color.red)); 
