@@ -27,9 +27,7 @@ public class DiffMarkerPoints {
     }
 
     public void addDiffMarkerOutPutComponent(String name, JTextField jtf) {
-        System.out.println("put: "  + name + "  Serie: " + serie.getName());
         outPutMap.put(name, jtf);
-        System.out.println("");
     }
 
     public ArrayList<MyPoint> getPoints() {
@@ -54,7 +52,13 @@ public class DiffMarkerPoints {
             MARKER_POINT_1 = point;
             go();
         } else if (MARKER_POINT_1 != null && MARKER_POINT_2 == null) {
-            MARKER_POINT_2 = point;
+            //
+            if (MARKER_POINT_1.getPointIndex() > point.getPointIndex()) {
+                MARKER_POINT_2 = MARKER_POINT_1;
+                MARKER_POINT_1 = point;
+            } else {
+                MARKER_POINT_2 = point;
+            }
             //
             go();
             //
@@ -70,8 +74,11 @@ public class DiffMarkerPoints {
         addProperties();
         System.out.println("SUMM: " + calcSum());
         System.out.println("AV: " + calcAv());
-        calcAndShow(CALC_SUMM);
-        calcAndShow(CALC_AVERAGE);
+        if (outPutMap.size() > 0) {
+            calcAndShow(CALC_SUMM);
+            calcAndShow(CALC_AVERAGE);
+        }
+
     }
 
     public void remove(MyPoint point) {
@@ -137,13 +144,12 @@ public class DiffMarkerPoints {
             showOutPut(name, calcSum());
         } else if (name.equals(CALC_AVERAGE)) {
             showOutPut(name, calcAv());
-        }else{
+        } else {
             System.out.println("NO SUCH CALC EXIST: " + name);
-        } 
+        }
     }
 
     private void showOutPut(String name, double value) {
-        System.out.println("aaaa: " + name   + "  Serie: " + serie.getName());
         JTextField jtf = outPutMap.get(name);
         if (jtf != null) {
             jtf.setText("" + value);
@@ -153,23 +159,23 @@ public class DiffMarkerPoints {
 
     }
 
-    public int calcSum() {
-        int sum = 0;
+    public double calcSum() {
+        double sum = 0;
         if (bothExist()) {
             for (int i = MARKER_POINT_1.getPointIndex(); i <= MARKER_POINT_2.getPointIndex(); i++) {
-                sum += serie.getSerie().get(i).y_Real;
+                sum += serie.getSerie().get(i).y_Display;
             }
         }
         return sum;
     }
 
-    public int calcAv() {
-        int sum = 0;
+    public double calcAv() {
+        double sum = 0;
         int c = 0;
         if (bothExist()) {
             for (int i = MARKER_POINT_1.getPointIndex(); i <= MARKER_POINT_2.getPointIndex(); i++) {
                 c++;
-                sum += serie.getSerie().get(i).y_Real;
+                sum += serie.getSerie().get(i).y_Display;
             }
         }
         return (sum / c);

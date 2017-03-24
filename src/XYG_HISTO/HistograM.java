@@ -35,8 +35,7 @@ public class HistograM extends MyXYGB {
 
     public HistograM(String title, MyGraphXY_H xY_H, int displayMode) {
         super(title, xY_H, displayMode);
-        mgxyh = (MyGraphXY_H)getGraph2();
-        
+        mgxyh = (MyGraphXY_H)getGraph2();        
     }
     
    public void setStepIdentifierX(int x){
@@ -118,7 +117,7 @@ public class HistograM extends MyXYGB {
         // setAxisScaling(...) & setDrawGrid(...) influence each other!
         this.setAxisScaling(true, true);
 //        this.setDrawGrid(true);
-        this.setShowPopUpLeftClick(false);
+        this.setShowPopUpLeftClick(true);
         this.setPointHighLighterEnabled(true);
         this.setDisableScalingWhenGrid();
         this.setGridColor(Color.black);
@@ -168,7 +167,7 @@ public class HistograM extends MyXYGB {
 
 //        msxyg.addDataSetBySerie(dataSet, "speed");
 
-        hm.addData(dataSet,"#");
+        hm.addData(dataSet,"#.#");
 
 //        hm.addData(arr(200, 10, 15));
 
