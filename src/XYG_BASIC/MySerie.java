@@ -43,7 +43,7 @@ public class MySerie {
     private double MAX;
     private int POINT_INDEX;
     //========================
-    private DiffMarkerPoints DIFF_MARKER_POINTS = new DiffMarkerPoints(this);
+    private DiffMarkerPoints DIFF_MARKER_POINTS;
     
     public MySerie(String name) {
         this.name = name;
@@ -100,6 +100,7 @@ public class MySerie {
     
     public void setMyGraphXY(MyGraphXY myGraph) {
         this.myGraphXY = myGraph;
+        DIFF_MARKER_POINTS = new DiffMarkerPoints(this,myGraphXY);
     }
 
     /**
@@ -403,5 +404,9 @@ public class MySerie {
     
     public ArrayList getDiffMarkerPoints(){
         return this.DIFF_MARKER_POINTS.getPoints();
+    }
+    
+    public ArrayList getDiffCursors(){
+        return this.DIFF_MARKER_POINTS.getCursors();
     }
 }

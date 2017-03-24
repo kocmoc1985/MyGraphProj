@@ -56,7 +56,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private boolean AUTO_RESET_MARKER = false; // this means that marker is leaved drawn at the last point you pointed on
     //===========================================
     private BasicStroke ORDINARY_STROKE;
-    private BasicStroke MARKER_STROKE;
+    public BasicStroke MARKER_STROKE;
     private BasicStroke GRID_STROKE;
     //==========================================
     //==========================================
@@ -280,6 +280,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // Paint background
         super.setBackground(BACKGROUND_COLOR);
+        System.out.println("Draw:..........");
 
         if (DRAW_MARKER) {
             drawMarkerWhenPointing(g);
@@ -299,23 +300,16 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
 
     private void drawDiffMarkers(Graphics g) {
-
         MySerie serie = SERIES.get(0);
 
         if (serie.diffMarkersExist()) {
-            ArrayList<MyPoint> list = serie.getDiffMarkerPoints();
+            ArrayList<CursorDiff> list = serie.getDiffCursors();
 
-            for (MyPoint myPoint : list) {
-//                drawMarkerStandard(g, myPoint);
-                CursorDiff cd = new CursorDiff(this);
-                cd.drawCursor(g, myPoint, MARKER_STROKE);
+            for (CursorDiff cursor : list) {
+                cursor.drawCursor(g);
             }
 
         }
-    }
-    
-    private void drawMarkerDiff(Graphics g, MyPoint point){
-        
     }
 
     private void drawMarkerStandard(Graphics g, MyPoint point) {
@@ -616,21 +610,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
 
     /**
-     * Add a point to a serie with index x
-     *
-     * @param point
-     * @param serie_index
-     * @deprecated
-     */
-    public synchronized void addPointToSerie(MyPoint point, int serie_index) {
-        PANEL_AREA_PREV = getWidth() * getHeight();
-        defineMaxForXYAxis(point);
-        SERIES.get(serie_index).getSerie().add(point);
-        recalc();
-        notify();
-    }
-
-    /**
      * Deletes all the points from the graph for the given serie with serie name
      * X.
      *
@@ -763,13 +742,20 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 //        System.out.println("one_un_y = " + ONE_UNIT_Y);
         //
         //
-        repaint();
-        revalidate();
+        repaint_("recalc()");
+//        revalidate();
     }
 
     public void validateFromOutside() {
         validate();
     }
+    private int repaints_ = 0;
+
+    private void repaint_(String caller) {
+        repaint();
+        System.out.println("Repaint: " + caller + "  " + (repaints_++));
+    }
+    private boolean switch_a = false;
 
     /**
      * Highlight a point when the mouse cursor points on it this method is now
@@ -790,13 +776,19 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 //
                 PointHighLighter.highLightAllPointsAtIndex(MARKER_POINT);
                 //
-                repaint();
+                if (switch_a == false) {
+                    repaint_("highLightPointsOnMouseMovement()");
+                }
+                //
+                switch_a = true;
             } else {
-                if (MARKER_POINT != null) {
+                if (MARKER_POINT != null && switch_a) {
                     //
                     PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT);
                     //
-                    repaint();
+                    repaint_("highLightPointsOnMouseMovement()");
+                    //
+                    switch_a = false;
                 }
             }
         }
@@ -950,14 +942,14 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private void fixPoint() {
         PointHighLighter.highLightAllPointsAtIndex(MARKER_POINT);
         PointHighLighter.setPointFixed(MARKER_POINT);
-        repaint();
+        repaint_("fixPoint()");
 //        validate();
     }
 
     private void unfixPoint() {
         PointHighLighter.setPointUnfixed(MARKER_POINT);
         PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT);
-        repaint();
+        repaint_("unfixPoint()");
 //        validate();
     }
 
