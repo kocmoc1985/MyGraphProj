@@ -39,7 +39,7 @@ public class MyPoint extends JComponent {
     private boolean DRAW_RECT;
     private boolean highLightSet = false;
     //point dimenssion
-    private int POINT_D = 7; // default 7
+    public int POINT_D = 7; // default 7
     private int POINT_D_SET = 1; // default 7
     private int point_area;
     //Coeff of this point !!! 

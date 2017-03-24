@@ -299,9 +299,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
 
     private void drawDiffMarkers(Graphics g) {
-//        if (SERIES.size() != 1) {
-//            return;
-//        }
 
         MySerie serie = SERIES.get(0);
 
@@ -309,10 +306,16 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             ArrayList<MyPoint> list = serie.getDiffMarkerPoints();
 
             for (MyPoint myPoint : list) {
-                drawMarkerStandard(g, myPoint);
+//                drawMarkerStandard(g, myPoint);
+                CursorDiff cd = new CursorDiff(this);
+                cd.drawCursor(g, myPoint, MARKER_STROKE);
             }
 
         }
+    }
+    
+    private void drawMarkerDiff(Graphics g, MyPoint point){
+        
     }
 
     private void drawMarkerStandard(Graphics g, MyPoint point) {
@@ -671,7 +674,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 //============================
                 point.addMouseMotionListener(this); //ading the listener to the instance of MyPoint
                 point.addMouseListener(this);
-                add(point); // Adds the point component to the graph panel component
+                this.add(point); // Adds the point component to the graph panel component
             }
         }
         notify();

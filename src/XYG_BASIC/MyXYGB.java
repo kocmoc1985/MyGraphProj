@@ -81,7 +81,7 @@ public class MyXYGB extends MyXYGA {
 //        this.setScaleXYaxisLength(1.2);
         //
 //        this.setBackgroundColorOfGraph(Color.BLACK);
-        this.setDrawMarker(false);
+        this.setDrawMarker(true);
         this.setMarkerDotted(true);
         this.setMarkerInfo(1);
         this.setMarkerAutoReset(false);
