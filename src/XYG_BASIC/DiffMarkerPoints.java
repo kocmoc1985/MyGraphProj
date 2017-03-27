@@ -66,7 +66,7 @@ public class DiffMarkerPoints {
         return list;
     }
 
-    public void add(MyPoint point, boolean assign) {
+    public void add(MyPoint point) {
         if (MARKER_POINT_A == null && MARKER_POINT_B == null) {
             MARKER_POINT_A = point;
             reset();
@@ -90,11 +90,11 @@ public class DiffMarkerPoints {
             reset();
         }
 
-        if (assign) {
-            CURSOR_A.setPoint(MARKER_POINT_A);
-            CURSOR_B.setPoint(MARKER_POINT_B);
-        }
-
+        CURSOR_A.setPoint(MARKER_POINT_A);
+        CURSOR_B.setPoint(MARKER_POINT_B);
+        
+        CURSOR_A.drawCursor(myGraphXY.getGraphics());
+        CURSOR_B.drawCursor(myGraphXY.getGraphics());
     }
 
     private void go() {

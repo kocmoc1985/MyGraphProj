@@ -942,7 +942,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private void addRemoveDiffMarker(MyPoint point, boolean add) {
         //
         if (add) {
-            SERIES.get(0).addDiffMarkerPoint(point,true);
+            SERIES.get(0).addDiffMarkerPoint(point);
         } else {
             SERIES.get(0).removeDiffMarkerPoint(point);
         }
