@@ -831,11 +831,19 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public void mouseDragged(MouseEvent e) {
 //        System.out.print("");
     }
+    public MyPoint POINT_ON_SCREEN_MOOVE;
+    public boolean REPAINT_ON_MOUSE_MOOVE = false;
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        POINT_ON_SCREEN_MOOVE = new MyPoint(e.getPoint().x, e.getPoint().y, e.getPoint().getY());
         highLightPointsOnMouseMovement(e);
         highLightOnePointOnMouseMovement(e);
+        if (REPAINT_ON_MOUSE_MOOVE) {
+            repaint_("Mouse Moved");
+        }
+
+
     }
     //===========================================================
 

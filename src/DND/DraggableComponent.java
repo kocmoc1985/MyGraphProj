@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JComponent;
@@ -60,7 +59,8 @@ public class DraggableComponent extends JComponent implements MouseMotionListene
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        anchorPoint = e.getPoint();
+//        anchorPoint = e.getPoint();
+//        System.out.println("AnchorPoint set");
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 

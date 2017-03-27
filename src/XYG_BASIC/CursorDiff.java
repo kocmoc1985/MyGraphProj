@@ -4,22 +4,25 @@
  */
 package XYG_BASIC;
 
-import DND.DraggableComponent;
 import java.awt.Color;
-import java.awt.Event;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import javax.swing.JComponent;
 
 /**
  *
  * @author KOCMOC
  */
-public class CursorDiff extends DraggableComponent {
+public class CursorDiff extends JComponent implements MouseMotionListener {
 
     private MyPoint point;
     private MyGraphXY myGraphXY;
+    protected Point anchorPoint;
 
     public CursorDiff(MyGraphXY myGraphXY, String name) {
         super();
@@ -27,58 +30,75 @@ public class CursorDiff extends DraggableComponent {
         setName(name);
         setLayout(null);
         setBackground(Color.black);
+        init();
+    }
+
+    private void init() {
+        this.addMouseMotionListener(this);
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                System.out.println("CLICKED");
+            }
+        });
+
     }
 
     public void setPoint(MyPoint point) {
+        myGraphXY.REPAINT_ON_MOUSE_MOOVE = false;
         this.point = point;
     }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.clearRect(0, 0, getWidth(), getHeight());
-    
-            g2d.setColor(Color.red);
-            System.out.println("Drawing");
-            g2d.fillRect(0, 0, getWidth(), getHeight());
-        }
-    
+    private boolean flag = false;
 
     protected void drawCursor(Graphics g) {
-        System.out.println("draw");
+
+        if (flag == false) {
+//            this.setLocation(point.x - (point.POINT_D / 2), 0);
+            this.setSize(10, myGraphXY.getHeight());
+            myGraphXY.remove(this);
+            myGraphXY.add(this);
+            draw(g, point.x, point.y, true, "A");
+            flag = true;
+        }
+
+        if (anchorPoint != null) {
+            draw(g, anchorPoint.y, false, "B");
+        } else {
+            draw(g, point.x, point.y, true, "C");
+        }
+    }
+
+    private void draw(Graphics g, int y, boolean drawY, String caller) {
+        int x_ = myGraphXY.POINT_ON_SCREEN_MOOVE.x_Real;
+        draw(g, x_, y, drawY, caller);
+    }
+
+    private void draw(Graphics g, int x, int y, boolean drawY, String caller) {
+        System.out.println("x: " + x + " / y: " + y + " / caller: " + caller);
         Graphics2D g2 = (Graphics2D) g;
-//        g2.setStroke(myGraphXY.MARKER_STROKE);
-//        g2.setPaint(point.getPointColor());
-//
-//        g2.drawLine(point.x, 0, point.x, myGraphXY.getHeight()); // X
-//        g2.drawLine(0, point.y, myGraphXY.getWidth(), point.y); // Y
+        g2.setStroke(myGraphXY.MARKER_STROKE);
+        g2.setPaint(point.getPointColor());
 
 
-        this.setLocation(point.x - (point.POINT_D / 2), 0);
+        this.setLocation(x - 5, 0);
+        g2.drawLine(x, 0, x, myGraphXY.getHeight()); // X
 
-        this.setSize(5, myGraphXY.getHeight());
-        myGraphXY.remove(this);
-        myGraphXY.add(this);
+        if (drawY) {
+            g2.drawLine(0, y, myGraphXY.getWidth(), y); // Y
+        }
+//        myGraphXY.repaint();
+
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        int anchorX = anchorPoint.x;
-        int anchorY = anchorPoint.y;
+        anchorPoint = e.getPoint();
+        myGraphXY.REPAINT_ON_MOUSE_MOOVE = true;
         System.out.println("DRAG....");
+    }
 
-        Point parentOnScreen = getParent().getLocationOnScreen();
-        Point mouseOnScreen = e.getLocationOnScreen();
-        Point position = new Point(mouseOnScreen.x - parentOnScreen.x - anchorX, mouseOnScreen.y - parentOnScreen.y - anchorY);
-        setLocation(position);
-        point.x = anchorX;
-        point.y = anchorY;
-//        myGraphXY.validate();
-
-//        //Change Z-Buffer if it is "overbearing"
-//        if (overbearing) {
-//            getParent().setComponentZOrder(handle, 0);
-//            repaint();
-//        }
+    @Override
+    public void mouseMoved(MouseEvent me) {
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 }
