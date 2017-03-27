@@ -54,12 +54,10 @@ public class DiffMarkerPoints {
         ArrayList list = new ArrayList();
 
         if (MARKER_POINT_A != null) {
-//            CURSOR_A.setPoint(MARKER_POINT_A);
             list.add(CURSOR_A);
         }
 
         if (MARKER_POINT_B != null) {
-//            CURSOR_B.setPoint(MARKER_POINT_B);
             list.add(CURSOR_B);
         }
 
@@ -153,6 +151,7 @@ public class DiffMarkerPoints {
         }
         draw_rect_points_list = new ArrayList<MyPoint>();
     }
+    
     private ArrayList<MyPoint> draw_rect_points_list = new ArrayList<MyPoint>();
 
     private void addProperties() {

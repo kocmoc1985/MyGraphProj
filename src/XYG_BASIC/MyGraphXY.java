@@ -307,13 +307,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private void drawDiffMarkers(Graphics g) {
         MySerie serie = SERIES.get(0);
 
-        if (serie.diffMarkersExist()) {
+//        if (serie.diffMarkersExist()) {
             ArrayList<CursorDiff> list = serie.getDiffCursors();
 
             for (CursorDiff cursor : list) {
                 cursor.drawCursor(g);
             }
-        }
+//        }
     }
 
     private void drawMarkerStandard(Graphics g, MyPoint point) {

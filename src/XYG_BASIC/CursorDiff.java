@@ -22,12 +22,14 @@ import javax.swing.JComponent;
 public class CursorDiff extends JComponent implements MouseMotionListener {
 
     private MyPoint point;
+    private MyPoint prevPoint;
     private MyGraphXY myGraphXY;
     private DiffMarkerPoints diffMarkerPoints;
     private Point anchorPoint;
     private MySerie serie;
     private CursorOverPoint cursorOverPoint;
     private boolean setLocationFlag = false;
+    private boolean clickSwitcherFlag = false;
 
     public CursorDiff(DiffMarkerPoints dmp, MyGraphXY myGraphXY, MySerie serie, String name) {
         super();
@@ -47,12 +49,22 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
         //
         this.addMouseMotionListener(this);
         this.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseClicked(MouseEvent me) {
-                
-                if (me.getSource() instanceof CursorDiff && me.getButton() == 1) {
+
+                if (me.getSource() instanceof CursorDiff && me.getButton() == 1 && clickSwitcherFlag == false) {
+                    clickSwitcherFlag = true;
+                    anchorPoint = me.getPoint();
+                    myGraphXY.REPAINT_ON_MOUSE_MOOVE = true;
+                    prevPoint = point;
+                } else if (me.getSource() instanceof CursorDiff && me.getButton() == 1) {
+                    clickSwitcherFlag = false;
                     System.out.println("CLICKED");
                     MyPoint point = cursorOverPoint.getPoint();
+                    if (prevPoint != null) {
+                        diffMarkerPoints.remove(prevPoint);
+                    }
                     if (point != null) {
                         diffMarkerPoints.add(point);
                     }
@@ -120,18 +132,12 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
 //        this.setBorder(BorderFactory.createLineBorder(Color.red));
     }
 
-  
-    
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        anchorPoint = e.getPoint();
-        myGraphXY.REPAINT_ON_MOUSE_MOOVE = true;
-        System.out.println("DRAG....");
-    }
-
     @Override
     public void mouseMoved(MouseEvent me) {
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
     }
 }
