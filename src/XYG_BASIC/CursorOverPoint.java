@@ -21,12 +21,12 @@ public class CursorOverPoint {
         this.serie = serie;
         this.points = serie.getPoints();
     }
-    
-    public boolean isCursorOverPoint(){
+
+    public boolean isCursorOverPoint() {
         return cursorOverPoint;
     }
-    
-    public MyPoint getPoint(){
+
+    public MyPoint getPoint() {
         return prevPoint;
     }
 
@@ -34,35 +34,47 @@ public class CursorOverPoint {
         for (MyPoint point : points) {
 //            System.out.println("point.x: " + point.x_Real + " / " + point.x_Scaled + " / " + point.x); 
 
-            for (int i = 0; i < point.POINT_D / 2; i++) {
-                if (point.x == (x - i)) {
-//                    System.out.println("CURSOR OVER POINT -!!: " + i);
-                    highLightOnOff(point, true);
-                    prevPoint = point;
-                    cursorOverPoint = true;
-                    return point;
-                } else {
-                    cursorOverPoint = false;
-                    if (prevPoint != null) {
-                        prevPoint.setHighlightOff();
-                    }
+            if (point.x == x) {
+                highLightOnOff(point, true);
+                prevPoint = point;
+                cursorOverPoint = true;
+                return point;
+            } else {
+                cursorOverPoint = false;
+                if (prevPoint != null) {
+                    prevPoint.setHighlightOff();
                 }
             }
 
-            for (int i = 0; i < point.POINT_D / 2; i++) {
-                if (point.x == (x + i)) {
-//                    System.out.println("CURSOR OVER POINT +!!: " + i);
-                    highLightOnOff(point, true);
-                    prevPoint = point;
-                    cursorOverPoint = true;
-                    return point;
-                } else {
-                    cursorOverPoint = false;
-                    if (prevPoint != null) {
-                        prevPoint.setHighlightOff();
-                    }
-                }
-            }
+//            for (int i = 0; i < point.POINT_D / 2; i++) {
+//                if (point.x == (x - i)) {
+////                    System.out.println("CURSOR OVER POINT -!!: " + i);
+//                    highLightOnOff(point, true);
+//                    prevPoint = point;
+//                    cursorOverPoint = true;
+//                    return point;
+//                } else {
+//                    cursorOverPoint = false;
+//                    if (prevPoint != null) {
+//                        prevPoint.setHighlightOff();
+//                    }
+//                }
+//            }
+//
+//            for (int i = 0; i < point.POINT_D / 2; i++) {
+//                if (point.x == (x + i)) {
+////                    System.out.println("CURSOR OVER POINT +!!: " + i);
+//                    highLightOnOff(point, true);
+//                    prevPoint = point;
+//                    cursorOverPoint = true;
+//                    return point;
+//                } else {
+//                    cursorOverPoint = false;
+//                    if (prevPoint != null) {
+//                        prevPoint.setHighlightOff();
+//                    }
+//                }
+//            }
         }
         return null;
     }
