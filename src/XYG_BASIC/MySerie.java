@@ -8,7 +8,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -16,7 +15,7 @@ import javax.swing.JTextField;
  * @author Administrator
  */
 public class MySerie {
-    
+
     private MyGraphXY myGraphXY;
     private ArrayList<MyPoint> points = new ArrayList<MyPoint>();
     private HashMap<Integer, MyPoint> pointsMap = new HashMap<Integer, MyPoint>();
@@ -44,12 +43,12 @@ public class MySerie {
     private int POINT_INDEX;
     //========================
     private DiffMarkerPoints DIFF_MARKER_POINTS;
-    
+
     public MySerie(String name) {
         this.name = name;
         adjustRenderer();
     }
-    
+
     public MySerie(String name, Color curve_color) {
         this.name = name;
         this.curveColor = curve_color;
@@ -92,15 +91,18 @@ public class MySerie {
         this.SCALE_SAME_ALL_SERIES = overalScaling;
         adjustRenderer();
     }
-    
-    
-    public void addaddDiffMarkerOutPutComponent(String calculatioName, JTextField jtf){
+
+    public void addDiffMarkerOutPutComponent(String calculatioName, JTextField jtf) {
         DIFF_MARKER_POINTS.addDiffMarkerOutPutComponent(calculatioName, jtf);
     }
-    
+
+    public ArrayList<MyPoint> getPoints() {
+        return points;
+    }
+
     public void setMyGraphXY(MyGraphXY myGraph) {
         this.myGraphXY = myGraph;
-        DIFF_MARKER_POINTS = new DiffMarkerPoints(this,myGraphXY);
+        DIFF_MARKER_POINTS = new DiffMarkerPoints(this, myGraphXY);
     }
 
     /**
@@ -126,7 +128,7 @@ public class MySerie {
     protected void checkRecalc(MyPoint point, int pHeight) {
         if (point.y_Real > MAX) {
             MAX = point.y_Scaled;
-            
+
             double y = point.y_Scaled;
             double coeff_temp = 1;
             double y_temp = y;
@@ -148,11 +150,11 @@ public class MySerie {
             } else if (MAX < 1000000) {
                 q = 0.000001;
             }
-            
-            
+
+
             int x = 4; // Very Important (4 is best!), if this coef is 4 it means then 1_real_pixel = 4_points on graph
             if (pHeight / y < x) {
-                
+
                 while (pHeight / (y_temp * coeff_temp) < x) {
                     coeff_temp -= q; // 0.00001 
                 }
@@ -200,8 +202,8 @@ public class MySerie {
             COEFF = myGraphXY.getALL_SERIES_COEFF();
         }
     }
-    
-    public MyPoint getPoint(int index){
+
+    public MyPoint getPoint(int index) {
         return this.points.get(index);
     }
 
@@ -228,7 +230,7 @@ public class MySerie {
         points.add(point);
         POINT_INDEX++;
     }
-    
+
     /**
      * Deletes all the points from the serie
      */
@@ -277,7 +279,7 @@ public class MySerie {
     public void setPointThickness(double percent) {
         point_thickness *= percent;
     }
-    
+
     public void setPointHighLightColor(Color c) {
         this.pointsHighlightColor = c;
     }
@@ -327,11 +329,11 @@ public class MySerie {
     public BasicStroke getLineRenderer() {
         return this.lineRenderer;
     }
-    
+
     public Color getCurveColor() {
         return this.curveColor;
     }
-    
+
     public Color getPointColor() {
         return this.pointsColor;
     }
@@ -362,7 +364,7 @@ public class MySerie {
     public String getName() {
         return this.name;
     }
-    
+
     public boolean nameEquals(String inName) {
         if (this.name.equals(inName)) {
             return true;
@@ -370,7 +372,7 @@ public class MySerie {
             return false;
         }
     }
-    
+
     public void highLightPointAtIndex(int pointIndex) {
         MyPoint curr_point = pointsMap.get(pointIndex);
         if (curr_point != null) {
@@ -378,35 +380,35 @@ public class MySerie {
             myGraphXY.validateFromOutside();
         }
     }
-    
+
     public void unhighLightPointAtIndex(int pointIndex) {
         MyPoint curr_point = pointsMap.get(pointIndex);
         if (curr_point != null) {
             pointsMap.get(pointIndex).setHighlightOff();
         }
     }
-    
-    public void addDiffMarkerPoint(MyPoint point){
+
+    public void addDiffMarkerPoint(MyPoint point) {
         this.DIFF_MARKER_POINTS.add(point);
     }
-    
-    public void removeDiffMarkerPoint(MyPoint point){
+
+    public void removeDiffMarkerPoint(MyPoint point) {
         this.DIFF_MARKER_POINTS.remove(point);
     }
-    
-    public boolean isDiffMarkerPoint(MyPoint point){
+
+    public boolean isDiffMarkerPoint(MyPoint point) {
         return this.DIFF_MARKER_POINTS.contains(point);
     }
-    
-    public boolean diffMarkersExist(){
+
+    public boolean diffMarkersExist() {
         return this.DIFF_MARKER_POINTS.exist();
     }
-    
-    public ArrayList getDiffMarkerPoints(){
+
+    public ArrayList getDiffMarkerPoints() {
         return this.DIFF_MARKER_POINTS.getPoints();
     }
-    
-    public ArrayList getDiffCursors(){
+
+    public ArrayList getDiffCursors() {
         return this.DIFF_MARKER_POINTS.getCursors();
     }
 }

@@ -29,7 +29,7 @@ public class MyXYGB extends MyXYGA {
     }
     
     public void addDiffMarkerOutPutComponent(String calcName, JTextField jtf){
-        serie.addaddDiffMarkerOutPutComponent(calcName, jtf);
+        serie.addDiffMarkerOutPutComponent(calcName, jtf);
     }
     
     public MySerie getSerie(){

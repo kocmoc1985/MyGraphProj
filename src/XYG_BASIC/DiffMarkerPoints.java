@@ -28,8 +28,8 @@ public class DiffMarkerPoints {
     public DiffMarkerPoints(MySerie serie, MyGraphXY graphXY) {
         this.serie = serie;
         this.myGraphXY = graphXY;
-        CURSOR_A = new CursorDiff(myGraphXY,"CURSOR A");
-        CURSOR_B = new CursorDiff(myGraphXY,"CURSOR B");
+        CURSOR_A = new CursorDiff(myGraphXY,serie,"CURSOR A");
+        CURSOR_B = new CursorDiff(myGraphXY,serie,"CURSOR B");
     }
 
     public void addDiffMarkerOutPutComponent(String name, JTextField jtf) {

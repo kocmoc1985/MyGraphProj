@@ -101,6 +101,10 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         menu_item_diff_marker_add.addActionListener(this);
         menu_item_diff_marker_remove.addActionListener(this);
     }
+    
+    public ArrayList<MySerie> getSeries(){
+        return SERIES;
+    }
 
     /**
      * Gets the COEFF to be able to scale all the series with the same coeff
