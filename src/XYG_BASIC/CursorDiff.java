@@ -12,6 +12,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 
 /**
@@ -22,13 +23,15 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
 
     private MyPoint point;
     private MyGraphXY myGraphXY;
+    private DiffMarkerPoints diffMarkerPoints;
     private Point anchorPoint;
     private MySerie serie;
     private CursorOverPoint cursorOverPoint;
     private boolean setLocationFlag = false;
 
-    public CursorDiff(MyGraphXY myGraphXY, MySerie serie, String name) {
+    public CursorDiff(DiffMarkerPoints dmp,MyGraphXY myGraphXY, MySerie serie, String name) {
         super();
+        this.diffMarkerPoints = dmp;
         this.myGraphXY = myGraphXY;
         this.serie = serie;
         setName(name);
@@ -67,8 +70,8 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
     protected void drawCursor(Graphics g) {
 
         if (setLocationFlag == false) {
-            this.setLocation(point.x - (point.POINT_D / 2), 0);
-            this.setSize(5, myGraphXY.getHeight());
+            this.setLocation(point.x - 5, 0);//
+            this.setSize(10, myGraphXY.getHeight());
             draw(g, point.x, point.y, true, "A");
             setLocationFlag = true;
         }
@@ -94,7 +97,9 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
         cursorOverPoint.go(x);
         //
         if (cursorOverPoint.isCursorOverPoint()) {
-            this.setLocation(x - (point.POINT_D / 2), 0);
+            this.setLocation(x - 5, 0);//
+        }else{
+            this.setLocation(0,0);
         }
         //
 //        this.setLocation(x - 5, 0);
@@ -103,8 +108,8 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
         if (drawY) {
             g2.drawLine(0, y, myGraphXY.getWidth(), y); // Y
         }
-//        myGraphXY.repaint();
-
+        
+//        this.setBorder(BorderFactory.createLineBorder(Color.red));
     }
 
     @Override

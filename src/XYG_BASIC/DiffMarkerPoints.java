@@ -28,8 +28,8 @@ public class DiffMarkerPoints {
     public DiffMarkerPoints(MySerie serie, MyGraphXY graphXY) {
         this.serie = serie;
         this.myGraphXY = graphXY;
-        CURSOR_A = new CursorDiff(myGraphXY,serie,"CURSOR A");
-        CURSOR_B = new CursorDiff(myGraphXY,serie,"CURSOR B");
+        CURSOR_A = new CursorDiff(this, myGraphXY, serie, "CURSOR A");
+        CURSOR_B = new CursorDiff(this, myGraphXY, serie, "CURSOR B");
     }
 
     public void addDiffMarkerOutPutComponent(String name, JTextField jtf) {
@@ -66,7 +66,7 @@ public class DiffMarkerPoints {
         return list;
     }
 
-    public void add(MyPoint point) {
+    public void add(MyPoint point, boolean assign) {
         if (MARKER_POINT_A == null && MARKER_POINT_B == null) {
             MARKER_POINT_A = point;
             reset();
@@ -90,9 +90,11 @@ public class DiffMarkerPoints {
             reset();
         }
 
-        CURSOR_A.setPoint(MARKER_POINT_A);
-        CURSOR_B.setPoint(MARKER_POINT_B);
-        
+        if (assign) {
+            CURSOR_A.setPoint(MARKER_POINT_A);
+            CURSOR_B.setPoint(MARKER_POINT_B);
+        }
+
     }
 
     private void go() {

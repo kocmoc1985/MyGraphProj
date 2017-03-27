@@ -388,8 +388,8 @@ public class MySerie {
         }
     }
 
-    public void addDiffMarkerPoint(MyPoint point) {
-        this.DIFF_MARKER_POINTS.add(point);
+    public void addDiffMarkerPoint(MyPoint point,boolean assign) {
+        this.DIFF_MARKER_POINTS.add(point,assign);
     }
 
     public void removeDiffMarkerPoint(MyPoint point) {
