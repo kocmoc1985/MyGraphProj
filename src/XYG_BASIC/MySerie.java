@@ -393,7 +393,7 @@ public class MySerie {
     }
 
     public void removeDiffMarkerPoint(MyPoint point) {
-        this.DIFF_MARKER_POINTS.remove(point);
+        this.DIFF_MARKER_POINTS.removeB(point);
     }
 
     public boolean isDiffMarkerPoint(MyPoint point) {

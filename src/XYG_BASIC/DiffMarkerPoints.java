@@ -118,14 +118,16 @@ public class DiffMarkerPoints {
         System.out.println("" + toString());
     }
 
-//    public void removeB(MyPoint point) {
-//        remove(point);
-//        CURSOR_A.setPoint(MARKER_POINT_A);
-//        CURSOR_B.setPoint(MARKER_POINT_B);
-//
-//        CURSOR_A.drawCursor(myGraphXY.getGraphics());
-//        CURSOR_B.drawCursor(myGraphXY.getGraphics());
-//    }
+    public void removeB(MyPoint point) {
+        remove(point);
+        CURSOR_A.setPoint(MARKER_POINT_A);
+        CURSOR_B.setPoint(MARKER_POINT_B);
+
+        CURSOR_A.drawCursor(myGraphXY.getGraphics());
+        CURSOR_B.drawCursor(myGraphXY.getGraphics());
+
+        System.out.println("" + toString());
+    }
 
     public boolean contains(MyPoint point) {
         if (MARKER_POINT_A == point || MARKER_POINT_B == point) {

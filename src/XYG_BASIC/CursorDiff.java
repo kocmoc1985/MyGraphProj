@@ -59,9 +59,11 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
                     clickSwitcherFlag = true;
                     myGraphXY.REPAINT_ON_MOUSE_MOOVE = true;
                     anchorPoint = me.getPoint();
+                    //
                     if (point != null) {
                         diffMarkerPoints.remove(point);
                     }
+                    //
                     prevPoint = point;
                 } else if (me.getSource() instanceof CursorDiff && me.getButton() == 1) {
                     System.out.println("CLICKED: B");
@@ -88,6 +90,7 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
         this.anchorPoint = null;
         this.point = point;
         if (point == null) {
+            this.setLocation(0, 0);
             return;
         }
         this.paintColor = point.getPointColor();
