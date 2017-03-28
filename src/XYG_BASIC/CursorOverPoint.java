@@ -30,12 +30,13 @@ public class CursorOverPoint {
         return prevPoint;
     }
 
-    public MyPoint go(int x) {
+    public MyPoint go(int x, boolean bothMarkersSet) {
         for (MyPoint point : points) {
-//            System.out.println("point.x: " + point.x_Real + " / " + point.x_Scaled + " / " + point.x); 
 
             if (point.x == x) {
-                highLightOnOff(point, true);
+                if (bothMarkersSet == false) {
+                    highLightOnOff(point, true);
+                }
                 prevPoint = point;
                 cursorOverPoint = true;
                 return point;
@@ -45,36 +46,6 @@ public class CursorOverPoint {
                     prevPoint.setHighlightOff();
                 }
             }
-
-//            for (int i = 0; i < point.POINT_D / 2; i++) {
-//                if (point.x == (x - i)) {
-////                    System.out.println("CURSOR OVER POINT -!!: " + i);
-//                    highLightOnOff(point, true);
-//                    prevPoint = point;
-//                    cursorOverPoint = true;
-//                    return point;
-//                } else {
-//                    cursorOverPoint = false;
-//                    if (prevPoint != null) {
-//                        prevPoint.setHighlightOff();
-//                    }
-//                }
-//            }
-//
-//            for (int i = 0; i < point.POINT_D / 2; i++) {
-//                if (point.x == (x + i)) {
-////                    System.out.println("CURSOR OVER POINT +!!: " + i);
-//                    highLightOnOff(point, true);
-//                    prevPoint = point;
-//                    cursorOverPoint = true;
-//                    return point;
-//                } else {
-//                    cursorOverPoint = false;
-//                    if (prevPoint != null) {
-//                        prevPoint.setHighlightOff();
-//                    }
-//                }
-//            }
         }
         return null;
     }

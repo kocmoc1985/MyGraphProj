@@ -400,9 +400,7 @@ public class MySerie {
         return this.DIFF_MARKER_POINTS.contains(point);
     }
 
-    public boolean diffMarkersExist() {
-        return this.DIFF_MARKER_POINTS.exist();
-    }
+   
 
     public ArrayList getDiffMarkerPoints() {
         return this.DIFF_MARKER_POINTS.getPoints();

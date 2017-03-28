@@ -94,6 +94,8 @@ public class DiffMarkerPoints {
 
         CURSOR_A.drawCursor(myGraphXY.getGraphics());
         CURSOR_B.drawCursor(myGraphXY.getGraphics());
+        
+        myGraphXY.repaint();
     }
 
     private void go() {
@@ -137,8 +139,8 @@ public class DiffMarkerPoints {
         }
     }
 
-    public boolean exist() {
-        if (MARKER_POINT_A != null || MARKER_POINT_B != null) {
+    public boolean bothMarkersSet() {
+        if (MARKER_POINT_A != null && MARKER_POINT_B != null) {
             return true;
         } else {
             return false;

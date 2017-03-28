@@ -125,7 +125,9 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
         g2.setStroke(myGraphXY.MARKER_STROKE);
         g2.setPaint(paintColor);
         //
-        cursorOverPoint.go(x);
+//        if (diffMarkerPoints.bothMarkersSet() == false) {
+        cursorOverPoint.go(x, diffMarkerPoints.bothMarkersSet());
+//        }
         //
         if (cursorOverPoint.isCursorOverPoint()) {
             this.setLocation(x - 5, 0);//
