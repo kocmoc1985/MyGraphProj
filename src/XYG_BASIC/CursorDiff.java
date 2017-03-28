@@ -27,6 +27,7 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
     private DiffMarkerPoints diffMarkerPoints;
     private Point anchorPoint;
     private MySerie serie;
+    private Color paintColor = Color.BLACK;
     private CursorOverPoint cursorOverPoint;
     private boolean setLocationFlag = false;
     private boolean clickSwitcherFlag = false;
@@ -54,13 +55,17 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
             public void mouseClicked(MouseEvent me) {
 
                 if (me.getSource() instanceof CursorDiff && me.getButton() == 1 && clickSwitcherFlag == false) {
+                    System.out.println("CLICKED: A");
                     clickSwitcherFlag = true;
-                    anchorPoint = me.getPoint();
                     myGraphXY.REPAINT_ON_MOUSE_MOOVE = true;
+                    anchorPoint = me.getPoint();
+                    if (point != null) {
+                        diffMarkerPoints.remove(point);
+                    }
                     prevPoint = point;
                 } else if (me.getSource() instanceof CursorDiff && me.getButton() == 1) {
+                    System.out.println("CLICKED: B");
                     clickSwitcherFlag = false;
-                    System.out.println("CLICKED");
                     MyPoint point = cursorOverPoint.getPoint();
                     if (prevPoint != null) {
                         diffMarkerPoints.remove(prevPoint);
@@ -77,14 +82,18 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
     }
 
     public void setPoint(MyPoint point) {
+
         this.myGraphXY.REPAINT_ON_MOUSE_MOOVE = false;
         this.setLocationFlag = false;
         this.anchorPoint = null;
         this.point = point;
+        if (point == null) {
+            return;
+        }
+        this.paintColor = point.getPointColor();
     }
 
     protected void drawCursor(Graphics g) {
-
         if (setLocationFlag == false) {
             if (point == null) {
                 return;
@@ -111,7 +120,7 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
         System.out.println("x: " + x + " / y: " + y + " / caller: " + caller);
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(myGraphXY.MARKER_STROKE);
-        g2.setPaint(point.getPointColor());
+        g2.setPaint(paintColor);
         //
         cursorOverPoint.go(x);
         //
@@ -122,7 +131,6 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
             this.setLocation(0, 0);
         }
         //
-//        this.setLocation(x - 5, 0);
         g2.drawLine(x, 0, x, myGraphXY.getHeight()); // X
 
         if (drawY) {

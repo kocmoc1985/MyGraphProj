@@ -52,14 +52,15 @@ public class DiffMarkerPoints {
 
     public ArrayList<CursorDiff> getCursors() {
         ArrayList list = new ArrayList();
-
-        if (MARKER_POINT_A != null) {
-            list.add(CURSOR_A);
-        }
-
-        if (MARKER_POINT_B != null) {
-            list.add(CURSOR_B);
-        }
+        list.add(CURSOR_A);
+        list.add(CURSOR_B);
+//        if (MARKER_POINT_A != null) {
+//            list.add(CURSOR_A);
+//        }
+//
+//        if (MARKER_POINT_B != null) {
+//            list.add(CURSOR_B);
+//        }
 
         return list;
     }
@@ -90,7 +91,7 @@ public class DiffMarkerPoints {
 
         CURSOR_A.setPoint(MARKER_POINT_A);
         CURSOR_B.setPoint(MARKER_POINT_B);
-        
+
         CURSOR_A.drawCursor(myGraphXY.getGraphics());
         CURSOR_B.drawCursor(myGraphXY.getGraphics());
     }
@@ -113,8 +114,18 @@ public class DiffMarkerPoints {
         } else if (MARKER_POINT_B == point) {
             MARKER_POINT_B = null;
         }
+
         System.out.println("" + toString());
     }
+
+//    public void removeB(MyPoint point) {
+//        remove(point);
+//        CURSOR_A.setPoint(MARKER_POINT_A);
+//        CURSOR_B.setPoint(MARKER_POINT_B);
+//
+//        CURSOR_A.drawCursor(myGraphXY.getGraphics());
+//        CURSOR_B.drawCursor(myGraphXY.getGraphics());
+//    }
 
     public boolean contains(MyPoint point) {
         if (MARKER_POINT_A == point || MARKER_POINT_B == point) {
@@ -151,7 +162,7 @@ public class DiffMarkerPoints {
         }
         draw_rect_points_list = new ArrayList<MyPoint>();
     }
-    
+
     private ArrayList<MyPoint> draw_rect_points_list = new ArrayList<MyPoint>();
 
     private void addProperties() {
