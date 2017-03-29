@@ -42,7 +42,7 @@ public class MySerie {
     private double MAX;
     private int POINT_INDEX;
     //========================
-    private DiffMarkerPoints DIFF_MARKER_POINTS;
+    public DiffMarkerPoints DIFF_MARKER_POINTS;
 
     public MySerie(String name) {
         this.name = name;
@@ -93,7 +93,7 @@ public class MySerie {
     }
 
     public void addDiffMarkerOutPutComponent(String calculatioName, JTextField jtf) {
-        DIFF_MARKER_POINTS.addDiffMarkerOutPutComponent(calculatioName, jtf);
+        this.DIFF_MARKER_POINTS.addDiffMarkerOutPutComponent(calculatioName, jtf);
     }
 
     public ArrayList<MyPoint> getPoints() {
@@ -102,7 +102,9 @@ public class MySerie {
 
     public void setMyGraphXY(MyGraphXY myGraph) {
         this.myGraphXY = myGraph;
-        DIFF_MARKER_POINTS = new DiffMarkerPoints(this, myGraphXY);
+        if (this.DIFF_MARKER_POINTS == null) {
+            this.DIFF_MARKER_POINTS = new DiffMarkerPoints(this, myGraphXY);
+        }
     }
 
     /**
@@ -133,7 +135,6 @@ public class MySerie {
             double coeff_temp = 1;
             double y_temp = y;
 
-
             // Note this is a very important coeff 
             // if this coef is to small (0.001) it will not
             // fit to acomplisch values over 10000.
@@ -150,7 +151,6 @@ public class MySerie {
             } else if (MAX < 1000000) {
                 q = 0.000001;
             }
-
 
             int x = 4; // Very Important (4 is best!), if this coef is 4 it means then 1_real_pixel = 4_points on graph
             if (pHeight / y < x) {
@@ -399,8 +399,6 @@ public class MySerie {
     public boolean isDiffMarkerPoint(MyPoint point) {
         return this.DIFF_MARKER_POINTS.contains(point);
     }
-
-   
 
     public ArrayList getDiffMarkerPoints() {
         return this.DIFF_MARKER_POINTS.getPoints();

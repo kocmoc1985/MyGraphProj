@@ -161,7 +161,7 @@ public class MyPoint extends JComponent {
      *
      * @return
      */
-    protected int getPointIndex() {
+    public int getPointIndex() {
         return this.POINT_INDEX;
     }
 

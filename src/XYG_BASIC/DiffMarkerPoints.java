@@ -24,12 +24,17 @@ public class DiffMarkerPoints {
     public static final String CALC_AVERAGE = "AV";
     private CursorDiff CURSOR_A;
     private CursorDiff CURSOR_B;
+    private ArrayList<DiffMarkerAction>diffMarkerActionListeners = new ArrayList<DiffMarkerAction>();
 
     public DiffMarkerPoints(MySerie serie, MyGraphXY graphXY) {
         this.serie = serie;
         this.myGraphXY = graphXY;
         CURSOR_A = new CursorDiff(this, myGraphXY, serie, "CURSOR A");
         CURSOR_B = new CursorDiff(this, myGraphXY, serie, "CURSOR B");
+    }
+    
+    public void addDiffMarkersSetListener(DiffMarkerAction dma){
+        this.diffMarkerActionListeners.add(dma);
     }
 
     public void addDiffMarkerOutPutComponent(String name, JTextField jtf) {
@@ -105,6 +110,10 @@ public class DiffMarkerPoints {
         if (outPutMap.size() > 0) {
             calcAndShow(CALC_SUMM);
             calcAndShow(CALC_AVERAGE);
+        }
+        
+        for (DiffMarkerAction diffMarkerAction : diffMarkerActionListeners) {
+            diffMarkerAction.markersSet(MARKER_POINT_A, MARKER_POINT_B);
         }
 
     }

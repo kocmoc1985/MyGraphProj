@@ -28,6 +28,10 @@ public class MyXYGB extends MyXYGA {
         initialize();
     }
     
+    public void addDiffMarkersSetListener(DiffMarkerAction dma){
+        serie.DIFF_MARKER_POINTS.addDiffMarkersSetListener(dma);
+    }
+    
     public void addDiffMarkerOutPutComponent(String calcName, JTextField jtf){
         serie.addDiffMarkerOutPutComponent(calcName, jtf);
     }

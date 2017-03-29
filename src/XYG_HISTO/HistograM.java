@@ -29,7 +29,7 @@ import javax.swing.JFrame;
  */
 public class HistograM extends MyXYGB {
 
-    private TreeMap<Double, Integer> histoMap = new TreeMap();
+    public TreeMap<Double, Integer> histoMap = new TreeMap();
     private ArrayList<Double> xValuesList;
     public MyGraphXY_H mgxyh;
 
@@ -71,7 +71,7 @@ public class HistograM extends MyXYGB {
          addPoints();
      }
 
-    private void addPoints() {
+    public void addPoints() {
         Set set = histoMap.keySet();
         Iterator it = set.iterator();
         xValuesList = new ArrayList<Double>();
