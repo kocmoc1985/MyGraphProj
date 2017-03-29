@@ -234,7 +234,7 @@ public class MySerie {
     /**
      * Deletes all the points from the serie
      */
-    protected void deleteAllPoints() {
+    public void deleteAllPoints() {
         points.clear();
         POINT_INDEX = 0;
         MAX = 0;
