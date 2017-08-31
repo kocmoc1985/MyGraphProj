@@ -59,13 +59,6 @@ public class DiffMarkerPoints {
         ArrayList list = new ArrayList();
         list.add(CURSOR_A);
         list.add(CURSOR_B);
-//        if (MARKER_POINT_A != null) {
-//            list.add(CURSOR_A);
-//        }
-//
-//        if (MARKER_POINT_B != null) {
-//            list.add(CURSOR_B);
-//        }
 
         return list;
     }
