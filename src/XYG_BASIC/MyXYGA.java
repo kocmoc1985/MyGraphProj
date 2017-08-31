@@ -20,7 +20,7 @@ import javax.swing.border.Border;
 public class MyXYGA {
 
     private final MyGraphContainer my_graph_container;
-    private final MyGraphXY my_xy_graph;
+    public final MyGraphXY my_xy_graph;
     private final String TITLE;
 
     public MyXYGA(String title, MyGraphXY xY) {

@@ -40,7 +40,7 @@ import javax.swing.JPanel;
 public class MyGraphXY extends JPanel implements ComponentListener, MouseListener, Runnable, MouseMotionListener, ActionListener {
 
     public double X_MAX = 1;
-    private double Y_MAX = 1;
+    public double Y_MAX = 1;
     private final ArrayList<MySerie> SERIES = new ArrayList<MySerie>();
     public double ONE_UNIT_X = 1;
     public double ONE_UNIT_Y = 1;
@@ -101,8 +101,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         menu_item_diff_marker_add.addActionListener(this);
         menu_item_diff_marker_remove.addActionListener(this);
     }
-    
-    public ArrayList<MySerie> getSeries(){
+
+    public ArrayList<MySerie> getSeries() {
         return SERIES;
     }
 
@@ -308,11 +308,11 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         MySerie serie = SERIES.get(0);
 
 //        if (serie.diffMarkersExist()) {
-            ArrayList<CursorDiff> list = serie.getDiffCursors();
+        ArrayList<CursorDiff> list = serie.getDiffCursors();
 
-            for (CursorDiff cursor : list) {
-                cursor.drawCursor(g);
-            }
+        for (CursorDiff cursor : list) {
+            cursor.drawCursor(g);
+        }
 //        }
     }
 
@@ -697,14 +697,14 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      *
      * @param point
      */
-    private void defineMaxForXYAxis(MyPoint point) {
+    public void defineMaxForXYAxis(MyPoint point) {
         if (point.x_Scaled > X_MAX / 1.05) {
             X_MAX = (int) ((point.x_Scaled));//1.2 Note this is important value!
             X_MAX *= 1.05;
         }
         if (point.y_Scaled > Y_MAX / 1.2) {
             Y_MAX = (point.y_Scaled);
-            Y_MAX *= 1.2;
+            Y_MAX *= 1.2;          
         }
     }
 
@@ -757,7 +757,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
     private void repaint_(String caller) {
         repaint();
-        System.out.println("Repaint: " + caller + "  " + (repaints_++));
+//        System.out.println("Repaint: " + caller + "  " + (repaints_++));
     }
     private boolean switch_a = false;
 

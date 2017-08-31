@@ -5,6 +5,7 @@
 package XYG_HISTO;
 
 import XYG_BASIC.MyGraphXY;
+import XYG_BASIC.MyPoint;
 import java.awt.Graphics2D;
 import java.awt.MenuItem;
 import java.util.ArrayList;
@@ -22,17 +23,16 @@ public class MyGraphXY_H extends MyGraphXY {
     private ArrayList<Double> xValuesList;
     private int STEP_IDENTIFIER_X_AXIS = -1;
 
-    public void setXValues(ArrayList list) {
-        this.xValuesList = list;
+    public void setXValues(ArrayList<Double> list) {
+        xValuesList = list;
     }
 
     public void setStepIdentifierX(int x) {
         this.STEP_IDENTIFIER_X_AXIS = x;
     }
-
+    
     @Override
     public void scaleX(Graphics2D g2) {
-
         if (SCALE_X_AXIS) {
             int j = 0; // step identifier
 

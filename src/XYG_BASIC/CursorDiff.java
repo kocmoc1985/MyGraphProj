@@ -120,7 +120,7 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
     }
 
     private void draw(Graphics g, int x, int y, boolean drawY, String caller) {
-        System.out.println("x: " + x + " / y: " + y + " / caller: " + caller);
+//        System.out.println("x: " + x + " / y: " + y + " / caller: " + caller);
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(myGraphXY.MARKER_STROKE);
         g2.setPaint(paintColor);

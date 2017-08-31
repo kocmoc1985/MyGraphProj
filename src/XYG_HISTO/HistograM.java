@@ -30,16 +30,24 @@ import javax.swing.JFrame;
 public class HistograM extends MyXYGB {
 
     public TreeMap<Double, Integer> histoMap = new TreeMap();
-    private ArrayList<Double> xValuesList;
-    public MyGraphXY_H mgxyh;
+    public ArrayList<Double> xValuesList;
 
-    public HistograM(String title, MyGraphXY_H xY_H, int displayMode) {
-        super(title, xY_H, displayMode);
-        mgxyh = (MyGraphXY_H)getGraph2();        
+    public HistograM(String title, MyGraphXY_H h, int displayMode) {
+        super(title, h, displayMode);
+    }
+    
+    public void reset() {
+        deleteAllPointsFromAllSeries();
+        histoMap = new TreeMap<Double,Integer>();
+    }
+    
+    public void refresh(){
+        getGraph().repaint();
     }
     
    public void setStepIdentifierX(int x){
-       mgxyh.setStepIdentifierX(x);
+       MyGraphXY_H h = (MyGraphXY_H)my_xy_graph;
+       h.setStepIdentifierX(x);
    }
     
     public void addData(ResultSet rs, String valueColName,String round) {
@@ -75,17 +83,19 @@ public class HistograM extends MyXYGB {
         Set set = histoMap.keySet();
         Iterator it = set.iterator();
         xValuesList = new ArrayList<Double>();
+        my_xy_graph.X_MAX = 0;
         while (it.hasNext()) {
             double key = (Double) it.next();
             int value = histoMap.get(key);
             xValuesList.add(key);
-            System.out.println("key: " + key + " /  value: " + value);
             MyPoint p = new MyPoint(value, value);
             p.setDisplayValueX(key);
             this.addPoint(p);
         }
-        System.out.println("LIST_SIZE: " + xValuesList.size());
-        mgxyh.setXValues(xValuesList);
+        //
+        MyGraphXY_H h = (MyGraphXY_H)my_xy_graph;
+        h.setXValues(xValuesList);
+        //
     }
 
     public void buildHistogramDataSet(double key, TreeMap map,String round) {
