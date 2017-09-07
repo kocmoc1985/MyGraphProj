@@ -876,7 +876,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         popup.removeAll();
 
         //==========================Batch Info displaying==================
-        MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
+//        MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
         MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
         MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
         //

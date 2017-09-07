@@ -224,7 +224,9 @@ public class MySerie {
     protected void addPoint(MyPoint point) {
         point.setSerie(this);
         point.setPointIndex(POINT_INDEX);
+        //
         point.setPointDimenssion(point_thickness);
+        //
         point.setPointHighLightColor(pointsHighlightColor);
         pointsMap.put(POINT_INDEX, point);
         points.add(point);

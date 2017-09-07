@@ -92,18 +92,19 @@ public class MyPoint extends JComponent {
     public void addPointInfo(String key, String value) {
         batch_info_map.put(key, value);
     }
+    
 
     /**
      * For adjusting of the point size
      *
      * @param d
      */
-    protected void setPointDimenssion(int d) {
+    public void setPointDimenssion(int d) {
         this.POINT_D_SET = d;
         this.POINT_D = POINT_D_SET;
     }
 
-    protected void setPointHighLightColor(Color c) {
+    public void setPointHighLightColor(Color c) {
         this.HIGHLIGHT_COLOR = c;
     }
 
@@ -125,7 +126,7 @@ public class MyPoint extends JComponent {
      *
      * @param index
      */
-    protected void setPointIndex(int index) {
+    public void setPointIndex(int index) {
         if (initialized_with_constructor_1) {
             this.POINT_INDEX = index;
         } else if (initialized_with_constructor_2) { // this one is needed when adding a point with auto x -coordinate
@@ -140,11 +141,11 @@ public class MyPoint extends JComponent {
         this.SERIE = serie;
     }
 
-    protected void setRecalcCoeff(double coeff) {
+    public void setRecalcCoeff(double coeff) {
         this.RECALC_COEFF = coeff;
     }
 
-    protected double getRecalcCoeff() {
+    public double getRecalcCoeff() {
         return this.RECALC_COEFF;
     }
 
@@ -182,7 +183,7 @@ public class MyPoint extends JComponent {
      *
      * @return
      */
-    protected boolean getDrawMarker() {
+    public boolean getDrawMarker() {
         return this.MARKER_DRAW;
     }
 
