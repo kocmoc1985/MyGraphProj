@@ -16,7 +16,7 @@ import javax.swing.JTextField;
  */
 public class MySerie {
 
-    private MyGraphXY myGraphXY;
+    public MyGraphXY myGraphXY;
     private ArrayList<MyPoint> points = new ArrayList<MyPoint>();
     private HashMap<Integer, MyPoint> pointsMap = new HashMap<Integer, MyPoint>();
     private String name;
