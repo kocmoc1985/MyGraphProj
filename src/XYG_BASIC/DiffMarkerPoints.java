@@ -15,16 +15,16 @@ import javax.swing.JTextField;
  */
 public class DiffMarkerPoints {
 
-    private final MySerie serie;
-    private final MyGraphXY myGraphXY;
-    private MyPoint MARKER_POINT_A;
-    private MyPoint MARKER_POINT_B;
-    private HashMap<String, JTextField> outPutMap = new HashMap<String, JTextField>();
+    public final MySerie serie;
+    public final MyGraphXY myGraphXY;
+    public MyPoint MARKER_POINT_A;
+    public MyPoint MARKER_POINT_B;
+    public HashMap<String, JTextField> outPutMap = new HashMap<String, JTextField>();
     public static final String CALC_SUMM = "SUMM";
     public static final String CALC_AVERAGE = "AV";
-    private CursorDiff CURSOR_A;
-    private CursorDiff CURSOR_B;
-    private ArrayList<DiffMarkerAction>diffMarkerActionListeners = new ArrayList<DiffMarkerAction>();
+    public CursorDiff CURSOR_A;
+    public CursorDiff CURSOR_B;
+    public ArrayList<DiffMarkerAction>diffMarkerActionListeners = new ArrayList<DiffMarkerAction>();
 
     public DiffMarkerPoints(MySerie serie, MyGraphXY graphXY) {
         this.serie = serie;
@@ -96,10 +96,10 @@ public class DiffMarkerPoints {
         myGraphXY.repaint();
     }
 
-    private void go() {
+    public void go() {
         addProperties();
-        System.out.println("SUMM: " + calcSum());
-        System.out.println("AV: " + calcAv());
+//        System.out.println("SUMM: " + calcSum());
+//        System.out.println("AV: " + calcAv());
         if (outPutMap.size() > 0) {
             calcAndShow(CALC_SUMM);
             calcAndShow(CALC_AVERAGE);
@@ -153,7 +153,7 @@ public class DiffMarkerPoints {
         return serie;
     }
 
-    private boolean bothExist() {
+    public boolean bothExist() {
         if (MARKER_POINT_A != null && MARKER_POINT_B != null) {
             return true;
         } else {
@@ -161,7 +161,7 @@ public class DiffMarkerPoints {
         }
     }
 
-    private void reset() {
+    public void reset() {
         for (MyPoint myPoint : draw_rect_points_list) {
             myPoint.setPointDrawRect(false);
             myPoint.resetPointColor();
@@ -171,7 +171,7 @@ public class DiffMarkerPoints {
 
     private ArrayList<MyPoint> draw_rect_points_list = new ArrayList<MyPoint>();
 
-    private void addProperties() {
+    public void addProperties() {
         if (bothExist()) {
             for (int i = MARKER_POINT_A.getPointIndex(); i <= MARKER_POINT_B.getPointIndex(); i++) {
                 MyPoint mp = serie.getSerie().get(i);
@@ -192,7 +192,7 @@ public class DiffMarkerPoints {
         }
     }
 
-    private void showOutPut(String name, double value) {
+    public void showOutPut(String name, double value) {
         JTextField jtf = outPutMap.get(name);
         if (jtf != null) {
             jtf.setText("" + value);

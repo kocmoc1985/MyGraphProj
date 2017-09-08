@@ -212,7 +212,7 @@ public class MySerie {
      *
      * @return
      */
-    protected ArrayList<MyPoint> getSerie() {
+    public ArrayList<MyPoint> getSerie() {
         return this.points;
     }
 
