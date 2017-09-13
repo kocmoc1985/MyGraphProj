@@ -44,6 +44,22 @@ public class MyXYGB extends MyXYGA {
         addPointBySerie(valueOrPoint, getTitle());
     }
     
+    public void addPointWithDiffMarkerPointsDelete(Object valueOrPoint,boolean delete){
+        if(delete){
+            resetDiffMarkerPoints();
+        }
+        //
+        addPointBySerie(valueOrPoint, getTitle());
+    }
+    
+    public void resetDiffMarkerPoints(){
+        if (serie.DIFF_MARKER_POINTS != null) {
+            serie.DIFF_MARKER_POINTS.MARKER_POINT_A = null;
+            serie.DIFF_MARKER_POINTS.MARKER_POINT_B = null;
+            serie.DIFF_MARKER_POINTS.removeB(null);
+        }
+    }
+    
     private void initialize(){
         initializeA();
         initializeB();

@@ -119,7 +119,7 @@ public class DiffMarkerPoints {
             MARKER_POINT_B = null;
         }
 
-        System.out.println("" + toString());
+//        System.out.println("" + toString());
     }
 
     public void removeB(MyPoint point) {
@@ -130,7 +130,7 @@ public class DiffMarkerPoints {
         CURSOR_A.drawCursor(myGraphXY.getGraphics());
         CURSOR_B.drawCursor(myGraphXY.getGraphics());
 
-        System.out.println("" + toString());
+//        System.out.println("" + toString());
     }
 
     public boolean contains(MyPoint point) {
