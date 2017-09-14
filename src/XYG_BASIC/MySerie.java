@@ -320,6 +320,13 @@ public class MySerie {
         this.pointsColor = c;
         this.pointsHighlightColor = c;
     }
+
+    public void resetPointsColorAndForm() {
+        for (MyPoint point : points) {
+            point.setPointDrawRect(false);
+            point.resetPointColor();
+        }
+    }
     //===================================GET=====================================
 
     /**
