@@ -55,12 +55,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private int DRAW_MARKER_INFO;
     private boolean AUTO_RESET_MARKER = false; // this means that marker is leaved drawn at the last point you pointed on
     //===========================================
-    private BasicStroke ORDINARY_STROKE;
+    public BasicStroke ORDINARY_STROKE;
     public BasicStroke MARKER_STROKE;
-    private BasicStroke GRID_STROKE;
+    public BasicStroke GRID_STROKE;
     //==========================================
     //==========================================
-    private double ALL_SERIES_COEFF = 1;
+    public double ALL_SERIES_COEFF = 1;
     //==========================================
     public boolean SHOW_GRID = false;
     public boolean SHOW_GRID_AND_SCALE = true;
@@ -78,8 +78,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private MenuItem menu_item_unfix_point = new MenuItem("Unfix point");
     private MenuItem menu_item_diff_marker_add = new MenuItem("Set diff. marker");
     private MenuItem menu_item_diff_marker_remove = new MenuItem("Remove dif. marker");
-    private double LIMIT_MIN;
-    private double LIMIT_MAX;
+    public double LIMIT_MIN;
+    public double LIMIT_MAX;
     //
 
     public MyGraphXY() {
@@ -547,10 +547,15 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
     }
 
-    private void drawLimits(Graphics g) {
+    public void drawLimits(Graphics g) {
+        //
         Graphics2D g2 = (Graphics2D) g;
-
+        //
         if (getHeight() < 50) {//ONE_UNIT_Y < 1.1 || getHeight() < 50 || ONE_UNIT_Y > 20
+            return;
+        }
+        //
+        if (LIMIT_MAX == 0 || LIMIT_MIN == 0) {
             return;
         }
         //
@@ -558,23 +563,23 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         double scaled_max = (LIMIT_MAX * ALL_SERIES_COEFF);
         int pixels_max = (int) Math.round(getHeight() - (ONE_UNIT_Y * scaled_max));
         int max = pixels_max;
-
+        //
         double scaled_min = (LIMIT_MIN * ALL_SERIES_COEFF);
         int pixels_min = (int) Math.round(getHeight() - (ONE_UNIT_Y * scaled_min));
         int min = pixels_min;
-
+        //
         ORDINARY_STROKE = (BasicStroke) g2.getStroke();
-
+        //
         g2.setStroke(GRID_STROKE);
-
+        //
         //draw lim max
         g2.setPaint(Color.RED);
         g2.drawLine(0, max, getWidth(), max);
-
+        //
         //draw lim min
         g2.setPaint(Color.RED);
         g2.drawLine(0, min, getWidth(), min);
-
+        //
         g2.setStroke(ORDINARY_STROKE);
     }
 
@@ -582,7 +587,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         if (min > 0 && max > 0) {
             LIMIT_MIN = min;
             LIMIT_MAX = max;
-            System.out.println("min = " + min + "  max = " + max);
+//            System.out.println("min = " + min + "  max = " + max);
         }
     }
 
@@ -704,7 +709,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
         if (point.y_Scaled > Y_MAX / 1.2) {
             Y_MAX = (point.y_Scaled);
-            Y_MAX *= 1.2;          
+            Y_MAX *= 1.2;
         }
     }
 

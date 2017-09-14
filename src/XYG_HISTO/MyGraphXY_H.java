@@ -6,6 +6,9 @@ package XYG_HISTO;
 
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MenuItem;
 import java.util.ArrayList;
@@ -30,6 +33,46 @@ public class MyGraphXY_H extends MyGraphXY {
     public void setStepIdentifierX(int x) {
         this.STEP_IDENTIFIER_X_AXIS = x;
     }
+
+    @Override
+    public void drawLimits(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+
+        if (getHeight() < 50) {//ONE_UNIT_Y < 1.1 || getHeight() < 50 || ONE_UNIT_Y > 20
+            return;
+        }
+        //
+        if(LIMIT_MAX == 0 ||LIMIT_MIN == 0){
+            return;
+        }
+        //
+        //EXTREAMLY IMPORTANT CALCULATION!!!
+        double scaled_max = (LIMIT_MAX * ALL_SERIES_COEFF);
+        int pixels_max = (int) Math.round(getHeight() - (ONE_UNIT_X * scaled_max));
+        int max = pixels_max;
+
+        double scaled_min = (LIMIT_MIN * ALL_SERIES_COEFF);
+        int pixels_min = (int) Math.round(getHeight() - (ONE_UNIT_X * scaled_min));
+        int min = pixels_min;
+
+        ORDINARY_STROKE = (BasicStroke) g2.getStroke();
+
+        g2.setStroke(GRID_STROKE);
+
+        //draw lim max
+        g2.setPaint(Color.RED);
+//      g2.drawLine(x, max, getWidth(), max);
+        g2.drawLine(max,0 , max, getHeight());
+
+        //draw lim min
+        g2.setPaint(Color.RED);
+        g2.drawLine(min,0 , min, getHeight());
+
+        g2.setStroke(ORDINARY_STROKE);
+        
+    }
+    
+    
     
     @Override
     public void scaleX(Graphics2D g2) {

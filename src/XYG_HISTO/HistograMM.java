@@ -17,9 +17,9 @@ import java.util.logging.Logger;
  */
 public class HistograMM extends HistograM implements DiffMarkerAction {
 
-    private ResultSet resultSet;
-    private String valueColName;
-    private String round;
+    public ResultSet resultSet;
+    public String valueColName;
+    public String round;
 
     public HistograMM(String title, MyGraphXY_H xY_H, int displayMode) {
         super(title, xY_H, displayMode);
@@ -30,8 +30,24 @@ public class HistograMM extends HistograM implements DiffMarkerAction {
         rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
     }
 
+    /**
+     * Good to keep as example though
+     * @deprecated 
+     * @param rs 
+     */
+    public void addLimits(ResultSet rs) {
+        try {
+            double minLim = rs.getDouble("LSL");
+            double maxLim = rs.getDouble("USL");
+            setLimits(minLim, maxLim);
+        } catch (SQLException ex) {
+            Logger.getLogger(HistograMM.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     public void addData(ResultSet rs, String valueColName, String round) {
+        //
         this.resultSet = rs;
         this.valueColName = valueColName;
         this.round = round;
@@ -44,9 +60,9 @@ public class HistograMM extends HistograM implements DiffMarkerAction {
                 double val = rs.getDouble(valueColName);
                 buildHistogramDataSet(val, histoMap, round);
             }
-
+            //
             addPoints();
-
+            //
         } catch (SQLException ex) {
             Logger.getLogger(HistograMM.class.getName()).log(Level.SEVERE, null, ex);
             addPoints();
@@ -77,6 +93,4 @@ public class HistograMM extends HistograM implements DiffMarkerAction {
             Logger.getLogger(HistograMM.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
 }

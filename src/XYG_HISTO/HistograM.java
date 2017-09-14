@@ -35,26 +35,26 @@ public class HistograM extends MyXYGB {
     public HistograM(String title, MyGraphXY_H h, int displayMode) {
         super(title, h, displayMode);
     }
-    
+
     public void reset() {
         deleteAllPointsFromAllSeries();
-        histoMap = new TreeMap<Double,Integer>();
+        histoMap = new TreeMap<Double, Integer>();
     }
-    
-    public void refresh(){
+
+    public void refresh() {
         getGraph().repaint();
     }
-    
-   public void setStepIdentifierX(int x){
-       MyGraphXY_H h = (MyGraphXY_H)my_xy_graph;
-       h.setStepIdentifierX(x);
-   }
-    
-    public void addData(ResultSet rs, String valueColName,String round) {
+
+    public void setStepIdentifierX(int x) {
+        MyGraphXY_H h = (MyGraphXY_H) my_xy_graph;
+        h.setStepIdentifierX(x);
+    }
+
+    public void addData(ResultSet rs, String valueColName, String round) {
         try {
             while (rs.next()) {
                 double val = rs.getDouble(valueColName);
-                buildHistogramDataSet(val, histoMap,round);
+                buildHistogramDataSet(val, histoMap, round);
             }
 
             addPoints();
@@ -64,42 +64,50 @@ public class HistograM extends MyXYGB {
         }
     }
 
-    public void addData(double[] values,String round) {
+    public void addData(double[] values, String round) {
         for (double val : values) {
-            buildHistogramDataSet(val, histoMap,round);
+            buildHistogramDataSet(val, histoMap, round);
         }
-        
+
         addPoints();
     }
-    
-     public void addData(int[] values,String round) {
-         for (int val : values) {
-              buildHistogramDataSet(val, histoMap,round);
-         }
-         addPoints();
-     }
+
+    public void addData(int[] values, String round) {
+        for (int val : values) {
+            buildHistogramDataSet(val, histoMap, round);
+        }
+        addPoints();
+    }
 
     public void addPoints() {
+        //
+        boolean diffMarkerPointsDeleteFlag = true;
+        //
         Set set = histoMap.keySet();
         Iterator it = set.iterator();
         xValuesList = new ArrayList<Double>();
         my_xy_graph.X_MAX = 0;
+        //
         while (it.hasNext()) {
             double key = (Double) it.next();
             int value = histoMap.get(key);
             xValuesList.add(key);
             MyPoint p = new MyPoint(value, value);
             p.setDisplayValueX(key);
-            this.addPoint(p);
+//            this.addPoint(p);
+            this.addPointWithDiffMarkerPointsDelete(value, diffMarkerPointsDeleteFlag);
+            //
+            diffMarkerPointsDeleteFlag = false;
+            //
         }
         //
-        MyGraphXY_H h = (MyGraphXY_H)my_xy_graph;
+        MyGraphXY_H h = (MyGraphXY_H) my_xy_graph;
         h.setXValues(xValuesList);
         //
     }
 
-    public void buildHistogramDataSet(double key, TreeMap map,String round) {
-        if(round != null){
+    public void buildHistogramDataSet(double key, TreeMap map, String round) {
+        if (round != null) {
             key = HelpA.roundDouble(key, round);
         }
         if (map.containsKey(key)) {
@@ -118,7 +126,7 @@ public class HistograM extends MyXYGB {
 
     @Override
     public void initializeA() {
-          this.setTitleSize(20, true);
+        this.setTitleSize(20, true);
         this.setTitleSize(20, true);
         this.setTitleColor(Color.black);
 //        this.setBorderHeadAndFootComponents(BorderFactory.createLineBorder(Color.darkGray));
@@ -148,7 +156,7 @@ public class HistograM extends MyXYGB {
         serie.setPointThickness(1);
 //        serie.setPointHighLightColor(Color.red);
 //        serie.setPointColor(Color.red);
-        
+
         serie.setDrawLines(true);
         serie.setLineThickness(1);
         serie.setLineDotted();
@@ -159,7 +167,6 @@ public class HistograM extends MyXYGB {
         //
         PointHighLighter.addSerie(serie);
     }
-    
 
     public static void main(String[] args) {
         //
@@ -173,25 +180,23 @@ public class HistograM extends MyXYGB {
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        double[] dataSet = {1.5,1.5,1.5,1.5,3.2,3.2,4.3,4.3,4.5,5.5,5.5,5.5,5.2,5.2,5.2,7.8,7.8,8.3,8.3,8.6,8.9,9.2,9.2,9.2};
+        double[] dataSet = {1.5, 1.5, 1.5, 1.5, 3.2, 3.2, 4.3, 4.3, 4.5, 5.5, 5.5, 5.5, 5.2, 5.2, 5.2, 7.8, 7.8, 8.3, 8.3, 8.6, 8.9, 9.2, 9.2, 9.2};
 
 //        msxyg.addDataSetBySerie(dataSet, "speed");
 
-        hm.addData(dataSet,"#.#");
+        hm.addData(dataSet, "#.#");
 
 //        hm.addData(arr(200, 10, 15));
 
         //
 //        HelpA.addMouseListenerToAllComponentsOfComponent(jf.getRootPane());
     }
-    
-     public static int[] arr(int n, double min, double max) {
+
+    public static int[] arr(int n, double min, double max) {
         int[] array = new int[n];
         for (int i = 0; i < n; i++) {
             array[i] = (int) (Math.random() * max + min);
         }
         return array;
     }
-
-   
 }
