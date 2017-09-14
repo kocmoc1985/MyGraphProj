@@ -16,11 +16,25 @@ import java.util.HashMap;
 public class PointHighLighter {
 
     private static ArrayList<MySerie> series_list = new ArrayList<MySerie>();
+    private static ArrayList<MySerie> series_list_single = new ArrayList<MySerie>();
     private static HashMap FIXED_POINTS_MAP = new HashMap<Integer, MyPoint>();
 
+    /**
+     * Use this when a point must be highlighted on several series
+     *
+     * @param serie
+     */
     public static void addSerie(MySerie serie) {
         series_list.add(serie);
-//        System.out.println("SERIE ADDED: " + serie);
+    }
+
+    /**
+     * Use this when a point must be highlighted only on a single serie
+     *
+     * @param serie
+     */
+    public static void addSerieSingle(MySerie serie) {
+        series_list_single.add(serie);
     }
 
     public static boolean serieExists(MySerie serie) {
@@ -70,10 +84,20 @@ public class PointHighLighter {
     }
 
     public static void highLightAllPointsAtIndex(MyPoint point) {
+        //
+        if (series_list_single.contains(point.getSerie())) {
+            for (MySerie serie : series_list_single) {
+                if (serie.getName().equals(point.getSerie().getName())) {
+                    serie.highLightPointAtIndex(point.getPointIndex());
+                    return;
+                }
+            }
+        }
+        //
         if (series_list.contains(point.getSerie()) == false) {
             return;
         }
-
+        //
         if (isFixed(point.getPointIndex()) == true) {
             return;
         }
