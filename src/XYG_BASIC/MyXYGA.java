@@ -80,6 +80,12 @@ public class MyXYGA {
         this.my_xy_graph.setScaleXYaxisLength(dbl);
     }
 
+    /**
+     * Good to leave as an example
+     * @deprecated 
+     * @param min
+     * @param max 
+     */
     public void setLimits(double min, double max) {
         this.my_xy_graph.setLimits(min, max);
     }
