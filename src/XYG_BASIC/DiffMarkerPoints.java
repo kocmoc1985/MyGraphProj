@@ -106,7 +106,7 @@ public class DiffMarkerPoints {
         }
         
         for (DiffMarkerAction diffMarkerAction : diffMarkerActionListeners) {
-            diffMarkerAction.markersSet(MARKER_POINT_A, MARKER_POINT_B);
+            diffMarkerAction.markersSet(myGraphXY,MARKER_POINT_A, MARKER_POINT_B);
         }
 
     }

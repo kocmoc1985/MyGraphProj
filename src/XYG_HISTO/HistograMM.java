@@ -5,6 +5,7 @@
 package XYG_HISTO;
 
 import XYG_BASIC.DiffMarkerAction;
+import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ public class HistograMM extends HistograM implements DiffMarkerAction {
     }
 
     @Override
-    public void markersSet(MyPoint markerA, MyPoint markerB) {
+    public void markersSet(MyGraphXY trigerInstance,MyPoint markerA, MyPoint markerB) {
         rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
     }
 

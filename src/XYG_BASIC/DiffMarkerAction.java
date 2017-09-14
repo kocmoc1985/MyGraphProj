@@ -11,6 +11,6 @@ package XYG_BASIC;
  */
 public interface DiffMarkerAction {
 
-    public void markersSet(MyPoint markerA, MyPoint markerB);
+    public void markersSet(MyGraphXY trigerInstance,MyPoint markerA, MyPoint markerB);
 
 }
