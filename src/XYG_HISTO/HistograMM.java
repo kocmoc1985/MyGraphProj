@@ -69,7 +69,7 @@ public class HistograMM extends HistograM implements DiffMarkerAction {
         }
     }
 
-    private void rebuildData(ResultSet rs, String valueColName, String round, int start, int end) {
+    public void rebuildData(ResultSet rs, String valueColName, String round, int start, int end) {
         //
         getSerie().deleteAllPoints();
         histoMap.clear();

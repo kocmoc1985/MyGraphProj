@@ -40,6 +40,11 @@ public class MyXYGB extends MyXYGA {
         return this.serie;
     }
     
+    
+    /**
+     * @deprecated 
+     * @param valueOrPoint 
+     */
     public void addPoint(Object valueOrPoint){
         addPointBySerie(valueOrPoint, getTitle());
     }

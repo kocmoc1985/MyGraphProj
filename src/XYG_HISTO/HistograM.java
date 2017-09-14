@@ -95,7 +95,7 @@ public class HistograM extends MyXYGB {
             MyPoint p = new MyPoint(value, value);
             p.setDisplayValueX(key);
 //            this.addPoint(p);
-            this.addPointWithDiffMarkerPointsDelete(value, diffMarkerPointsDeleteFlag);
+            this.addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
             //
             diffMarkerPointsDeleteFlag = false;
             //
