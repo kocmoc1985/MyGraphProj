@@ -74,10 +74,11 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public double COEFF_SMALL_GRID = 1;
     private boolean DRAW_MARKER = true;
     //
-    private MenuItem menu_item_fix_point = new MenuItem("Fix point");
-    private MenuItem menu_item_unfix_point = new MenuItem("Unfix point");
-    private MenuItem menu_item_diff_marker_add = new MenuItem("Set diff. marker");
-    private MenuItem menu_item_diff_marker_remove = new MenuItem("Remove dif. marker");
+    public MenuItem menu_item_fix_point = new MenuItem("Fix point");
+    public MenuItem menu_item_unfix_point = new MenuItem("Unfix point");
+    public MenuItem menu_item_diff_marker_add = new MenuItem("Set diff. marker");
+    public MenuItem menu_item_diff_marker_remove = new MenuItem("Remove dif. marker");
+    public MenuItem menu_item_delete_point = new MenuItem("Delete point");
     public double LIMIT_MIN;
     public double LIMIT_MAX;
     //
@@ -100,6 +101,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         menu_item_unfix_point.addActionListener(this);
         menu_item_diff_marker_add.addActionListener(this);
         menu_item_diff_marker_remove.addActionListener(this);
+        menu_item_delete_point.addActionListener(this);
     }
 
     public ArrayList<MySerie> getSeries() {
@@ -923,12 +925,14 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
     }
 
-    private void addAdditionalControlsPopups() {
+    public void addAdditionalControlsPopups() {
         if (MARKER_POINT.isDiffMarkerPoint() == false) {
             popup.add(menu_item_diff_marker_add);
         } else if (MARKER_POINT.isDiffMarkerPoint()) {
             popup.add(menu_item_diff_marker_remove);
         }
+        //
+        popup.add(menu_item_delete_point);
     }
 
     @Override
@@ -941,6 +945,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             addRemoveDiffMarker(MARKER_POINT, true);
         } else if (ae.getSource() == menu_item_diff_marker_remove) {
             addRemoveDiffMarker(MARKER_POINT, false);
+        }else if (ae.getSource() == menu_item_delete_point) {
+              MARKER_POINT.deletePoint();
+//            MyPoint point = (MyPoint)ae.getSource();
+//            point.deletePoint();
+//            MySerie serie = point.getSerie();
+//            serie.deletePoint(point);
         }
     }
 

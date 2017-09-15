@@ -77,10 +77,13 @@ public class MyPoint extends JComponent {
         this.POINT_COLOR_B = c;
         this.initialized_with_constructor_2 = true;
     }
-    
-    
-    public void setDisplayValueX(double x_){
+
+    public void setDisplayValueX(double x_) {
         this.x_Display = x_;
+    }
+    
+    public void deletePoint(){
+        SERIE.deletePoint(this);
     }
 
     /**
@@ -92,7 +95,6 @@ public class MyPoint extends JComponent {
     public void addPointInfo(String key, String value) {
         batch_info_map.put(key, value);
     }
-    
 
     /**
      * For adjusting of the point size
@@ -111,11 +113,11 @@ public class MyPoint extends JComponent {
     public void setPointColor(Color c) {
         this.POINT_COLOR_B = c;
     }
-    
-    public void resetPointColor(){
-        this.POINT_COLOR_B =  this.INITIAL_POINT_COLOR;
+
+    public void resetPointColor() {
+        this.POINT_COLOR_B = this.INITIAL_POINT_COLOR;
     }
-    
+
     public void setPointDrawRect(boolean bln) {
         this.DRAW_RECT = bln;
     }
@@ -248,8 +250,29 @@ public class MyPoint extends JComponent {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MyPoint other = (MyPoint) obj;
+        if (this.POINT_INDEX != other.POINT_INDEX) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + this.POINT_INDEX;
+        return hash;
+    }
+
+    @Override
     public String toString() {
         return "index: " + POINT_INDEX + "  /  value: " + y_Scaled;
     }
-
 }

@@ -241,6 +241,12 @@ public class MySerie {
         POINT_INDEX = 0;
         MAX = 0;
     }
+    
+    public void deletePoint(MyPoint point){
+        System.out.println("Points size: " + points.size());
+        points.remove(point);
+        System.out.println("Points size: " + points.size());
+    }
 
     //===================================SET=====================================
     /**

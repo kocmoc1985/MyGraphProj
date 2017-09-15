@@ -5,12 +5,12 @@
 package XYG_HISTO;
 
 import XYG_BASIC.MyGraphXY;
-import XYG_BASIC.MyPoint;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -42,7 +42,7 @@ public class MyGraphXY_H extends MyGraphXY {
             return;
         }
         //
-        if(LIMIT_MAX == 0 ||LIMIT_MIN == 0){
+        if (LIMIT_MAX == 0 || LIMIT_MIN == 0) {
             return;
         }
         //
@@ -62,18 +62,16 @@ public class MyGraphXY_H extends MyGraphXY {
         //draw lim max
         g2.setPaint(Color.RED);
 //      g2.drawLine(x, max, getWidth(), max);
-        g2.drawLine(max,0 , max, getHeight());
+        g2.drawLine(max, 0, max, getHeight());
 
         //draw lim min
         g2.setPaint(Color.RED);
-        g2.drawLine(min,0 , min, getHeight());
+        g2.drawLine(min, 0, min, getHeight());
 
         g2.setStroke(ORDINARY_STROKE);
-        
+
     }
-    
-    
-    
+
     @Override
     public void scaleX(Graphics2D g2) {
         if (SCALE_X_AXIS) {
@@ -161,5 +159,14 @@ public class MyGraphXY_H extends MyGraphXY {
         //=================================================================
         popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         //
+    }
+
+    @Override
+    public void addAdditionalControlsPopups() {
+        if (MARKER_POINT.isDiffMarkerPoint() == false) {
+            popup.add(menu_item_diff_marker_add);
+        } else if (MARKER_POINT.isDiffMarkerPoint()) {
+            popup.add(menu_item_diff_marker_remove);
+        }
     }
 }
