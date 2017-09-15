@@ -43,6 +43,8 @@ public class MySerie {
     private int POINT_INDEX;
     //========================
     public DiffMarkerPoints DIFF_MARKER_POINTS;
+    //
+    private ArrayList<PointDeletedAction>point_deleted_action_list = new ArrayList<PointDeletedAction>();
 
     public MySerie(String name) {
         this.name = name;
@@ -242,8 +244,18 @@ public class MySerie {
         MAX = 0;
     }
     
+    public void addPointDeletedActionListener(PointDeletedAction pda){
+        point_deleted_action_list.add(pda);
+    }
+    
     public void deletePoint(MyPoint point){
+        //
         points.remove(point);
+        //
+        for (PointDeletedAction pda: point_deleted_action_list ) {
+            pda.pointDeleted(point);
+        }
+        //
     }
 
     //===================================SET=====================================

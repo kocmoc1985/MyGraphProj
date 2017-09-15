@@ -9,6 +9,7 @@ import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -93,5 +94,17 @@ public class HistograMM extends HistograM implements DiffMarkerAction {
         } catch (SQLException ex) {
             Logger.getLogger(HistograMM.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void rebuildData(ArrayList<MyPoint> points,String round) {
+        //
+        getSerie().deleteAllPoints();
+        histoMap.clear();
+        //
+        for (MyPoint myPoint : points) {
+             buildHistogramDataSet(myPoint.y_Display, histoMap, round);
+        }
+        //
+        addPoints();
     }
 }

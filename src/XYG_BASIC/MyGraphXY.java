@@ -947,10 +947,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             addRemoveDiffMarker(MARKER_POINT, false);
         }else if (ae.getSource() == menu_item_delete_point) {
               MARKER_POINT.deletePoint();
-//            MyPoint point = (MyPoint)ae.getSource();
-//            point.deletePoint();
-//            MySerie serie = point.getSerie();
-//            serie.deletePoint(point);
         }
     }
 
