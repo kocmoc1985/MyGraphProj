@@ -243,9 +243,7 @@ public class MySerie {
     }
     
     public void deletePoint(MyPoint point){
-        System.out.println("Points size: " + points.size());
         points.remove(point);
-        System.out.println("Points size: " + points.size());
     }
 
     //===================================SET=====================================
