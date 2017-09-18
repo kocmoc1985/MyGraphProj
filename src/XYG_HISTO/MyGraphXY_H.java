@@ -10,7 +10,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MenuItem;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,10 +22,10 @@ import java.util.Set;
  */
 public class MyGraphXY_H extends MyGraphXY {
 
-    private ArrayList<Double> xValuesList;
+    private ArrayList<String> xValuesList;
     private int STEP_IDENTIFIER_X_AXIS = -1;
 
-    public void setXValues(ArrayList<Double> list) {
+    public void setXValues(ArrayList<String> list) {
         xValuesList = list;
     }
 

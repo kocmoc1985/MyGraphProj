@@ -30,7 +30,7 @@ import javax.swing.JFrame;
 public class HistograM extends MyXYGB {
 
     public TreeMap<Double, Integer> histoMap = new TreeMap();
-    public ArrayList<Double> xValuesList;
+    public ArrayList<String> xValuesList;
 
     public HistograM(String title, MyGraphXY_H h, int displayMode) {
         super(title, h, displayMode);
@@ -85,13 +85,13 @@ public class HistograM extends MyXYGB {
         //
         Set set = histoMap.keySet();
         Iterator it = set.iterator();
-        xValuesList = new ArrayList<Double>();
+        xValuesList = new ArrayList<String>();
         my_xy_graph.X_MAX = 0;
         //
         while (it.hasNext()) {
             double key = (Double) it.next();
             int value = histoMap.get(key);
-            xValuesList.add(key);
+            xValuesList.add(""+key);
             MyPoint p = new MyPoint(value, value);
             p.setDisplayValueX(key);
 //            this.addPoint(p);
