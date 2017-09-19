@@ -22,8 +22,8 @@ import java.util.Set;
  */
 public class MyGraphXY_H extends MyGraphXY {
 
-    private ArrayList<String> xValuesList;
-    private int STEP_IDENTIFIER_X_AXIS = -1;
+    public ArrayList<String> xValuesList;
+    public int STEP_IDENTIFIER_X_AXIS = -1;
 
     public void setXValues(ArrayList<String> list) {
         xValuesList = list;
