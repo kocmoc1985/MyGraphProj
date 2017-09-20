@@ -41,7 +41,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
     public double X_MAX = 1;
     public double Y_MAX = 1;
-    private final ArrayList<MySerie> SERIES = new ArrayList<MySerie>();
+    public final ArrayList<MySerie> SERIES = new ArrayList<MySerie>();
     public double ONE_UNIT_X = 1;
     public double ONE_UNIT_Y = 1;
     private int PANEL_AREA_PREV;
@@ -859,8 +859,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         if (REPAINT_ON_MOUSE_MOOVE) {
             repaint_("Mouse Moved");
         }
-
-
     }
     //===========================================================
 
