@@ -346,6 +346,9 @@ public class MySerie {
             point.setPointDrawRect(false);
             point.resetPointColor();
         }
+        //
+        myGraphXY.repaint();
+        myGraphXY.updateUI();
     }
     //===================================GET=====================================
 
