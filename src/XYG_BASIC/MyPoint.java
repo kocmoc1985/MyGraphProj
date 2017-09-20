@@ -31,22 +31,22 @@ public class MyPoint extends JComponent {
     //=======================
     private MySerie SERIE;
     //=======================
-    private Color ORDINARY_COLOR = Color.BLUE;
-    private Color HIGHLIGHT_COLOR = ORDINARY_COLOR;
-    private Color POINT_COLOR = Color.BLACK;
-    private Color POINT_COLOR_B = null;
-    private Color INITIAL_POINT_COLOR = null;
-    private boolean DRAW_RECT;
-    private boolean highLightSet = false;
+    public Color ORDINARY_COLOR = Color.BLUE;
+    public Color HIGHLIGHT_COLOR = ORDINARY_COLOR;
+    public Color POINT_COLOR = Color.BLACK;
+    public Color POINT_COLOR_B = null;
+    public Color INITIAL_POINT_COLOR = null;
+    public boolean DRAW_RECT;
+    public boolean highLightSet = false;
     //point dimenssion
     public int POINT_D = 7; // default 7
     private int POINT_D_SET = 1; // default 7
     private int point_area;
     //Coeff of this point !!! 
     private double RECALC_COEFF = 1;
-    private int POINT_INDEX;
+    public int POINT_INDEX;
     //This value is for Marker so it nows if to draw or not
-    private boolean MARKER_DRAW;
+    public boolean MARKER_DRAW;
     //========================
     private boolean initialized_with_constructor_1 = false;
     private boolean initialized_with_constructor_2 = false;
