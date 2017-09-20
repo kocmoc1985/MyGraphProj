@@ -24,7 +24,7 @@ public class DiffMarkerPoints {
     public static final String CALC_AVERAGE = "AV";
     public CursorDiff CURSOR_A;
     public CursorDiff CURSOR_B;
-    public ArrayList<DiffMarkerAction>diffMarkerActionListeners = new ArrayList<DiffMarkerAction>();
+    public ArrayList<DiffMarkerAction> diffMarkerActionListeners = new ArrayList<DiffMarkerAction>();
 
     public DiffMarkerPoints(MySerie serie, MyGraphXY graphXY) {
         this.serie = serie;
@@ -32,8 +32,8 @@ public class DiffMarkerPoints {
         CURSOR_A = new CursorDiff(this, myGraphXY, serie, "CURSOR A");
         CURSOR_B = new CursorDiff(this, myGraphXY, serie, "CURSOR B");
     }
-    
-    public void addDiffMarkersSetListener(DiffMarkerAction dma){
+
+    public void addDiffMarkersSetListener(DiffMarkerAction dma) {
         this.diffMarkerActionListeners.add(dma);
     }
 
@@ -92,7 +92,7 @@ public class DiffMarkerPoints {
 
         CURSOR_A.drawCursor(myGraphXY.getGraphics());
         CURSOR_B.drawCursor(myGraphXY.getGraphics());
-        
+
         myGraphXY.repaint();
     }
 
@@ -104,9 +104,9 @@ public class DiffMarkerPoints {
             calcAndShow(CALC_SUMM);
             calcAndShow(CALC_AVERAGE);
         }
-        
+
         for (DiffMarkerAction diffMarkerAction : diffMarkerActionListeners) {
-            diffMarkerAction.markersSet(myGraphXY,MARKER_POINT_A, MARKER_POINT_B);
+            diffMarkerAction.markersSet(myGraphXY, MARKER_POINT_A, MARKER_POINT_B);
         }
 
     }
@@ -166,7 +166,12 @@ public class DiffMarkerPoints {
             myPoint.setPointDrawRect(false);
             myPoint.resetPointColor();
         }
+        //
         draw_rect_points_list = new ArrayList<MyPoint>();
+        //
+        for (DiffMarkerAction diffMarkerAction : diffMarkerActionListeners) {
+            diffMarkerAction.markersUnset(myGraphXY);
+        }
     }
 
     private ArrayList<MyPoint> draw_rect_points_list = new ArrayList<MyPoint>();

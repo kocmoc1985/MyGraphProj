@@ -38,6 +38,12 @@ public class HistograM extends MyXYGB implements DiffMarkerAction {
     public void markersSet(MyGraphXY trigerInstance,MyPoint markerA, MyPoint markerB) {
         rebuildData(resultSet, valueColName, round, markerA.getPointIndex(), markerB.getPointIndex());
     }
+
+    @Override
+    public void markersUnset(MyGraphXY trigerInstance) {
+    }
+    
+    
     
     public void reset() {
         deleteAllPointsFromAllSeries();
