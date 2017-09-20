@@ -81,8 +81,8 @@ public class MyPoint extends JComponent {
     public void setDisplayValueX(double x_) {
         this.x_Display = x_;
     }
-    
-    public void deletePoint(){
+
+    public void deletePoint() {
         SERIE.deletePoint(this);
     }
 
@@ -159,6 +159,10 @@ public class MyPoint extends JComponent {
         return this.SERIE.getName();
     }
 
+    public MyPoint getPreviousPoint() {
+        return this.SERIE.getPoint(POINT_INDEX - 1);
+    }
+
     /**
      * Get the sequence nr of the point in the serie of the point
      *
@@ -231,7 +235,7 @@ public class MyPoint extends JComponent {
     /**
      * Set the highlight color of the point
      */
-    protected void setHighlight() {
+    public void setHighlight() {
         this.POINT_COLOR = HIGHLIGHT_COLOR;
         this.POINT_D = (POINT_D_SET * 2);
         this.highLightSet = true;
@@ -241,7 +245,7 @@ public class MyPoint extends JComponent {
     /**
      * Set the ordinary color of the point
      */
-    protected void setHighlightOff() {
+    public void setHighlightOff() {
         this.POINT_COLOR = ORDINARY_COLOR;
         this.POINT_D = POINT_D_SET;
         this.highLightSet = false;

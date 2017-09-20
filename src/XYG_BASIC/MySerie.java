@@ -29,8 +29,8 @@ public class MySerie {
     private float[] renderer_line_dotted = new float[]{1.0f, 1.0f}; //undoted by default
     private float renderer_line_thickness = 1.0f;
     //==============================
-    private int point_thickness = 7;//should be 7 by default
-    private Color pointsHighlightColor = pointsColor;
+    public int point_thickness = 7;//should be 7 by default
+    public Color pointsHighlightColor = pointsColor;
     //==============================
     /**
      * if this algor is used then all the series are scaled with the
@@ -44,7 +44,7 @@ public class MySerie {
     //========================
     public DiffMarkerPoints DIFF_MARKER_POINTS;
     //
-    private ArrayList<PointDeletedAction>point_deleted_action_list = new ArrayList<PointDeletedAction>();
+    private ArrayList<PointDeletedAction> point_deleted_action_list = new ArrayList<PointDeletedAction>();
 
     public MySerie(String name) {
         this.name = name;
@@ -206,7 +206,11 @@ public class MySerie {
     }
 
     public MyPoint getPoint(int index) {
-        return this.points.get(index);
+        try {
+            return this.points.get(index);
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     /**
@@ -243,16 +247,16 @@ public class MySerie {
         POINT_INDEX = 0;
         MAX = 0;
     }
-    
-    public void addPointDeletedActionListener(PointDeletedAction pda){
+
+    public void addPointDeletedActionListener(PointDeletedAction pda) {
         point_deleted_action_list.add(pda);
     }
-    
-    public void deletePoint(MyPoint point){
+
+    public void deletePoint(MyPoint point) {
         //
         points.remove(point);
         //
-        for (PointDeletedAction pda: point_deleted_action_list ) {
+        for (PointDeletedAction pda : point_deleted_action_list) {
             pda.pointDeleted(point);
         }
         //

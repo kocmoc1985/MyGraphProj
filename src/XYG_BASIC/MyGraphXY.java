@@ -775,7 +775,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      *
      * @param e
      */
-    private void highLightPointsOnMouseMovement(MouseEvent e) {
+    public void highLightPointsOnMouseMovement(MouseEvent e) {
         if (HIGH_LIGHT_ALL_POINTS) { // if visual option is on 
             if (e.getSource() instanceof MyPoint) {
                 //
@@ -804,27 +804,33 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             }
         }
     }
-    private MyPoint prevPoint;
+    public MyPoint prevPoint;
 
-    private void highLightOnePointOnMouseMovement(MouseEvent e) {
+    public void highLightOnePointOnMouseMovement(MouseEvent e) {
         if (e.getSource() instanceof MyPoint) {
             MyPoint p = (MyPoint) e.getSource();
 
             if (p != prevPoint) {
-
+                //
                 if (PointHighLighter.isFixed(p)) {
                     return;
                 }
-
+                //
                 if (prevPoint != null) {
                     prevPoint.setHighlightOff();
+                    repaint();
+                    updateUI();
                 }
+                //
                 prevPoint = p;
                 MySerie s = p.getSerie();
+                //
                 if (PointHighLighter.serieExists(s)) {
                     return;
                 }
+                //
                 p.setHighlight();
+                //
                 validate();
             }
         } else {
