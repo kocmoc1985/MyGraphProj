@@ -889,9 +889,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         popup.removeAll();
 
         //==========================Batch Info displaying==================
-//        MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
-        MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
-        MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
+        addPointInfo();
         //
         HashMap<String, String> b_info_map = MARKER_POINT.getBatchInfo();
         //
@@ -909,6 +907,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
         //=================================================================
         popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
+        //
+    }
+    
+    public void addPointInfo(){
+        //        MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
+        MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
+        MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
         //
     }
 

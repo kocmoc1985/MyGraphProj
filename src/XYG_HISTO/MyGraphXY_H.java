@@ -132,32 +132,12 @@ public class MyGraphXY_H extends MyGraphXY {
         }
     }
 
-    @Override
-    public void myPointClicked() {
-        popup.removeAll();
 
-        //==========================Batch Info displaying==================
+    @Override
+    public void addPointInfo() {
         MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
         MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
         MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Display);
-        //
-        HashMap<String, String> b_info_map = MARKER_POINT.getBatchInfo();
-        //
-        Set set = b_info_map.keySet();
-        Iterator it = set.iterator();
-        while (it.hasNext()) {
-            try {
-                String key = (String) it.next();
-                String value = (String) b_info_map.get(key);
-                popup.add(new MenuItem(key + ": " + value));
-            } catch (NoSuchElementException ex1) {
-                System.out.println("" + ex1);
-            }
-        }
-
-        //=================================================================
-        popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
-        //
     }
 
     @Override
