@@ -620,29 +620,33 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         return false;
     }
 
-    /**
-     * Deletes all the points from the graph for the given serie with serie name
-     * X.
-     *
-     * @param serie_name
-     */
-    public void deleteAllPointsFromSerie(String serie_name) {
-        for (MySerie serie : SERIES) {
-            if (serie.nameEquals(serie_name)) {
-                serie.deleteAllPoints();
-            }
-        }
-    }
-
-    /**
-     *
-     */
     public void deleteAllPointsFromAllSeries() {
         for (MySerie serie : SERIES) {
-            serie.deleteAllPoints();
+            deleteAllPointsFromSerie(serie);
         }
         this.X_MAX = 1; //!!!! Very important, this makes the scaling right!!!
         this.Y_MAX = 1;//!!!! Very important, this makes the scaling right!!!
+        //
+        repaint();
+        updateUI();
+    }
+
+    public void deleteAllPointsFromSerie(MySerie serie) {
+        //
+        for (MyPoint mp : serie.getPoints()) {
+            remove(mp);
+        }
+        //
+        serie.deleteAllPoints();
+        //
+        repaint();
+        updateUI();
+    }
+
+    public synchronized MyPoint deletePointFromSerie(MyPoint point, MySerie serie) {
+        serie.deletePoint(point);
+        this.remove(point);
+        return point;
     }
 
     public synchronized void addDataSetToSerie(double[] values, String serie_name) {
@@ -651,23 +655,39 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
     }
 
+    /**
+     * @deprecated 
+     * @param value
+     * @param serie_name 
+     */
     public synchronized void addPointToSerie(Object value, String serie_name) {
         PANEL_AREA_PREV = getWidth() * getHeight();
         MyPoint point = HelpA.definePoint(value);
 
         for (MySerie serie : SERIES) {
             if (serie.nameEquals(serie_name)) {
-                serie.addPoint(point);
-                waitForPanelHeightIsInitialized(); //Must be!!!!
-                serie.checkRecalc(point, getHeight());
-                defineMaxForXYAxis(point);//!!!
-                //============================
-                point.addMouseMotionListener(this); //ading the listener to the instance of MyPoint
-                point.addMouseListener(this);
-                this.add(point); // Adds the point component to the graph panel component
+                add(point, serie);
             }
         }
         notify();
+    }
+
+    public synchronized void addPointToSerie(Object value, MySerie serie) {
+        PANEL_AREA_PREV = getWidth() * getHeight();
+        MyPoint point = HelpA.definePoint(value);
+        add(point, serie);
+        notify();
+    }
+
+    public void add(MyPoint point, MySerie serie) {
+        serie.addPoint(point);
+        waitForPanelHeightIsInitialized(); //Must be!!!!
+        serie.checkRecalc(point, getHeight());
+        defineMaxForXYAxis(point);//!!!
+        //============================
+        point.addMouseMotionListener(this); //ading the listener to the instance of MyPoint
+        point.addMouseListener(this);
+        this.add(point); // Adds the point component to the graph panel component
     }
 
     /**
@@ -907,8 +927,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         //
     }
-    
-    public void addPointInfo(){
+
+    public void addPointInfo() {
         //        MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
         MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
         MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
@@ -954,8 +974,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             addRemoveDiffMarker(MARKER_POINT, true);
         } else if (ae.getSource() == menu_item_diff_marker_remove) {
             addRemoveDiffMarker(MARKER_POINT, false);
-        }else if (ae.getSource() == menu_item_delete_point) {
-              MARKER_POINT.deletePoint();
+        } else if (ae.getSource() == menu_item_delete_point) {
+            MARKER_POINT.deletePoint();
         }
     }
 

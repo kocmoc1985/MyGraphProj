@@ -46,7 +46,7 @@ public class MyXYGB extends MyXYGA {
      * @param valueOrPoint 
      */
     public void addPoint(Object valueOrPoint){
-        addPointBySerie(valueOrPoint, getTitle());
+        addPointBySerie(valueOrPoint, serie);
     }
     
     public void addPointWithDiffMarkerPointsDelete(Object valueOrPoint,boolean delete){
@@ -54,7 +54,8 @@ public class MyXYGB extends MyXYGA {
             resetDiffMarkerPoints();
         }
         //
-        addPointBySerie(valueOrPoint, getTitle());
+        addPointBySerie(valueOrPoint, serie);
+        
     }
     
     public void resetDiffMarkerPoints(){

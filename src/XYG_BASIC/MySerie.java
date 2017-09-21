@@ -240,7 +240,8 @@ public class MySerie {
     }
 
     /**
-     * Deletes all the points from the serie
+     * @deprecated 
+     * Use the delete method in MyXyGraph
      */
     public void deleteAllPoints() {
         points.clear();
@@ -248,18 +249,19 @@ public class MySerie {
         MAX = 0;
     }
 
-    public void addPointDeletedActionListener(PointDeletedAction pda) {
-        point_deleted_action_list.add(pda);
-    }
-
     public void deletePoint(MyPoint point) {
         //
+        myGraphXY.remove(point);
         points.remove(point);
         //
         for (PointDeletedAction pda : point_deleted_action_list) {
             pda.pointDeleted(point);
         }
         //
+    }
+    
+    public void addPointDeletedActionListener(PointDeletedAction pda) {
+        point_deleted_action_list.add(pda);
     }
 
     //===================================SET=====================================

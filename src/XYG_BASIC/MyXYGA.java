@@ -20,21 +20,21 @@ import javax.swing.border.Border;
 public class MyXYGA {
 
     private final MyGraphContainer my_graph_container;
-    public final MyGraphXY my_xy_graph;
+    public final MyGraphXY myGraphXY;
     private final String TITLE;
 
     public MyXYGA(String title, MyGraphXY xY) {
         this.TITLE = title;
         my_graph_container = new MyGraphContainer(title);
-        my_xy_graph = xY;
-        my_graph_container.addGraph(my_xy_graph);
+        myGraphXY = xY;
+        my_graph_container.addGraph(myGraphXY);
     }
 
     public MyXYGA(String title, MyGraphXY xY, int displayMode) {
         this.TITLE = title;
         my_graph_container = new MyGraphContainer(title, displayMode);
-        my_xy_graph = xY;
-        my_graph_container.addGraph(my_xy_graph);
+        myGraphXY = xY;
+        my_graph_container.addGraph(myGraphXY);
     }
 
     public String getTitle() {
@@ -60,24 +60,33 @@ public class MyXYGA {
      * @return
      */
     public MyGraphXY getGraph2() {
-        return this.my_xy_graph;
+        return this.myGraphXY;
     }
 
     public void addSerie(MySerie serie) {
-        my_xy_graph.addSerie(serie);
+        myGraphXY.addSerie(serie);
         my_graph_container.addLegend(new LegendElement(serie.getName(), serie.getCurveColor()).getLegendElement());
     }
 
+    /**
+     * @deprecated 
+     * @param y_value
+     * @param serieName 
+     */
     public void addPointBySerie(Object y_value, String serieName) {
-        my_xy_graph.addPointToSerie(y_value, serieName);
+        myGraphXY.addPointToSerie(y_value, serieName);
+    }
+    
+    public void addPointBySerie(Object y_value, MySerie serie){
+        myGraphXY.addPointToSerie(y_value, serie);
     }
 
     public void addDataSetBySerie(double[] y_values, String serieName) {
-        my_xy_graph.addDataSetToSerie(y_values, serieName);
+        myGraphXY.addDataSetToSerie(y_values, serieName);
     }
 
     public void setScaleXYaxisLength(double dbl) {
-        this.my_xy_graph.setScaleXYaxisLength(dbl);
+        this.myGraphXY.setScaleXYaxisLength(dbl);
     }
 
     /**
@@ -87,39 +96,39 @@ public class MyXYGA {
      * @param max 
      */
     public void setLimits(double min, double max) {
-        this.my_xy_graph.setLimits(min, max);
+        this.myGraphXY.setLimits(min, max);
     }
     
     public void setDrawGrid(boolean b) {
-        this.my_xy_graph.setDrawGrid(b);
+        this.myGraphXY.setDrawGrid(b);
     }
 
     public void setGridColor(Color c) {
-        this.my_xy_graph.setGridColor(c);
+        this.myGraphXY.setGridColor(c);
     }    
   
     public void setShowPopUpLeftClick(boolean b){
-        this.my_xy_graph.setShowPopUpLeftClick(b);
+        this.myGraphXY.setShowPopUpLeftClick(b);
     }
     
     public void setPointHighLighterEnabled(boolean b){
-        this.my_xy_graph.setPointHighLighterEnabled(b);
+        this.myGraphXY.setPointHighLighterEnabled(b);
     }
 
     public void setMarkerDotted(boolean b) {
-        this.my_xy_graph.setMarkerDotted(b);
+        this.myGraphXY.setMarkerDotted(b);
     }
 
     public void setDrawMarker(boolean b) {
-        this.my_xy_graph.setDrawMarker(b);
+        this.myGraphXY.setDrawMarker(b);
     }
 
     public void setMarkerAutoReset(boolean b) {
-        this.my_xy_graph.setMarkerAutoReset(b);
+        this.myGraphXY.setMarkerAutoReset(b);
     }
 
     public void setMarkerInfo(int mode) {
-        this.my_xy_graph.setMarkerInfo(mode);
+        this.myGraphXY.setMarkerInfo(mode);
     }
 
     /**
@@ -161,23 +170,23 @@ public class MyXYGA {
     }
 
     public void setBackgroundColorOfGraph(Color c) {
-        this.my_xy_graph.setBackgroundColor(c);
+        this.myGraphXY.setBackgroundColor(c);
     }
 
     public void setAxisScaling(boolean scale_x, boolean scale_y) {
-        this.my_xy_graph.setScaleXorYAxis(scale_x, scale_y);
+        this.myGraphXY.setScaleXorYAxis(scale_x, scale_y);
     }
 
-    public void deleteAllPointsFromSerie(String serieName) {
-        this.my_xy_graph.deleteAllPointsFromSerie(serieName);
+    public void deleteAllPointsFromSerie(MySerie serie) {
+        this.myGraphXY.deleteAllPointsFromSerie(serie);
     }
 
     public void deleteAllPointsFromAllSeries() {
-        my_xy_graph.deleteAllPointsFromAllSeries();
+        myGraphXY.deleteAllPointsFromAllSeries();
     }
 
     public void setDisableScalingWhenGrid() {
-        my_xy_graph.setDisableScalingWhenGrid();
+        myGraphXY.setDisableScalingWhenGrid();
     }
 
     public void sleep(int millis) {

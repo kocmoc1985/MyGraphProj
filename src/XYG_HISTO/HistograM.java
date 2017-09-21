@@ -55,7 +55,7 @@ public class HistograM extends MyXYGB implements DiffMarkerAction {
     }
 
     public void setStepIdentifierX(int x) {
-        MyGraphXY_H h = (MyGraphXY_H) my_xy_graph;
+        MyGraphXY_H h = (MyGraphXY_H) myGraphXY;
         h.setStepIdentifierX(x);
     }
 
@@ -114,7 +114,8 @@ public class HistograM extends MyXYGB implements DiffMarkerAction {
 
     public void rebuildData(ResultSet rs, String valueColName, String round, int start, int end) {
         //
-        getSerie().deleteAllPoints();
+//        getSerie().deleteAllPoints();
+        deleteAllPointsFromSerie(serie);
         histoMap.clear();
         //
         int x = 0;
@@ -139,7 +140,8 @@ public class HistograM extends MyXYGB implements DiffMarkerAction {
     
     public void rebuildData(ArrayList<MyPoint> points,String round) {
         //
-        getSerie().deleteAllPoints();
+//        getSerie().deleteAllPoints();
+        deleteAllPointsFromSerie(serie);
         histoMap.clear();
         //
         for (MyPoint myPoint : points) {
@@ -158,7 +160,7 @@ public class HistograM extends MyXYGB implements DiffMarkerAction {
         Set set = histoMap.keySet();
         Iterator it = set.iterator();
         xValuesList = new ArrayList<String>();
-        my_xy_graph.X_MAX = 0;
+        myGraphXY.X_MAX = 0;
         //
         while (it.hasNext()) {
             double key = (Double) it.next();
@@ -173,7 +175,7 @@ public class HistograM extends MyXYGB implements DiffMarkerAction {
             //
         }
         //
-        MyGraphXY_H h = (MyGraphXY_H) my_xy_graph;
+        MyGraphXY_H h = (MyGraphXY_H) myGraphXY;
         h.setXValues(xValuesList);
         //
     }
