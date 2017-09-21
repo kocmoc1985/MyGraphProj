@@ -676,10 +676,10 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         PANEL_AREA_PREV = getWidth() * getHeight();
         MyPoint point = HelpA.definePoint(value);
         add(point, serie);
-        notify();
+        
     }
 
-    public void add(MyPoint point, MySerie serie) {
+    public synchronized void add(MyPoint point, MySerie serie) {
         serie.addPoint(point);
         waitForPanelHeightIsInitialized(); //Must be!!!!
         serie.checkRecalc(point, getHeight());
@@ -688,6 +688,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         point.addMouseMotionListener(this); //ading the listener to the instance of MyPoint
         point.addMouseListener(this);
         this.add(point); // Adds the point component to the graph panel component
+        notify();
     }
 
     /**
