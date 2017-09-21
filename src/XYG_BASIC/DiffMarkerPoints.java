@@ -31,7 +31,7 @@ public class DiffMarkerPoints {
         this.myGraphXY = graphXY;
         CURSOR_A = new CursorDiff(this, myGraphXY, serie, "CURSOR A");
         CURSOR_B = new CursorDiff(this, myGraphXY, serie, "CURSOR B");
-        System.out.println("New diff markers, parent: " + graphXY + " / Serie: " + serie.getName());
+//        System.out.println("New diff markers, parent: " + graphXY + " / Serie: " + serie.getName());
     }
 
     public void addDiffMarkersSetListener(DiffMarkerAction dma) {
@@ -67,7 +67,8 @@ public class DiffMarkerPoints {
     public void add(MyPoint point) {
         if (MARKER_POINT_A == null && MARKER_POINT_B == null) {
             MARKER_POINT_A = point;
-            reset("Caller: add(...)");
+            reset();
+            markersUnset();
         } else if (MARKER_POINT_A == null && MARKER_POINT_B != null) {
             MARKER_POINT_A = point;
             go();
@@ -85,7 +86,8 @@ public class DiffMarkerPoints {
         } else if (MARKER_POINT_A != null && MARKER_POINT_B != null) {
             MARKER_POINT_A = point;
             MARKER_POINT_B = null;
-            reset("Caller: add b ()");
+            reset();
+            markersUnset();
         }
 
         CURSOR_A.setPoint(MARKER_POINT_A);
@@ -95,6 +97,12 @@ public class DiffMarkerPoints {
         CURSOR_B.drawCursor(myGraphXY.getGraphics());
 
         myGraphXY.repaint();
+    }
+
+    public void markersUnset() {
+        for (DiffMarkerAction diffMarkerAction : diffMarkerActionListeners) {
+            diffMarkerAction.markersUnset(myGraphXY);
+        }
     }
 
     public void go() {
@@ -113,8 +121,7 @@ public class DiffMarkerPoints {
     }
 
     public void remove(MyPoint point) {
-//        reset("Caller: remove()");
-        reset("removeB");
+        reset();
         if (MARKER_POINT_A == point) {
             MARKER_POINT_A = null;
         } else if (MARKER_POINT_B == point) {
@@ -163,7 +170,7 @@ public class DiffMarkerPoints {
         }
     }
 
-    public void reset(String caller) {
+    public void reset() {
 //        System.out.println("Reset Caller: " + caller);
         for (MyPoint myPoint : draw_rect_points_list) {
             myPoint.setPointDrawRect(false);
@@ -172,9 +179,7 @@ public class DiffMarkerPoints {
         //
         draw_rect_points_list = new ArrayList<MyPoint>();
         //
-        for (DiffMarkerAction diffMarkerAction : diffMarkerActionListeners) {
-            diffMarkerAction.markersUnset(myGraphXY);
-        }
+
     }
     public ArrayList<MyPoint> draw_rect_points_list = new ArrayList<MyPoint>();
 

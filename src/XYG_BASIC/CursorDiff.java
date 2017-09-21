@@ -96,7 +96,7 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
         this.paintColor = point.getPointColor();
     }
 
-    protected void drawCursor(Graphics g) {
+    public void drawCursor(Graphics g) {
         if (setLocationFlag == false) {
             if (point == null) {
                 return;
