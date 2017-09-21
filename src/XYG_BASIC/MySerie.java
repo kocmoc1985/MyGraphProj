@@ -102,8 +102,11 @@ public class MySerie {
         return points;
     }
 
-    public void setMyGraphXY(MyGraphXY myGraph) {
+    public void setMyGraphXY(MyGraphXY myGraph, boolean createDiffMarkers) {
         this.myGraphXY = myGraph;
+        if (createDiffMarkers == false) {
+            return;
+        }
         if (this.DIFF_MARKER_POINTS == null) {
             this.DIFF_MARKER_POINTS = new DiffMarkerPoints(this, myGraphXY);
         }
@@ -240,8 +243,7 @@ public class MySerie {
     }
 
     /**
-     * @deprecated 
-     * Use the delete method in MyXyGraph
+     * @deprecated Use the delete method in MyXyGraph
      */
     public void deleteAllPoints() {
         points.clear();
@@ -259,7 +261,7 @@ public class MySerie {
         }
         //
     }
-    
+
     public void addPointDeletedActionListener(PointDeletedAction pda) {
         point_deleted_action_list.add(pda);
     }

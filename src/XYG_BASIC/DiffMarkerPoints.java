@@ -31,6 +31,7 @@ public class DiffMarkerPoints {
         this.myGraphXY = graphXY;
         CURSOR_A = new CursorDiff(this, myGraphXY, serie, "CURSOR A");
         CURSOR_B = new CursorDiff(this, myGraphXY, serie, "CURSOR B");
+        System.out.println("New diff markers, parent: " + graphXY + " / Serie: " + serie.getName());
     }
 
     public void addDiffMarkersSetListener(DiffMarkerAction dma) {

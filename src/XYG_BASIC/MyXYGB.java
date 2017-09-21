@@ -85,7 +85,7 @@ public class MyXYGB extends MyXYGA {
         serie.setCurveColor(Color.red);
         serie.setOverallScale(true);
         //
-        this.addSerie(serie);
+//        this.addSerie(serie);
         //
         PointHighLighter.addSerie(serie);
     }

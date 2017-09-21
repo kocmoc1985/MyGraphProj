@@ -63,8 +63,9 @@ public class MyXYGA {
         return this.myGraphXY;
     }
 
-    public void addSerie(MySerie serie) {
-        myGraphXY.addSerie(serie);
+    public void addSerie(MySerie serie,boolean createDiffMarkers,Object caller) {
+//        System.out.println("graphXY: " + myGraphXY + " / caller: " + caller + " / " + serie.getName());
+        myGraphXY.addSerie(serie,createDiffMarkers,caller);
         my_graph_container.addLegend(new LegendElement(serie.getName(), serie.getCurveColor()).getLegendElement());
     }
 
@@ -197,77 +198,77 @@ public class MyXYGA {
         }
     }
 
-    public static void main(String[] args) {
-        //
-//        HelpA.err_output_to_file();
-        //
-        MyXYGA xyg = new MyXYGA("Speed",new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FOOT_HEAD_ENABLED);
-        //
-//        xyg.setHeadColor(Color.yellow);
-//        xyg.setFootColor(Color.yellow);
-        xyg.setTitleSize(20, true);
-        xyg.setTitleColor(Color.black);
-//        xyg.setBorderHeadAndFootComponents(BorderFactory.createLineBorder(Color.darkGray));
-        xyg.setHeadHeight(0.1);
-        //
-        // setAxisScaling(...) & setDrawGrid(...) influence each other!
-        xyg.setAxisScaling(true, true);
-        xyg.setDrawGrid(true);
-//        xyg.setDisableScalingWhenGrid();
-        xyg.setGridColor(Color.black);
-        xyg.setScaleXYaxisLength(1.2);
-        //
-//        xyg.setBackgroundColorOfGraph(new Color(249, 249, 249));
-//        xyg.setDrawMarker(true);
-        xyg.setMarkerDotted(true);
-        xyg.setMarkerInfo(4);
-        xyg.setMarkerAutoReset(true);
-        //
-        //
-        JFrame jf = new JFrame("test");
-        jf.setSize(new Dimension(800, 800));
-        jf.setLayout(new GridLayout(1, 0));
-        jf.add(xyg.getGraph());
-        jf.setVisible(true);
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //
-        //=======================================
-        //
-        MySerie speed_serie = new MySerie("speed");
-        //
-        speed_serie.setPointThickness(1);
-        speed_serie.setCurveColor(Color.red);
-        speed_serie.setOverallScale(true);
-        //
-        xyg.addSerie(speed_serie);
-        //
-        //
-        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333};
-        xyg.addDataSetBySerie(dataSet, "speed");
-        //
-//        xyg.deleteAllPointsFromSerie("speed");
-        //
-        MySerie torq_serie = new MySerie("torq");
-        //
-        torq_serie.setCurveColor(Color.BLUE);
-        torq_serie.setDrawLines(false);
-        torq_serie.setOverallScale(true);
-        xyg.addSerie(torq_serie);
-        //
-        xyg.addPointBySerie(new MyPoint(256, 256.0, Color.green), "torq");
-        xyg.sleep(100);
-        xyg.addPointBySerie(new MyPoint(389, 389.0, Color.MAGENTA), "torq");
-        xyg.sleep(100);
-        xyg.addPointBySerie(456, "torq");
-        xyg.sleep(100);
-        xyg.addPointBySerie(157, "torq");
-        xyg.sleep(100);
-        xyg.addPointBySerie(125, "torq");
-        //
-        //
-        PointHighLighter.addSerie(speed_serie);
-        PointHighLighter.addSerie(torq_serie);
-        //
-//        addMouseListenerToAllComponentsOfComponent(xyg.getGraph());
-    }
+//    public static void main(String[] args) {
+//        //
+////        HelpA.err_output_to_file();
+//        //
+//        MyXYGA xyg = new MyXYGA("Speed",new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FOOT_HEAD_ENABLED);
+//        //
+////        xyg.setHeadColor(Color.yellow);
+////        xyg.setFootColor(Color.yellow);
+//        xyg.setTitleSize(20, true);
+//        xyg.setTitleColor(Color.black);
+////        xyg.setBorderHeadAndFootComponents(BorderFactory.createLineBorder(Color.darkGray));
+//        xyg.setHeadHeight(0.1);
+//        //
+//        // setAxisScaling(...) & setDrawGrid(...) influence each other!
+//        xyg.setAxisScaling(true, true);
+//        xyg.setDrawGrid(true);
+////        xyg.setDisableScalingWhenGrid();
+//        xyg.setGridColor(Color.black);
+//        xyg.setScaleXYaxisLength(1.2);
+//        //
+////        xyg.setBackgroundColorOfGraph(new Color(249, 249, 249));
+////        xyg.setDrawMarker(true);
+//        xyg.setMarkerDotted(true);
+//        xyg.setMarkerInfo(4);
+//        xyg.setMarkerAutoReset(true);
+//        //
+//        //
+//        JFrame jf = new JFrame("test");
+//        jf.setSize(new Dimension(800, 800));
+//        jf.setLayout(new GridLayout(1, 0));
+//        jf.add(xyg.getGraph());
+//        jf.setVisible(true);
+//        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        //
+//        //=======================================
+//        //
+//        MySerie speed_serie = new MySerie("speed");
+//        //
+//        speed_serie.setPointThickness(1);
+//        speed_serie.setCurveColor(Color.red);
+//        speed_serie.setOverallScale(true);
+//        //
+//        xyg.addSerie(speed_serie);
+//        //
+//        //
+//        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333};
+//        xyg.addDataSetBySerie(dataSet, "speed");
+//        //
+////        xyg.deleteAllPointsFromSerie("speed");
+//        //
+//        MySerie torq_serie = new MySerie("torq");
+//        //
+//        torq_serie.setCurveColor(Color.BLUE);
+//        torq_serie.setDrawLines(false);
+//        torq_serie.setOverallScale(true);
+//        xyg.addSerie(torq_serie);
+//        //
+//        xyg.addPointBySerie(new MyPoint(256, 256.0, Color.green), "torq");
+//        xyg.sleep(100);
+//        xyg.addPointBySerie(new MyPoint(389, 389.0, Color.MAGENTA), "torq");
+//        xyg.sleep(100);
+//        xyg.addPointBySerie(456, "torq");
+//        xyg.sleep(100);
+//        xyg.addPointBySerie(157, "torq");
+//        xyg.sleep(100);
+//        xyg.addPointBySerie(125, "torq");
+//        //
+//        //
+//        PointHighLighter.addSerie(speed_serie);
+//        PointHighLighter.addSerie(torq_serie);
+//        //
+////        addMouseListenerToAllComponentsOfComponent(xyg.getGraph());
+//    }
 }

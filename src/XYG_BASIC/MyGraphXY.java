@@ -600,16 +600,16 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      * @param serieToAdd
      * @return
      */
-    public boolean addSerie(MySerie serieToAdd) {
+    public boolean addSerie(MySerie serieToAdd,boolean createDiffMarkers,Object caller) {
         if (SERIES.isEmpty()) {
-            serieToAdd.setMyGraphXY(this);
+            serieToAdd.setMyGraphXY(this,createDiffMarkers);
             SERIES.add(serieToAdd);
             return true;
         }
         //=====================================================================
         for (MySerie mySerie : SERIES) {
             if (mySerie.nameEquals(serieToAdd.getName()) == false) {
-                serieToAdd.setMyGraphXY(this);
+                serieToAdd.setMyGraphXY(this,createDiffMarkers);
                 SERIES.add(serieToAdd);
                 return true;
             } else {
@@ -1045,70 +1045,70 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 //        System.out.println("" + parent.toString());
     }
 
-    public static void main(String[] args) {
-        JFrame jf = new JFrame("test");
-        jf.setSize(new Dimension(300, 300));
-
-        MyGraphContainer gr_container = new MyGraphContainer("Graph");
-        //
-        MyGraphXY gp = new MyGraphXY();
-        gp.setDrawGrid(false);
-        gp.setGridColor(Color.BLACK);
-        gp.setShowPopUpLeftClick(true);
-        gp.setPointHighLighterEnabled(true);
-        gp.setBackgroundColor(Color.WHITE);
-        gp.setScaleXYaxis(true);
-        gp.setDrawMarker(false);
-//        gp.setMarkerInfo(4);
-        //
-        gr_container.addGraph(gp);
-//        gp.getParentContainer();
-        //
-        jf.setLayout(new GridLayout(1, 0));
-        jf.add(gr_container.getGraph());
-        jf.setVisible(true);
-
-//        MySerie speed_curve = new MySerie("speed", true, Color.green, true, Color.BLUE);
-//        speed_curve.setLineDotted();
-//        speed_curve.setLineThickness(2.0f);
-//        speed_curve.setPointThickness(1);
-//        speed_curve.setCurveColor(Color.MAGENTA);
-//        speed_curve.setPointColor(Color.red);
-////        speed_curve.setDrawPoints(false);
-//        gp.addSerie(speed_curve);
-//        for (int i = 1; i < 70; i++) {
-//            if (i == 9) {
-//                System.out.println("");
-//            }
-//            gp.addPointToSerie(new MyPoint((int) ((Math.random() * 50) + 1)), "speed");
-//            try {
-//                Thread.sleep(10);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(MyGraphXY.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+//    public static void main(String[] args) {
+//        JFrame jf = new JFrame("test");
+//        jf.setSize(new Dimension(300, 300));
+//
+//        MyGraphContainer gr_container = new MyGraphContainer("Graph");
+//        //
+//        MyGraphXY gp = new MyGraphXY();
+//        gp.setDrawGrid(false);
+//        gp.setGridColor(Color.BLACK);
+//        gp.setShowPopUpLeftClick(true);
+//        gp.setPointHighLighterEnabled(true);
+//        gp.setBackgroundColor(Color.WHITE);
+//        gp.setScaleXYaxis(true);
+//        gp.setDrawMarker(false);
+////        gp.setMarkerInfo(4);
+//        //
+//        gr_container.addGraph(gp);
+////        gp.getParentContainer();
+//        //
+//        jf.setLayout(new GridLayout(1, 0));
+//        jf.add(gr_container.getGraph());
+//        jf.setVisible(true);
+//
+////        MySerie speed_curve = new MySerie("speed", true, Color.green, true, Color.BLUE);
+////        speed_curve.setLineDotted();
+////        speed_curve.setLineThickness(2.0f);
+////        speed_curve.setPointThickness(1);
+////        speed_curve.setCurveColor(Color.MAGENTA);
+////        speed_curve.setPointColor(Color.red);
+//////        speed_curve.setDrawPoints(false);
+////        gp.addSerie(speed_curve);
+////        for (int i = 1; i < 70; i++) {
+////            if (i == 9) {
+////                System.out.println("");
+////            }
+////            gp.addPointToSerie(new MyPoint((int) ((Math.random() * 50) + 1)), "speed");
+////            try {
+////                Thread.sleep(10);
+////            } catch (InterruptedException ex) {
+////                Logger.getLogger(MyGraphXY.class.getName()).log(Level.SEVERE, null, ex);
+////            }
+////        }
+////        gp.deleteAllPointsFromSerie("speed");
+////        System.out.println("");
+////'''''''''''
+////        System.out.println("AAA coef_speed = " + speed_curve.COEFF);
+//        MySerie torq_curve = new MySerie("torque", true, Color.RED, true, Color.YELLOW);
+//        torq_curve.setOverallScale(false);
+//        torq_curve.setPointThickness(1);
+//        torq_curve.setPointHighLightColor(Color.BLACK);
+//        gp.addSerie(torq_curve);
+//        for (int i = 1; i < 1000; i++) {
+//
+//            int random = (int) ((Math.random() * 5000) + 1);
+//            gp.addPointToSerie(new MyPoint(random, random), "torque");
+//
+////            try {
+////                Thread.sleep(100);
+////            } catch (InterruptedException ex) {
+////                Logger.getLogger(MyGraphXY.class.getName()).log(Level.SEVERE, null, ex);
+////            }
 //        }
-//        gp.deleteAllPointsFromSerie("speed");
-//        System.out.println("");
-//'''''''''''
-//        System.out.println("AAA coef_speed = " + speed_curve.COEFF);
-        MySerie torq_curve = new MySerie("torque", true, Color.RED, true, Color.YELLOW);
-        torq_curve.setOverallScale(false);
-        torq_curve.setPointThickness(1);
-        torq_curve.setPointHighLightColor(Color.BLACK);
-        gp.addSerie(torq_curve);
-        for (int i = 1; i < 1000; i++) {
-
-            int random = (int) ((Math.random() * 5000) + 1);
-            gp.addPointToSerie(new MyPoint(random, random), "torque");
-
-//            try {
-//                Thread.sleep(100);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(MyGraphXY.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-        }
-
-        System.out.println("AAA coef_torq = " + torq_curve.COEFF);
-
-    }
+//
+//        System.out.println("AAA coef_torq = " + torq_curve.COEFF);
+//
+//    }
 }
