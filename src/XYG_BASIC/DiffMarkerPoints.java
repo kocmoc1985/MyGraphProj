@@ -127,7 +127,6 @@ public class DiffMarkerPoints {
         } else if (MARKER_POINT_B == point) {
             MARKER_POINT_B = null;
         }
-
 //        System.out.println("" + toString());
     }
 
@@ -140,6 +139,18 @@ public class DiffMarkerPoints {
         CURSOR_B.drawCursor(myGraphXY.getGraphics());
 
 //        System.out.println("" + toString());
+    }
+    
+    public void removeC(MyPoint point) {
+        reset();
+        //
+        if (MARKER_POINT_A == point) {
+            MARKER_POINT_A = null;
+        } else if (MARKER_POINT_B == point) {
+            MARKER_POINT_B = null;
+        }
+        //
+        markersUnset();
     }
 
     public boolean contains(MyPoint point) {
@@ -179,7 +190,6 @@ public class DiffMarkerPoints {
         //
         draw_rect_points_list = new ArrayList<MyPoint>();
         //
-
     }
     public ArrayList<MyPoint> draw_rect_points_list = new ArrayList<MyPoint>();
 

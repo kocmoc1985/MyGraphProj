@@ -50,18 +50,16 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
         //
         this.addMouseMotionListener(this);
         this.addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent me) {
-
                 if (me.getSource() instanceof CursorDiff && me.getButton() == 1 && clickSwitcherFlag == false) {
-//                    System.out.println("CLICKED: A");
                     clickSwitcherFlag = true;
                     myGraphXY.REPAINT_ON_MOUSE_MOOVE = true;
                     anchorPoint = me.getPoint();
                     //
                     if (point != null) {
-                        diffMarkerPoints.remove(point);
+                        diffMarkerPoints.removeC(point);
+                        System.out.println("DEL POINT");
                     }
                     //
                     prevPoint = point;
