@@ -21,11 +21,27 @@ public class MyPointH extends MyPoint {
         this.USL = USL;
     }
 
+    public MyPoint getLSL() {
+        return LSL;
+    }
+
+    
+    
+    public MyPoint getUSL() {
+        return USL;
+    }
+    
+
     @Override
     public void deletePoint() {
         super.deletePoint(); //To change body of generated methods, choose Tools | Templates.
         LSL.deletePoint();
         USL.deletePoint();
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

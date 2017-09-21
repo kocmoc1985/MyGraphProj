@@ -55,7 +55,7 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
             public void mouseClicked(MouseEvent me) {
 
                 if (me.getSource() instanceof CursorDiff && me.getButton() == 1 && clickSwitcherFlag == false) {
-                    System.out.println("CLICKED: A");
+//                    System.out.println("CLICKED: A");
                     clickSwitcherFlag = true;
                     myGraphXY.REPAINT_ON_MOUSE_MOOVE = true;
                     anchorPoint = me.getPoint();
@@ -66,7 +66,7 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
                     //
                     prevPoint = point;
                 } else if (me.getSource() instanceof CursorDiff && me.getButton() == 1) {
-                    System.out.println("CLICKED: B");
+//                    System.out.println("CLICKED: B");
                     clickSwitcherFlag = false;
                     MyPoint point = cursorOverPoint.getPoint();
                     if (prevPoint != null) {

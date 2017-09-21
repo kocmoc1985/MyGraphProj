@@ -66,7 +66,7 @@ public class DiffMarkerPoints {
     public void add(MyPoint point) {
         if (MARKER_POINT_A == null && MARKER_POINT_B == null) {
             MARKER_POINT_A = point;
-            reset();
+            reset("Caller: add(...)");
         } else if (MARKER_POINT_A == null && MARKER_POINT_B != null) {
             MARKER_POINT_A = point;
             go();
@@ -84,7 +84,7 @@ public class DiffMarkerPoints {
         } else if (MARKER_POINT_A != null && MARKER_POINT_B != null) {
             MARKER_POINT_A = point;
             MARKER_POINT_B = null;
-            reset();
+            reset("Caller: add b ()");
         }
 
         CURSOR_A.setPoint(MARKER_POINT_A);
@@ -112,7 +112,8 @@ public class DiffMarkerPoints {
     }
 
     public void remove(MyPoint point) {
-        reset();
+//        reset("Caller: remove()");
+        reset("removeB");
         if (MARKER_POINT_A == point) {
             MARKER_POINT_A = null;
         } else if (MARKER_POINT_B == point) {
@@ -161,7 +162,8 @@ public class DiffMarkerPoints {
         }
     }
 
-    public void reset() {
+    public void reset(String caller) {
+//        System.out.println("Reset Caller: " + caller);
         for (MyPoint myPoint : draw_rect_points_list) {
             myPoint.setPointDrawRect(false);
             myPoint.resetPointColor();
@@ -173,8 +175,7 @@ public class DiffMarkerPoints {
             diffMarkerAction.markersUnset(myGraphXY);
         }
     }
-
-    private ArrayList<MyPoint> draw_rect_points_list = new ArrayList<MyPoint>();
+    public ArrayList<MyPoint> draw_rect_points_list = new ArrayList<MyPoint>();
 
     public void addProperties() {
         if (bothExist()) {
