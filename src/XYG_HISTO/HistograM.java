@@ -168,8 +168,8 @@ public class HistograM extends MyXYGB implements DiffMarkerAction {
             xValuesList.add(""+key);
             MyPoint p = new MyPoint(value, value);
             p.setDisplayValueX(key);
-//            this.addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag,"HistogramM -> addPoints()");
-            this.addPointBySerie(p, serie);
+            this.addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
+//            this.addPointBySerie(p, serie);
             //
             diffMarkerPointsDeleteFlag = false;
             //

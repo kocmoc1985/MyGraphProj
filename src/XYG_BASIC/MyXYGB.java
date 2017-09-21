@@ -49,8 +49,7 @@ public class MyXYGB extends MyXYGA {
         addPointBySerie(valueOrPoint, serie);
     }
     
-    public void addPointWithDiffMarkerPointsDelete(Object valueOrPoint,boolean delete,String caller){
-        System.out.println("Caller: " + caller);
+    public void addPointWithDiffMarkerPointsDelete(Object valueOrPoint,boolean delete){
         if(delete){
             resetDiffMarkerPoints();
         }
