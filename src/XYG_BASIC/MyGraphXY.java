@@ -662,7 +662,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      */
     public synchronized void addPointToSerie(Object value, String serie_name) {
         PANEL_AREA_PREV = getWidth() * getHeight();
-        MyPoint point = HelpA.definePoint(value);
+        MyPoint point = HelpAA.definePoint(value);
 
         for (MySerie serie : SERIES) {
             if (serie.nameEquals(serie_name)) {
@@ -674,9 +674,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
     public synchronized void addPointToSerie(Object value, MySerie serie) {
         PANEL_AREA_PREV = getWidth() * getHeight();
-        MyPoint point = HelpA.definePoint(value);
+        MyPoint point = HelpAA.definePoint(value);
         add(point, serie);
-        
     }
 
     public synchronized void add(MyPoint point, MySerie serie) {

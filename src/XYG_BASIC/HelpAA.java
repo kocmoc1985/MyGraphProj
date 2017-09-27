@@ -27,7 +27,7 @@ import javax.swing.border.Border;
  *
  * @author KOCMOC
  */
-public class HelpA {
+public class HelpAA {
 
     public static void err_output_to_file() {
         //Write error stream to a file
@@ -38,7 +38,7 @@ public class HelpA {
             PrintStream out = new PrintStream(new FileOutputStream(output_path));
             System.setErr(out);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(HelpA.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HelpAA.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -63,6 +63,10 @@ public class HelpA {
         twoDForm.setDecimalFormatSymbols(s);
         return Double.valueOf(twoDForm.format(number));
     }
+     
+    public static synchronized double roundDouble_(double number, String format) {
+        return Double.parseDouble(String.format(format, number).replace(",", "."));
+    } 
    
 
     public static int findCoeff(double value) {

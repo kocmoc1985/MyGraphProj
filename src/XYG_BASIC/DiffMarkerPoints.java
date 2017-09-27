@@ -25,6 +25,7 @@ public class DiffMarkerPoints {
     public CursorDiff CURSOR_A;
     public CursorDiff CURSOR_B;
     public ArrayList<DiffMarkerAction> diffMarkerActionListeners = new ArrayList<DiffMarkerAction>();
+    public static final String DEFAULT_OUT_PUT_FORMAT = "%2.2f";
 
     public DiffMarkerPoints(MySerie serie, MyGraphXY graphXY) {
         this.serie = serie;
@@ -206,18 +207,27 @@ public class DiffMarkerPoints {
 
     public void calcAndShow(String name) {
         if (name.equals(CALC_SUMM)) {
-            showOutPut(name, calcSum());
+            showOutPut(name, calcSum(),DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_AVERAGE)) {
-            showOutPut(name, calcAv());
+            showOutPut(name, calcAv(),DEFAULT_OUT_PUT_FORMAT);
         } else {
             System.out.println("NO SUCH CALC EXIST: " + name);
         }
     }
 
-    public void showOutPut(String name, double value) {
+    /**
+     * 
+     * @param name
+     * @param value
+     * @param format - "%2.3f"
+     */
+    public void showOutPut(String name, double value,String format) {
         JTextField jtf = outPutMap.get(name);
         if (jtf != null) {
-            jtf.setText("" + value);
+            //
+            // CSS formatting not working on JTextField
+            jtf.setText("" + HelpAA.roundDouble_(value, format));
+            //
         } else {
             System.out.println("NO OUTPUT COMPONENT");
         }
