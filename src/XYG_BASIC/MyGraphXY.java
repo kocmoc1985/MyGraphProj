@@ -50,6 +50,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private int MARKER_X;
     private int MARKER_Y;
     public MyPoint MARKER_POINT;
+    public MyPoint CLICK_RIGHT_POINT;
     private Color MARKER_COLOR = Color.BLACK;
     private float[] MARKER_DOTTED = new float[]{10.0f, 6.0f};
     private int DRAW_MARKER_INFO;
@@ -942,11 +943,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             myPointClicked();
 
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
+            CLICK_RIGHT_POINT = (MyPoint)e.getSource();
             popup.removeAll();
             popup.add(menu_item_fix_point);
             addAdditionalControlsPopups();
             popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT)) {
+            CLICK_RIGHT_POINT = (MyPoint)e.getSource();
             popup.removeAll();
             popup.add(menu_item_unfix_point);
             addAdditionalControlsPopups();
@@ -971,11 +974,11 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         } else if (ae.getSource() == menu_item_unfix_point) {//Unfix point
             unfixPoint();
         } else if (ae.getSource() == menu_item_diff_marker_add) {
-            addRemoveDiffMarker(MARKER_POINT, true);
+            addRemoveDiffMarker(CLICK_RIGHT_POINT, true);
         } else if (ae.getSource() == menu_item_diff_marker_remove) {
-            addRemoveDiffMarker(MARKER_POINT, false);
+            addRemoveDiffMarker(CLICK_RIGHT_POINT, false);
         } else if (ae.getSource() == menu_item_delete_point) {
-            MARKER_POINT.deletePoint();
+            CLICK_RIGHT_POINT.deletePoint();
         }
     }
 
