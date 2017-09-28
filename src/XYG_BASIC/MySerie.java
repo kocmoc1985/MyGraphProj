@@ -431,6 +431,10 @@ public class MySerie {
     public void removeDiffMarkerPoint(MyPoint point) {
         this.DIFF_MARKER_POINTS.removeB(point);
     }
+    
+    public void removeDiffMarkerPoints() {
+        this.DIFF_MARKER_POINTS.removeDiffMarkerPoints();
+    }
 
     public boolean isDiffMarkerPoint(MyPoint point) {
         return this.DIFF_MARKER_POINTS.contains(point);

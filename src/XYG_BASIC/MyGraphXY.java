@@ -987,6 +987,10 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             SERIES.get(0).removeDiffMarkerPoint(point);
         }
     }
+    
+    public void removeDiffMarkerPoints(){
+        SERIES.get(0).removeDiffMarkerPoints();
+    }
 
     private void fixPoint() {
         PointHighLighter.highLightAllPointsAtIndex(MARKER_POINT);

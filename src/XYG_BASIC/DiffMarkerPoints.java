@@ -121,6 +121,18 @@ public class DiffMarkerPoints {
 
     }
 
+    public void removeDiffMarkerPoints() {
+        reset();
+        MARKER_POINT_A = null;
+        MARKER_POINT_B = null;
+        //
+        CURSOR_A.setPoint(MARKER_POINT_A);
+        CURSOR_B.setPoint(MARKER_POINT_B);
+        //
+        CURSOR_A.drawCursor(myGraphXY.getGraphics());
+        CURSOR_B.drawCursor(myGraphXY.getGraphics());
+    }
+
     public void remove(MyPoint point) {
         reset();
         if (MARKER_POINT_A == point) {
@@ -135,13 +147,11 @@ public class DiffMarkerPoints {
         remove(point);
         CURSOR_A.setPoint(MARKER_POINT_A);
         CURSOR_B.setPoint(MARKER_POINT_B);
-
+        //
         CURSOR_A.drawCursor(myGraphXY.getGraphics());
         CURSOR_B.drawCursor(myGraphXY.getGraphics());
-
-//        System.out.println("" + toString());
     }
-    
+
     public void removeC(MyPoint point) {
         reset();
         //
@@ -207,21 +217,21 @@ public class DiffMarkerPoints {
 
     public void calcAndShow(String name) {
         if (name.equals(CALC_SUMM)) {
-            showOutPut(name, calcSum(),DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcSum(), DEFAULT_OUT_PUT_FORMAT);
         } else if (name.equals(CALC_AVERAGE)) {
-            showOutPut(name, calcAv(),DEFAULT_OUT_PUT_FORMAT);
+            showOutPut(name, calcAv(), DEFAULT_OUT_PUT_FORMAT);
         } else {
             System.out.println("NO SUCH CALC EXIST: " + name);
         }
     }
 
     /**
-     * 
+     *
      * @param name
      * @param value
      * @param format - "%2.3f"
      */
-    public void showOutPut(String name, double value,String format) {
+    public void showOutPut(String name, double value, String format) {
         JTextField jtf = outPutMap.get(name);
         if (jtf != null) {
             //
