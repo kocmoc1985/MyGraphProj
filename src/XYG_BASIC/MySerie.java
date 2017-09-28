@@ -428,10 +428,17 @@ public class MySerie {
         this.DIFF_MARKER_POINTS.add(point);
     }
 
+    public void addDiffMarkerPoints() {
+        MyPoint pointA = getPoint(0);
+        MyPoint pointB = getPoint(points.size()-1);
+        this.DIFF_MARKER_POINTS.add(pointA);
+        this.DIFF_MARKER_POINTS.add(pointB);
+    }
+
     public void removeDiffMarkerPoint(MyPoint point) {
         this.DIFF_MARKER_POINTS.removeB(point);
     }
-    
+
     public void removeDiffMarkerPoints() {
         this.DIFF_MARKER_POINTS.removeDiffMarkerPoints();
     }

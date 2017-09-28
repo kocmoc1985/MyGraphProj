@@ -28,6 +28,10 @@ public class MyXYGB extends MyXYGA {
         initialize();
     }
     
+    public void addDiffMarkerPoints(){
+        serie.addDiffMarkerPoints();
+    }
+    
     public void removeDiffMarkerPoints(){
         serie.removeDiffMarkerPoints();
     }
