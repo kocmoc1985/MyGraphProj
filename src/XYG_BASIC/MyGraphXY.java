@@ -387,15 +387,21 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
     public void scaleX(Graphics2D g2) {
         if (SCALE_X_AXIS) {
-            int j = 0; // step identifier
-
+            //
+            int j; // step identifier
+            //
+            int special_coeff = 1;
+            //
             int vv = (int) (X_MAX);
+            //
             if (vv > 100000 && vv < 1000000) {
                 j = 10000;
             } else if (vv > 10000 && vv < 100000) {
                 j = 1000;
+                special_coeff = 10;
             } else if (vv > 1000 && vv < 10000) {
                 j = 100;
+                special_coeff = 5;
             } else if (vv > 100 && vv < 1000) {
                 j = 50;
             } else if (vv > 10 && vv < 100) {
@@ -403,11 +409,14 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             } else {
                 j = 1;
             }
-
+            //
+//             System.out.println("JJ: " + j + " / vvv: " + vv + " / y_max: " + X_MAX);
+            //
             int m = 1; // frequency regulator
+            //
             for (int i = 1; i < getWidth(); i++) {
                 double X = i / ONE_UNIT_X; //!!!!!!!!! X = nr of one_unit_x per real pixel
-                if (X > (j * m) && X < (j * m) + ONE_UNIT_X) {
+                if (X > (j * m) && X < (j * m) + (ONE_UNIT_X * special_coeff)) {
                     if (SHOW_GRID) {
                         g2.setPaint(GRID_COLOR);
                         g2.drawRect(i, 0, 1, getHeight());
@@ -467,7 +476,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 jj = 1;
             }
             //
-            if(vvv < 0.1){
+            if (vvv < 0.1) {
                 jj = 0.01;
             }
             //
@@ -505,9 +514,9 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         //
         if (number > 10) {
             format = "#";
-        }else if(number < 0.1){
+        } else if (number < 0.1) {
             format = "#.##";
-        }else if(number < 0.01){
+        } else if (number < 0.01) {
             format = "#.###";
         }
         //
@@ -615,16 +624,16 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      * @param serieToAdd
      * @return
      */
-    public boolean addSerie(MySerie serieToAdd,boolean createDiffMarkers,Object caller) {
+    public boolean addSerie(MySerie serieToAdd, boolean createDiffMarkers, Object caller) {
         if (SERIES.isEmpty()) {
-            serieToAdd.setMyGraphXY(this,createDiffMarkers);
+            serieToAdd.setMyGraphXY(this, createDiffMarkers);
             SERIES.add(serieToAdd);
             return true;
         }
         //=====================================================================
         for (MySerie mySerie : SERIES) {
             if (mySerie.nameEquals(serieToAdd.getName()) == false) {
-                serieToAdd.setMyGraphXY(this,createDiffMarkers);
+                serieToAdd.setMyGraphXY(this, createDiffMarkers);
                 SERIES.add(serieToAdd);
                 return true;
             } else {
@@ -672,9 +681,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
 
     /**
-     * @deprecated 
-     * @param value
-     * @param serie_name 
+     * @deprecated @param value
+     * @param serie_name
      */
     public synchronized void addPointToSerie(Object value, String serie_name) {
         PANEL_AREA_PREV = getWidth() * getHeight();
@@ -958,13 +966,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             myPointClicked();
 
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
-            CLICK_RIGHT_POINT = (MyPoint)e.getSource();
+            CLICK_RIGHT_POINT = (MyPoint) e.getSource();
             popup.removeAll();
             popup.add(menu_item_fix_point);
             addAdditionalControlsPopups();
             popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT)) {
-            CLICK_RIGHT_POINT = (MyPoint)e.getSource();
+            CLICK_RIGHT_POINT = (MyPoint) e.getSource();
             popup.removeAll();
             popup.add(menu_item_unfix_point);
             addAdditionalControlsPopups();
@@ -1005,8 +1013,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             SERIES.get(0).removeDiffMarkerPoint(point);
         }
     }
-    
-    public void removeDiffMarkerPoints(){
+
+    public void removeDiffMarkerPoints() {
         SERIES.get(0).removeDiffMarkerPoints();
     }
 
@@ -1066,7 +1074,6 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         JPanel parent = (JPanel) this.getParent().getParent();
 //        System.out.println("" + parent.toString());
     }
-
 //    public static void main(String[] args) {
 //        JFrame jf = new JFrame("test");
 //        jf.setSize(new Dimension(300, 300));

@@ -5,12 +5,9 @@
 package XYG_BASIC;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.border.Border;
 
 /**
