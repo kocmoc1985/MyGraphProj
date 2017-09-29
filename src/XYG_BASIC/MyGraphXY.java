@@ -445,7 +445,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
             double jj = 0; // step identifier
 
-            int vvv = (int) (Y_MAX / ALL_SERIES_COEFF);
+            double vvv = (int) (Y_MAX / ALL_SERIES_COEFF);
+            //
             if (vvv > 100000 && vvv < 1000000) {
                 jj = 10000;
             } else if (vvv > 10000 && vvv < 100000) {
@@ -460,12 +461,16 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 jj = 1;
             } else if (vvv > 1 && vvv < 3) {
                 jj = 0.5;
-            } else if (vvv > 0 && vvv < 3) {
+            }  else if (vvv > 0 && vvv < 3) {
                 jj = 0.1;
+            }else if (vvv > 0 && vvv < 0.5) {
+                jj = 0.01;
             } else {
                 jj = 1;
             }
-
+            //
+            System.out.println("JJ: " + jj + " / vvv: " + vvv + " / y_max: " + Y_MAX + " / coeff: " + ALL_SERIES_COEFF);
+            //
             int mm = 1; // frequency regulator
             int fix_coef_2 = 1; // this coef is for fixing the scaling of y-axis
             for (int i = 1; i < getHeight(); i++) {

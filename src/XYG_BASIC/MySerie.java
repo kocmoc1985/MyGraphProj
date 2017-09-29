@@ -156,14 +156,15 @@ public class MySerie {
             } else if (MAX < 1000000) {
                 q = 0.000001;
             }
-
+            //
             int x = 4; // Very Important (4 is best!), if this coef is 4 it means then 1_real_pixel = 4_points on graph
+            //
             if (pHeight / y < x) {
-
+                //
                 while (pHeight / (y_temp * coeff_temp) < x) {
                     coeff_temp -= q; // 0.00001 
                 }
-                //=========!!!!!======================
+                //
                 if (SCALE_SAME_ALL_SERIES) {
                     useOverallCoeffAlgor(coeff_temp);
                 } else {
