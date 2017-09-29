@@ -442,10 +442,10 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
             // how many unreal points there is in one real point/pixel
             double unreal_points_per_real = max_unreal_points / getHeight();
-
-            double jj = 0; // step identifier
-
-            double vvv = (int) (Y_MAX / ALL_SERIES_COEFF);
+            //
+            double jj; // step identifier
+            //
+            double vvv = (Y_MAX / ALL_SERIES_COEFF);
             //
             if (vvv > 100000 && vvv < 1000000) {
                 jj = 10000;
@@ -461,15 +461,17 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 jj = 1;
             } else if (vvv > 1 && vvv < 3) {
                 jj = 0.5;
-            }  else if (vvv > 0 && vvv < 3) {
+            } else if (vvv > 0 && vvv < 3) {
                 jj = 0.1;
-            }else if (vvv > 0 && vvv < 0.5) {
-                jj = 0.01;
             } else {
                 jj = 1;
             }
             //
-            System.out.println("JJ: " + jj + " / vvv: " + vvv + " / y_max: " + Y_MAX + " / coeff: " + ALL_SERIES_COEFF);
+            if(vvv < 0.1){
+                jj = 0.01;
+            }
+            //
+//            System.out.println("JJ: " + jj + " / vvv: " + vvv + " / y_max: " + Y_MAX + " / coeff: " + ALL_SERIES_COEFF);
             //
             int mm = 1; // frequency regulator
             int fix_coef_2 = 1; // this coef is for fixing the scaling of y-axis
@@ -498,10 +500,17 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
 
     private String round_(double number) {
+        //
         String format = "#.#";
+        //
         if (number > 10) {
             format = "#";
+        }else if(number < 0.1){
+            format = "#.##";
+        }else if(number < 0.01){
+            format = "#.###";
         }
+        //
         DecimalFormat twoDForm = new DecimalFormat(format);//"#.##"
         DecimalFormatSymbols s = DecimalFormatSymbols.getInstance();
         s.setDecimalSeparator('.');
@@ -630,8 +639,9 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         for (MySerie serie : SERIES) {
             deleteAllPointsFromSerie(serie);
         }
+        //
         this.X_MAX = 1; //!!!! Very important, this makes the scaling right!!!
-        this.Y_MAX = 1;//!!!! Very important, this makes the scaling right!!!
+        this.Y_MAX = 0.001;//!!!! Very important, this makes the scaling right!!!
         //
         repaint();
         updateUI();

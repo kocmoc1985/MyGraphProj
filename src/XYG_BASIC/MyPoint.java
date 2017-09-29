@@ -25,7 +25,7 @@ public class MyPoint extends JComponent {
     //=======================
     //This values corresponds to real values which are to be drawn!!!
     public int x_Real;
-    public int y_Real;
+    public double y_Real;
     public double y_Display;
     public double x_Display;
     //=======================
@@ -53,7 +53,7 @@ public class MyPoint extends JComponent {
     //===========================
     private HashMap<String, String> batch_info_map = new HashMap<String, String>();
 
-    public MyPoint(int x, int y, double y_) {
+    public MyPoint(int x, double y, double y_) {
         this.x_Real = x;
         this.y_Real = y;
         this.x_Scaled = x;
@@ -62,14 +62,14 @@ public class MyPoint extends JComponent {
         this.initialized_with_constructor_1 = true;
     }
 
-    public MyPoint(int y, double y_) {
+    public MyPoint(double y, double y_) {
         this.y_Real = y;
         this.y_Scaled = y_;
         this.y_Display = y_;
         this.initialized_with_constructor_2 = true;
     }
 
-    public MyPoint(int y, double y_, Color c) {
+    public MyPoint(double y, double y_, Color c) {
         this.y_Real = y;
         this.y_Scaled = y_;
         this.y_Display = y_;

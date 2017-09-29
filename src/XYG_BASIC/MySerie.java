@@ -145,7 +145,12 @@ public class MySerie {
             // fit to acomplisch values over 10000.
             // But the less this coeff is the more it takes on CPU
             double q = 0.00001;
-            if (MAX < 100) {
+            //
+            if (MAX < 1) {
+                q = 1;
+            } else if (MAX < 10) {
+                q = 0.1;
+            } else if (MAX < 100) {
                 q = 0.01;
             } else if (MAX < 1000) {
                 q = 0.001;
@@ -177,7 +182,7 @@ public class MySerie {
 
         //Must be!!
         if (point.getRecalcCoeff() != COEFF) {
-            point.y_Scaled = (int) (point.y_Real * COEFF);
+            point.y_Scaled = (point.y_Real * COEFF);
             point.setRecalcCoeff(COEFF);
         }
     }
@@ -189,7 +194,7 @@ public class MySerie {
     private void recalcSerie() {
         for (MyPoint myPoint : points) {
             if (myPoint.getRecalcCoeff() != COEFF) {
-                myPoint.y_Scaled = (int) (myPoint.y_Real * COEFF);
+                myPoint.y_Scaled = (myPoint.y_Real * COEFF);
                 myPoint.setRecalcCoeff(COEFF);
             }
         }
@@ -431,7 +436,7 @@ public class MySerie {
 
     public void addDiffMarkerPoints() {
         MyPoint pointA = getPoint(0);
-        MyPoint pointB = getPoint(points.size()-1);
+        MyPoint pointB = getPoint(points.size() - 1);
         this.DIFF_MARKER_POINTS.add(pointA);
         this.DIFF_MARKER_POINTS.add(pointB);
     }

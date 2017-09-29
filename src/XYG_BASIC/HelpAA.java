@@ -94,7 +94,7 @@ public class HelpAA {
                 point = new MyPoint(val, val);
             } else {
                 double val = (Double) value;
-                point = new MyPoint((int) val, val);
+                point = new MyPoint(val, val);
             }
         } else {
             point = (MyPoint) value;

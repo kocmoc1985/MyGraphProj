@@ -15,7 +15,7 @@ public class MyPointH extends MyPoint {
     private MyPoint LSL;
     private MyPoint USL;
 
-    public MyPointH(int y, double y_,MyPoint LSL,MyPoint USL) {
+    public MyPointH(double y, double y_,MyPoint LSL,MyPoint USL) {
         super(y, y_);
         this.LSL = LSL;
         this.USL = USL;
