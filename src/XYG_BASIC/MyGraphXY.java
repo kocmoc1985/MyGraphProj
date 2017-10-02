@@ -6,10 +6,8 @@ package XYG_BASIC;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.RenderingHints;
@@ -30,7 +28,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -710,6 +707,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         //============================
         point.addMouseMotionListener(this); //ading the listener to the instance of MyPoint
         point.addMouseListener(this);
+//        System.out.println("Adding point: " + point.POINT_INDEX + " / " + point.getSerieName());
         this.add(point); // Adds the point component to the graph panel component
         notify();
     }
