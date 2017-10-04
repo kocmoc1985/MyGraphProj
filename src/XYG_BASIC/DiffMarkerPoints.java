@@ -206,12 +206,18 @@ public class DiffMarkerPoints {
 
     public void addProperties() {
         if (bothExist()) {
+            //
+            MARKER_POINT_A.setHighlightOff();
+            MARKER_POINT_B.setHighlightOff();
+            //
             for (int i = MARKER_POINT_A.getPointIndex(); i <= MARKER_POINT_B.getPointIndex(); i++) {
                 MyPoint mp = serie.getSerie().get(i);
                 mp.setPointColor(Color.MAGENTA);
                 mp.setPointDrawRect(true);
                 draw_rect_points_list.add(mp);
             }
+            myGraphXY.revalidate();
+            myGraphXY.repaint();
         }
     }
 

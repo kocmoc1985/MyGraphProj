@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 public class MySerie {
 
     public MyGraphXY myGraphXY;
-    private ArrayList<MyPoint> points = new ArrayList<MyPoint>();
+    public ArrayList<MyPoint> points = new ArrayList<MyPoint>();
     private HashMap<Integer, MyPoint> pointsMap = new HashMap<Integer, MyPoint>();
     private String name;
     private Color curveColor = Color.BLACK;
