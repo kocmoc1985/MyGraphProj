@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG_T;
+package XYG_TEST;
 
 import java.awt.Color;
 import java.awt.Graphics;
