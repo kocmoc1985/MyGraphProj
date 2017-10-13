@@ -131,6 +131,8 @@ public class DiffMarkerPoints {
         //
         CURSOR_A.drawCursor(myGraphXY.getGraphics());
         CURSOR_B.drawCursor(myGraphXY.getGraphics());
+        //
+        markersUnset();
     }
 
     public void remove(MyPoint point) {
