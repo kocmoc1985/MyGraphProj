@@ -117,6 +117,10 @@ public class MyPoint extends JComponent {
     public void resetPointColor() {
         this.POINT_COLOR_B = this.INITIAL_POINT_COLOR;
     }
+    
+    public void resetPointDimenssion(){
+        this.POINT_D = POINT_D_SET;
+    }
 
     public void setPointDrawRect(boolean bln) {
         this.DRAW_RECT = bln;

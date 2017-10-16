@@ -355,6 +355,7 @@ public class MySerie {
         for (MyPoint point : points) {
             point.setPointDrawRect(false);
             point.resetPointColor();
+            point.resetPointDimenssion();
         }
         //
         myGraphXY.repaint();
