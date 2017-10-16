@@ -68,7 +68,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private boolean HIGH_LIGHT_ALL_POINTS = true;
     private boolean SCALE_XY_AXIS = true;
     public boolean SCALE_X_AXIS = true;
-    private boolean SCALE_Y_AXIS = true;
+    public boolean SCALE_Y_AXIS = true;
     public double COEFF_SMALL_GRID = 1;
     private boolean DRAW_MARKER = true;
     //
@@ -391,14 +391,20 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             //
             int vv = (int) (X_MAX);
             //
-            if (vv > 100000 && vv < 1000000) {
-                j = 10000;
-            } else if (vv > 10000 && vv < 100000) {
-                j = 1000;
-                special_coeff = 10;
-            } else if (vv > 1000 && vv < 10000) {
+            if (vv > 5000 && vv < 25000) {
+                j = 500;
+                special_coeff = 40;// not tested
+                //
+            } else if (vv > 1500 && vv < 5000) {
+                //
+                j = 250;
+                special_coeff = 25;
+                //
+            } else if (vv > 500 && vv < 1500) {
+                //
                 j = 100;
                 special_coeff = 5;
+                //
             } else if (vv > 100 && vv < 1000) {
                 j = 50;
             } else if (vv > 10 && vv < 100) {
@@ -407,7 +413,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 j = 1;
             }
             //
-//             System.out.println("JJ: " + j + " / vvv: " + vv + " / y_max: " + X_MAX);
+             System.out.println("JJ: " + j + " / vvv: " + vv + " / y_max: " + X_MAX);
             //
             int m = 1; // frequency regulator
             //
@@ -505,7 +511,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
     }
 
-    private String round_(double number) {
+    public String round_(double number) {
         //
         String format = "#.#";
         //
