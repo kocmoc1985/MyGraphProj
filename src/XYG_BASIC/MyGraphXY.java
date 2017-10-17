@@ -479,8 +479,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 jj = 1;
             }
             //
-            if (vvv < 0.1) {
-                jj = 0.01;
+            if (vvv < 1) {
+                jj = 0.02;
             }
             //
 //            System.out.println("JJ: " + jj + " / vvv: " + vvv + " / y_max: " + Y_MAX + " / coeff: " + ALL_SERIES_COEFF);
@@ -517,7 +517,9 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         //
         if (number > 10) {
             format = "#";
-        } else if (number < 0.1) {
+        }else if (number > 1 && number < 2) {
+            format = "#.#";
+        } else if (number < 1) {
             format = "#.##";
         } else if (number < 0.01) {
             format = "#.###";
