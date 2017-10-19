@@ -443,7 +443,7 @@ public class MySerie {
     }
 
     public void removeDiffMarkerPoint(MyPoint point) {
-        this.DIFF_MARKER_POINTS.removeB(point);
+        this.DIFF_MARKER_POINTS.oneCursorRemovedUsingMenu(point);
     }
 
     public void removeDiffMarkerPoints() {

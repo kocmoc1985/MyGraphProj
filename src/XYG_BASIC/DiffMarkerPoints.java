@@ -66,10 +66,10 @@ public class DiffMarkerPoints {
     }
 
     public void add(MyPoint point) {
-        if (MARKER_POINT_A == null && MARKER_POINT_B == null) {
+        if (MARKER_POINT_A == null && MARKER_POINT_B == null) {//FIRST MARKER (A) IS SET
             MARKER_POINT_A = point;
-            reset();
-            markersUnset();
+//            reset();
+//            markersUnset();
         } else if (MARKER_POINT_A == null && MARKER_POINT_B != null) {
             MARKER_POINT_A = point;
             go();
@@ -144,9 +144,13 @@ public class DiffMarkerPoints {
         }
 //        System.out.println("" + toString());
     }
-
-    public void removeB(MyPoint point) {
+    
+    //==========================================================================
+    
+    public void resetDiffMarkerPoints(MyPoint point) {
+        //
         remove(point);
+        //
         CURSOR_A.setPoint(MARKER_POINT_A);
         CURSOR_B.setPoint(MARKER_POINT_B);
         //
@@ -154,7 +158,21 @@ public class DiffMarkerPoints {
         CURSOR_B.drawCursor(myGraphXY.getGraphics());
     }
 
-    public void removeC(MyPoint point) {
+    public void oneCursorRemovedUsingMenu(MyPoint point) {
+        //
+        remove(point);
+        //
+        CURSOR_A.setPoint(MARKER_POINT_A);
+        CURSOR_B.setPoint(MARKER_POINT_B);
+        //
+        CURSOR_A.drawCursor(myGraphXY.getGraphics());
+        CURSOR_B.drawCursor(myGraphXY.getGraphics());
+        //
+        markersUnset();
+    }
+
+    public void oneCursorRemovedByClickingOnIt(MyPoint point) {
+        //
         reset();
         //
         if (MARKER_POINT_A == point) {
@@ -165,6 +183,8 @@ public class DiffMarkerPoints {
         //
         markersUnset();
     }
+    
+    //==========================================================================
 
     public boolean contains(MyPoint point) {
         if (MARKER_POINT_A == point || MARKER_POINT_B == point) {

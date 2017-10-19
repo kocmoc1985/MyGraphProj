@@ -57,7 +57,7 @@ public class CursorDiff extends JComponent implements MouseMotionListener {
                     anchorPoint = me.getPoint();
                     //
                     if (point != null) {
-                        diffMarkerPoints.removeC(point);
+                        diffMarkerPoints.oneCursorRemovedByClickingOnIt(point);
                     }
                     //
                     prevPoint = point;

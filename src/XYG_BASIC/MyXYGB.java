@@ -70,7 +70,7 @@ public class MyXYGB extends MyXYGA {
         if (serie.DIFF_MARKER_POINTS != null) {
             serie.DIFF_MARKER_POINTS.MARKER_POINT_A = null;
             serie.DIFF_MARKER_POINTS.MARKER_POINT_B = null;
-            serie.DIFF_MARKER_POINTS.removeB(null);
+            serie.DIFF_MARKER_POINTS.resetDiffMarkerPoints(null);
         }
     }
     
