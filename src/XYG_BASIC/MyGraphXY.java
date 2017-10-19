@@ -413,7 +413,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 j = 1;
             }
             //
-             System.out.println("JJ: " + j + " / vvv: " + vv + " / y_max: " + X_MAX);
+//             System.out.println("JJ: " + j + " / vvv: " + vv + " / y_max: " + X_MAX);
             //
             int m = 1; // frequency regulator
             //
@@ -543,9 +543,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 RenderingHints.VALUE_ANTIALIAS_ON);
         //===================================
         for (MySerie serie : SERIES) {
+            //
+            Color color = serie.getPointColor();
+            //
             for (MyPoint point : serie.getSerie()) {
                 if (serie.drawPoints()) {
-                    point.drawPoint(g, serie.getPointColor());
+                    point.drawPoint(g, color);
                 }
             }
         }
