@@ -553,6 +553,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             }
         }
     }
+    
 
     /**
      * Draws the lines between the points

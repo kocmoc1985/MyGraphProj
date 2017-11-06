@@ -41,7 +41,7 @@ public class MyPoint extends JComponent {
     //point dimenssion
     public int POINT_D = 7; // default 7
     private int POINT_D_SET = 1; // default 7
-    private int point_area;
+    public int point_area;
     //Coeff of this point !!! 
     private double RECALC_COEFF = 1;
     public int POINT_INDEX;
