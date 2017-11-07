@@ -789,7 +789,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     /**
      * Recalculating of coordinates which are used for the drawing of the graph
      */
-    private void recalc() {
+    public void recalc() {
         
         for (int x = 0; x < SERIES.size(); x++) {
             //
@@ -799,6 +799,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 //
                 int x_static = act_serie.get(i).x_Scaled;
                 double y_static = act_serie.get(i).y_Scaled;
+                //
+                y_static = Math.abs(y_static);
                 //
                 countUnit();
                 //
@@ -822,7 +824,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
     private int repaints_ = 0;
     
-    private void repaint_(String caller) {
+    public void repaint_(String caller) {
         repaint();
 //        System.out.println("Repaint: " + caller + "  " + (repaints_++));
     }
