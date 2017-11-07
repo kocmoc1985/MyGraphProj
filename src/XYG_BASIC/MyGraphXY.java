@@ -35,7 +35,7 @@ import javax.swing.JPanel;
  * @author Administrator
  */
 public class MyGraphXY extends JPanel implements ComponentListener, MouseListener, Runnable, MouseMotionListener, ActionListener {
-
+    
     public double X_MAX = 1;
     public double Y_MAX = 1;
     public final ArrayList<MySerie> SERIES = new ArrayList<MySerie>();
@@ -63,14 +63,14 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public boolean SHOW_GRID = false;
     public boolean SHOW_GRID_AND_SCALE = true;
     public Color GRID_COLOR = Color.LIGHT_GRAY;
-    private Color BACKGROUND_COLOR = new Color(249, 249, 249);
+    public Color BACKGROUND_COLOR = new Color(249, 249, 249);
     private boolean SHOW_POP_UP_LEFT_CLICK = true;
     private boolean HIGH_LIGHT_ALL_POINTS = true;
-    private boolean SCALE_XY_AXIS = true;
+    public boolean SCALE_XY_AXIS = true;
     public boolean SCALE_X_AXIS = true;
     public boolean SCALE_Y_AXIS = true;
     public double COEFF_SMALL_GRID = 1;
-    private boolean DRAW_MARKER = true;
+    public boolean DRAW_MARKER = true;
     //
     public MenuItem menu_item_fix_point = new MenuItem("Fix point");
     public MenuItem menu_item_unfix_point = new MenuItem("Unfix point");
@@ -93,7 +93,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         init();
         initializeStrokes();
     }
-
+    
     private void init() {
         menu_item_fix_point.addActionListener(this);
         menu_item_unfix_point.addActionListener(this);
@@ -101,7 +101,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         menu_item_diff_marker_remove.addActionListener(this);
         menu_item_delete_point.addActionListener(this);
     }
-
+    
     public ArrayList<MySerie> getSeries() {
         return SERIES;
     }
@@ -114,7 +114,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     protected double getALL_SERIES_COEFF() {
         return this.ALL_SERIES_COEFF;
     }
-
+    
     protected void setALL_SERIES_COEFF(double coeff) {
         this.ALL_SERIES_COEFF = coeff;
     }
@@ -123,7 +123,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      *
      */
     private void initializeStrokes() {
-
+        
         MARKER_STROKE = new BasicStroke(
                 2.0f, //thickness of the line
                 BasicStroke.CAP_BUTT,
@@ -131,7 +131,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 1.0f,
                 MARKER_DOTTED, //// to make dotted {10.0f, 6.0f} // undoted {1.0f, 1.0f}
                 0.0f);
-
+        
         GRID_STROKE = new BasicStroke(
                 1.0f, //thickness of the line
                 BasicStroke.CAP_BUTT,
@@ -186,7 +186,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         this.SCALE_X_AXIS = set;
         this.SCALE_Y_AXIS = set;
     }
-
+    
     public void setScaleXorYAxis(boolean scale_x, boolean scale_y) {
         this.SCALE_X_AXIS = scale_x;
         this.SCALE_Y_AXIS = scale_y;
@@ -271,62 +271,66 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             MARKER_DOTTED = new float[]{1.0f, 1.0f};
         }
     }
-
+    
     public void setMarkerInfo(int mode) {
         DRAW_MARKER_INFO = mode;
     }
-
+    
     public void setMarkerAutoReset(boolean set) {
         this.AUTO_RESET_MARKER = set;
     }
 
     //=======================================================================
-    @Override
-    public void paintComponent(Graphics g) {
+    public void basicPaintOperations(Graphics g) {
         super.paintComponent(g); // Paint background
         super.setBackground(BACKGROUND_COLOR);
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        basicPaintOperations(g);
 //        System.out.println("Draw:..........");
 
         if (DRAW_MARKER) {
             drawMarkerWhenPointing(g);
         }
-
+        
         drawDiffMarkers(g);
-
+        
         if (SCALE_XY_AXIS) {
             scaleOfXYAxis(g);
         }
-
+        
         drawLines(g);
-
+        
         drawPointsFixedSize(g);
-
+        
         drawLimits(g);
     }
-
-    private void drawDiffMarkers(Graphics g) {
+    
+    public void drawDiffMarkers(Graphics g) {
         MySerie serie = SERIES.get(0);
 
 //        if (serie.diffMarkersExist()) {
         ArrayList<CursorDiff> list = serie.getDiffCursors();
-
+        
         for (CursorDiff cursor : list) {
             cursor.drawCursor(g);
         }
 //        }
     }
-
+    
     private void drawMarkerStandard(Graphics g, MyPoint point) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(MARKER_STROKE);
         g2.setPaint(point.getPointColor());
-
+        
         g2.drawLine(point.x, 0, point.x, getHeight()); // X
         g2.drawLine(0, point.y, getWidth(), point.y); // Y
 
     }
-
-    private void drawMarkerWhenPointing(Graphics g) {
+    
+    public void drawMarkerWhenPointing(Graphics g) {
         if (MARKER_POINT == null) {
             return;
         }
@@ -350,7 +354,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         //Reset to ordinary stroke 
 //        g2.setStroke(ORDINARY_STROKE);
     }
-
+    
     private void drawMarkerInfo(Graphics2D g2) {
         if (DRAW_MARKER_INFO == 1) {
             g2.drawString(MARKER_POINT.getSerieName(), MARKER_X + 10, MARKER_Y + 20);
@@ -365,23 +369,23 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                     MARKER_X + 10, MARKER_Y + 20);
         }
     }
-
-    private void scaleOfXYAxis(Graphics g) {
+    
+    public void scaleOfXYAxis(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-
+        
         ORDINARY_STROKE = (BasicStroke) g2.getStroke();
         g2.setStroke(GRID_STROKE);
-
+        
         if (ONE_UNIT_Y < 1.1 || getHeight() < 50) {
             return;
         }
-
+        
         scaleX(g2);
         scaleY(g2);
-
+        
         g2.setStroke(ORDINARY_STROKE);
     }
-
+    
     public void scaleX(Graphics2D g2) {
         if (SCALE_X_AXIS) {
             //
@@ -435,12 +439,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                         g2.drawRect(i, (int) (getHeight() - 5 * COEFF_SMALL_GRID), 1, (int) (5 * COEFF_SMALL_GRID));
                         m++;
                     }
-
+                    
                 }
             }
         }
     }
-
+    
     public void scaleY(Graphics2D g2) {
         if (SCALE_Y_AXIS) {
             //Nr of ONE_UNIT_Y per getHeight. Note that Y_MAX is not the same
@@ -505,19 +509,19 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                         g2.drawRect(0, (getHeight() - (i - fix_coef_2)), (int) (5 * COEFF_SMALL_GRID), 1);
                         mm++;
                     }
-
+                    
                 }
             }
         }
     }
-
+    
     public String round_(double number) {
         //
         String format = "#.#";
         //
         if (number > 10) {
             format = "#";
-        }else if (number > 1 && number < 2) {
+        } else if (number > 1 && number < 2) {
             format = "#.#";
         } else if (number < 1) {
             format = "#.##";
@@ -537,7 +541,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      *
      * @param g
      */
-    private void drawPointsFixedSize(Graphics g) {
+    public void drawPointsFixedSize(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -553,14 +557,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             }
         }
     }
-    
 
     /**
      * Draws the lines between the points
      *
      * @param g
      */
-    private void drawLines(Graphics g) {
+    public void drawLines(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -581,7 +584,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             System.out.println("" + ex);
         }
     }
-
+    
     public void drawLimits(Graphics g) {
         //
         Graphics2D g2 = (Graphics2D) g;
@@ -617,7 +620,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         //
         g2.setStroke(ORDINARY_STROKE);
     }
-
+    
     public void setLimits(double min, double max) {
         if (min > 0 && max > 0) {
             LIMIT_MIN = min;
@@ -652,7 +655,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
         return false;
     }
-
+    
     public void deleteAllPointsFromAllSeries() {
         for (MySerie serie : SERIES) {
             deleteAllPointsFromSerie(serie);
@@ -664,7 +667,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         repaint();
         updateUI();
     }
-
+    
     public void deleteAllPointsFromSerie(MySerie serie) {
         //
         for (MyPoint mp : serie.getPoints()) {
@@ -676,13 +679,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         repaint();
         updateUI();
     }
-
+    
     public synchronized MyPoint deletePointFromSerie(MyPoint point, MySerie serie) {
         serie.deletePoint(point);
         this.remove(point);
         return point;
     }
-
+    
     public synchronized void addDataSetToSerie(double[] values, String serie_name) {
         for (double value : values) {
             addPointToSerie(value, serie_name);
@@ -696,7 +699,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public synchronized void addPointToSerie(Object value, String serie_name) {
         PANEL_AREA_PREV = getWidth() * getHeight();
         MyPoint point = HelpAA.definePoint(value);
-
+        
         for (MySerie serie : SERIES) {
             if (serie.nameEquals(serie_name)) {
                 add(point, serie);
@@ -704,13 +707,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
         notify();
     }
-
+    
     public synchronized void addPointToSerie(Object value, MySerie serie) {
         PANEL_AREA_PREV = getWidth() * getHeight();
         MyPoint point = HelpAA.definePoint(value);
         add(point, serie);
     }
-
+    
     public synchronized void add(MyPoint point, MySerie serie) {
         serie.addPoint(point);
         waitForPanelHeightIsInitialized(); //Must be!!!!
@@ -773,10 +776,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      * Extremly important method which recalculates how much one unit of x or y
      * is after the rescaling
      */
-    private void countUnit() {
+    public void countUnit() {
+        //
         if (getHeight() < 100) {
             return;
         }
+        //
         ONE_UNIT_X = (double) (getWidth() / X_MAX);
         ONE_UNIT_Y = Math.round(getHeight() / Y_MAX);
     }
@@ -785,20 +790,21 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      * Recalculating of coordinates which are used for the drawing of the graph
      */
     private void recalc() {
-
+        
         for (int x = 0; x < SERIES.size(); x++) {
             //
             ArrayList<MyPoint> act_serie = SERIES.get(x).getSerie();
             //
             for (int i = 0; i < act_serie.size(); i++) {
-
+                //
                 int x_static = act_serie.get(i).x_Scaled;
                 double y_static = act_serie.get(i).y_Scaled;
-
+                //
                 countUnit();
-
+                //
                 act_serie.get(i).x = (int) (Math.round(ONE_UNIT_X * x_static));
                 act_serie.get(i).y = (int) Math.round((getHeight() - (ONE_UNIT_Y * y_static)));
+                //
             }
         }
         //
@@ -810,12 +816,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         repaint_("recalc()");
 //        revalidate();
     }
-
+    
     public void validateFromOutside() {
         validate();
     }
     private int repaints_ = 0;
-
+    
     private void repaint_(String caller) {
         repaint();
 //        System.out.println("Repaint: " + caller + "  " + (repaints_++));
@@ -859,11 +865,11 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
     }
     public MyPoint prevPoint;
-
+    
     public void highLightOnePointOnMouseMovement(MouseEvent e) {
         if (e.getSource() instanceof MyPoint) {
             MyPoint p = (MyPoint) e.getSource();
-
+            
             if (p != prevPoint) {
                 //
                 if (PointHighLighter.isFixed(p)) {
@@ -894,7 +900,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 prevPoint = null;
             }
         }
-
+        
     }
 
     //========================================================
@@ -904,7 +910,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
     public MyPoint POINT_ON_SCREEN_MOOVE;
     public boolean REPAINT_ON_MOUSE_MOOVE = false;
-
+    
     @Override
     public void mouseMoved(MouseEvent e) {
         POINT_ON_SCREEN_MOOVE = new MyPoint(e.getPoint().x, e.getPoint().y, e.getPoint().getY());
@@ -920,17 +926,17 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public void componentResized(ComponentEvent e) {
         recalc();
     }
-
+    
     @Override
     public void componentMoved(ComponentEvent e) {
 //        System.out.print("");
     }
-
+    
     @Override
     public void componentShown(ComponentEvent e) {
 //        System.out.print("");
     }
-
+    
     @Override
     public void componentHidden(ComponentEvent e) {
 //        System.out.print("");
@@ -961,20 +967,20 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         //
     }
-
+    
     public void addPointInfo() {
         //        MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
         MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
         MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
         //
     }
-
+    
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        
         if (e.getSource() instanceof MyPoint && SHOW_POP_UP_LEFT_CLICK && e.getButton() == 1) {
             myPointClicked();
-
+            
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
             CLICK_RIGHT_POINT = (MyPoint) e.getSource();
             popup.removeAll();
@@ -989,7 +995,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         }
     }
-
+    
     public void addAdditionalControlsPopups() {
         if (MARKER_POINT.isDiffMarkerPoint() == false) {
             popup.add(menu_item_diff_marker_add);
@@ -999,7 +1005,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         //
         popup.add(menu_item_delete_point);
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == menu_item_fix_point) { // Fix point
@@ -1014,7 +1020,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             CLICK_RIGHT_POINT.deletePoint();
         }
     }
-
+    
     private void addRemoveDiffMarker(MyPoint point, boolean add) {
         //
         if (add) {
@@ -1023,37 +1029,37 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             SERIES.get(0).removeDiffMarkerPoint(point);
         }
     }
-
+    
     public void removeDiffMarkerPoints() {
         SERIES.get(0).removeDiffMarkerPoints();
     }
-
+    
     private void fixPoint() {
         PointHighLighter.highLightAllPointsAtIndex(MARKER_POINT);
         PointHighLighter.setPointFixed(MARKER_POINT);
         repaint_("fixPoint()");
 //        validate();
     }
-
+    
     private void unfixPoint() {
         PointHighLighter.setPointUnfixed(MARKER_POINT);
         PointHighLighter.unhighLightAllPointsAtIndex(MARKER_POINT);
         repaint_("unfixPoint()");
 //        validate();
     }
-
+    
     @Override
     public void mousePressed(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseReleased(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseEntered(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseExited(MouseEvent e) {
     }
