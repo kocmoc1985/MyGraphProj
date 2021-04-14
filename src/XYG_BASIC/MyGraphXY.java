@@ -63,6 +63,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     //==========================================
     public boolean SHOW_GRID = false;
     public boolean SHOW_GRID_AND_SCALE = true;
+    public boolean SHOW_SCALE = true;
     public Color GRID_COLOR = Color.LIGHT_GRAY;
     public Color BACKGROUND_COLOR = new Color(249, 249, 249);
     private boolean SHOW_POP_UP_LEFT_CLICK = true;
@@ -437,9 +438,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                         //
                         m++;
                     } else {
-                        g2.setPaint(GRID_COLOR);
-                        g2.drawString("" + (j * m), i - 3, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 3);
-                        g2.drawRect(i, (int) (getHeight() - 5 * COEFF_SMALL_GRID), 1, (int) (5 * COEFF_SMALL_GRID));
+                        if (SHOW_SCALE != false) {
+                            g2.setPaint(GRID_COLOR);
+                            g2.drawString("" + (j * m), i - 3, (int) (getHeight() - 5 * COEFF_SMALL_GRID) - 3);
+                            g2.drawRect(i, (int) (getHeight() - 5 * COEFF_SMALL_GRID), 1, (int) (5 * COEFF_SMALL_GRID));
+                        }
+                        //
                         m++;
                     }
 
@@ -466,29 +470,31 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             //
             double vvv = (Y_MAX / ALL_SERIES_COEFF);
             //
-            if (vvv > 100000 && vvv < 1000000) {
-                jj = 10000;
-            } else if (vvv > 10000 && vvv < 100000) {
-                jj = 1000;
-            } else if (vvv > 1000 && vvv < 10000) {
-                jj = 500;
-            } else if (vvv > 100 && vvv < 1000) {
-                jj = 50;
-            } else if (vvv > 10 && vvv < 100) {
-                jj = 5;
-            } else if (vvv > 5 && vvv < 10) {
-                jj = 1;
-            } else if (vvv > 1 && vvv < 3) {
-                jj = 0.5;
-            } else if (vvv > 0 && vvv < 3) {
-                jj = 0.1;
-            } else {
-                jj = 1;
-            }
+//            if (vvv > 100000 && vvv < 1000000) {
+//                jj = 10000;
+//            } else if (vvv > 10000 && vvv < 100000) {
+//                jj = 1000;
+//            } else if (vvv > 1000 && vvv < 10000) {
+//                jj = 500;
+//            } else if (vvv > 100 && vvv < 1000) {
+//                jj = 50;
+//            } else if (vvv > 10 && vvv < 100) {
+//                jj = 5;
+//            } else if (vvv > 5 && vvv < 10) {
+//                jj = 1;
+//            } else if (vvv > 1 && vvv < 3) {
+//                jj = 0.5;
+//            } else if (vvv > 0 && vvv < 3) {
+//                jj = 0.1;
+//            } else {
+//                jj = 1;
+//            }
+//            //
+//            if (vvv < 1) {
+//                jj = 0.02;
+//            }
             //
-            if (vvv < 1) {
-                jj = 0.02;
-            }
+            jj = defineJJ(vvv); // [2020-04-14]
             //
 //            System.out.println("JJ: " + jj + " / vvv: " + vvv + " / y_max: " + Y_MAX + " / coeff: " + ALL_SERIES_COEFF);
             //
@@ -507,15 +513,50 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                         //
                         mm++;
                     } else {
-                        g2.setPaint(GRID_COLOR);
-                        g2.drawString("" + round_(jj * mm), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
-                        g2.drawRect(0, (getHeight() - (i - fix_coef_2)), (int) (5 * COEFF_SMALL_GRID), 1);
+                        if (SHOW_SCALE != false) {
+                            g2.setPaint(GRID_COLOR);
+                            g2.drawString("" + round_(jj * mm), (int) (7 * COEFF_SMALL_GRID), getHeight() - (i - fix_coef_2 - 3));
+                            g2.drawRect(0, (getHeight() - (i - fix_coef_2)), (int) (5 * COEFF_SMALL_GRID), 1);
+                        }
+                        //
                         mm++;
                     }
 
                 }
             }
         }
+    }
+
+    public double defineJJ(double vvv) {
+        //
+        double jj;
+        //
+        if (vvv > 100000 && vvv < 1000000) {
+            jj = 10000;
+        } else if (vvv > 10000 && vvv < 100000) {
+            jj = 1000;
+        } else if (vvv > 1000 && vvv < 10000) {
+            jj = 500;
+        } else if (vvv > 100 && vvv < 1000) {
+            jj = 50;
+        } else if (vvv > 10 && vvv < 100) {
+            jj = 5;
+        } else if (vvv > 5 && vvv < 10) {
+            jj = 1;
+        } else if (vvv > 1 && vvv < 3) {
+            jj = 0.5;
+        } else if (vvv > 0 && vvv < 3) {
+            jj = 0.1;
+        } else {
+            jj = 1;
+        }
+        //
+        if (vvv < 1) {
+            jj = 0.02;
+        }
+        //
+        return jj;
+
     }
 
     public String round_(double number) {
@@ -954,7 +995,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         //
         popup.removeAll();
         //==========================Batch Info displaying==================
-        if(ADD_POINT_INFO_BASIC){
+        if (ADD_POINT_INFO_BASIC) {
             addPointInfoBasic();
         }
         //

@@ -121,8 +121,8 @@ public class MyXYGB extends MyXYGA {
 
     public static void main(String[] args) {
         //
-        MyXYGB msxyg = new MyXYGB("speed", new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
-        msxyg.addSerie(new MySerie("speed"), true, null);
+        MyXYGB msxyg = new MyXYGB("graph", new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        msxyg.addSerie(new MySerie("graph"), true, null);
         //
         JFrame jf = new JFrame(msxyg.getTitle());
         jf.setSize(new Dimension(800, 800));
@@ -137,7 +137,7 @@ public class MyXYGB extends MyXYGA {
 //        
 //        double[] dataSet = {0.7,1.3,3.2,0.7,4.8};
 //        double[] dataSet = {0.35,0.24,0.78,0.47,0.52};
-        msxyg.addDataSetBySerie(dataSet, "speed");
+        msxyg.addDataSetBySerie(dataSet, "graph");
         //
 //        HelpA.addMouseListenerToAllComponentsOfComponent(jf.getRootPane());
     }

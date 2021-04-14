@@ -21,7 +21,7 @@ public class Run_A {
 
     public static void main(String[] args) {
         //
-        XyGraph_Basic xyGraph_A = new XyGraph_Basic("test", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        XyGraph_Basic xyGraph_A = new XyGraph_Basic("test",new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         JFrame jf = new JFrame(xyGraph_A.getTitle()); //****
         jf.setSize(new Dimension(800, 400));

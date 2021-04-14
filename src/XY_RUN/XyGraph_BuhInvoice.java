@@ -7,6 +7,8 @@ package XY_RUN;
 
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
+import XYG_BASIC.MySerie;
+import XYG_BASIC.PointHighLighter;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,12 +29,13 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     public static final String KEY__FAKTURA_NR = "fakturanr";
     public static final String KEY__FAKTURA_TYPE = "fakturatyp";
     public static final String KEY__FAKTURA_BETALD = "betald";
+    public static final String KEY__FAKTURA_KUND = "namn";
 
     public HashMap<Integer, Color> colorMap = new HashMap<Integer, Color>();
     public HashMap<String, String> fakturaTypeMap = new HashMap<String, String>();
 
-    public XyGraph_BuhInvoice(String title, int displayMode) {
-        super(title, displayMode);
+    public XyGraph_BuhInvoice(String title, MyGraphXY xy, int displayMode) {
+        super(title, xy, displayMode);
         init();
     }
 
@@ -44,11 +47,19 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
 
     public void addData(ArrayList<HashMap<String, String>> list, String[] hashMapKeysInfo) {
         //
-        for (HashMap<String, String> map : list) {
+        if(list == null || list.isEmpty()){
+            return;
+        }
+        //
+        for (int i = list.size()-1; i >= 0; i--) {
+            //
+            HashMap<String, String> map = list.get(i);
+            //
             double val = Double.parseDouble(map.get(KEY_MAIN__VALUE));
             int fakturaNr = Integer.parseInt(map.get(KEY__FAKTURA_NR));
             int fakturaTyp = Integer.parseInt(map.get(KEY__FAKTURA_TYPE));
             int betald = Integer.parseInt(map.get(KEY__FAKTURA_BETALD));
+            String faktura_kund = map.get(KEY__FAKTURA_KUND);
             Color color = defineColor(fakturaTyp, betald);
             //
             MyPoint p = new MyPoint((int) val, val, color);
@@ -58,6 +69,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
                 p.addPointInfo("BETALD", "Ja");
             }
             //
+            p.addPointInfo("KUND", "" + faktura_kund);
             p.addPointInfo("FAKTURANR", "" + fakturaNr);
             p.addPointInfo("FAKTURATYP", fakturaTypeMap.get("" + fakturaTyp));
             p.addPointInfo(KEY_MAIN__VALUE, "" + val);
@@ -69,6 +81,11 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             addPointWithDiffMarkerPointsDelete(p, true);
             //
         }
+        //
+//        for (HashMap<String, String> map : list) {
+//            
+//            //
+//        }
         //
     }
 
@@ -91,7 +108,56 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
         colorMap.put(FAKTURA_TYPE__NORMAL, Color.BLUE);
         colorMap.put(FAKTURA_TYPE__KREDIT, Color.ORANGE);
         colorMap.put(FAKTURA_TYPE__KONTANT, Color.MAGENTA);
-        colorMap.put(FAKTURA_TYPE__OFFERT, Color.YELLOW);
+        colorMap.put(FAKTURA_TYPE__OFFERT, Color.DARK_GRAY);
+    }
+    
+    @Override
+    public void initializeA() {
+        //
+        this.setTitleSize(20, true);
+        this.setTitleSize(20, true);
+        this.setTitleColor(Color.black);
+//        this.setBorderHeadAndFootComponents(BorderFactory.createLineBorder(Color.darkGray));
+        this.setHeadHeight(0.1);
+        //
+        // setAxisScaling(...) & setDrawGrid(...) influence each other!
+        this.setAxisScaling(true, true);
+//        this.setDrawGrid(true);
+//        this.setDisableScalingWhenGrid();
+        this.setGridColor(Color.black);
+        this.setScaleXYaxisLength(1.2); // 1.2
+        
+        //
+//        this.setBackgroundColorOfGraph(Color.WHITE); // it is white by default
+        //
+        this.setDrawMarker(false);
+        this.setMarkerDotted(true);
+        this.setMarkerInfo(1);
+        this.setMarkerAutoReset(false);
+        //
+    }
+
+    @Override
+    public void initializeB() {
+        //
+        serie = new MySerie(getTitle());
+        //
+        serie.setDrawPoints(true);
+        serie.setPointThickness(1.5);
+//        serie.setPointHighLightColor(Color.red);
+//        serie.setPointColor(Color.red);
+        //
+        serie.setDrawLines(true);
+        serie.setLineThickness(1);
+        serie.setLineDotted();
+        serie.setCurveColor(Color.BLUE);
+        serie.setOverallScale(true);
+        //
+        this.addSerie(serie, true, this);
+        //
+        PointHighLighter.addSerie(serie);
+        //
+        myGraphXY.SHOW_SCALE = false;
     }
 
 }

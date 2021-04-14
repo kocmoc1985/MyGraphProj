@@ -20,8 +20,8 @@ import java.util.ArrayList;
  */
 public class XyGraph_Basic extends MyXYGB implements PointDeletedAction{
 
-    public XyGraph_Basic(String title, int displayMode) {
-        super(title, new MyGraphXY(), displayMode);
+    public XyGraph_Basic(String title,MyGraphXY xy,int displayMode) {
+        super(title, xy, displayMode);
     }
 
     @Override
