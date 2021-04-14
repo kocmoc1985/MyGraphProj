@@ -15,70 +15,68 @@ import javax.swing.JTextField;
  * @author KOCMOC
  */
 public class MyXYGB extends MyXYGA {
-    
+
     public MySerie serie;
-    
-    public MyXYGB(String title,MyGraphXY xY) {
-        super(title,xY);
+
+    public MyXYGB(String title, MyGraphXY xY) {
+        super(title, xY);
         initialize();
     }
-    
-    public MyXYGB(String title,MyGraphXY xY, int displayMode) {
-        super(title,xY, displayMode);
+
+    public MyXYGB(String title, MyGraphXY xY, int displayMode) {
+        super(title, xY, displayMode);
         initialize();
     }
-    
-    public void addDiffMarkerPoints(){
+
+    public void addDiffMarkerPoints() {
         serie.addDiffMarkerPoints();
     }
-    
-    public void removeDiffMarkerPoints(){
+
+    public void removeDiffMarkerPoints() {
         serie.removeDiffMarkerPoints();
     }
-    
-    public void addDiffMarkersSetListener(DiffMarkerAction dma){
+
+    public void addDiffMarkersSetListener(DiffMarkerAction dma) {
         serie.DIFF_MARKER_POINTS.addDiffMarkersSetListener(dma);
     }
-    
-    public void addDiffMarkerOutPutComponent(String calcName, JTextField jtf){
+
+    public void addDiffMarkerOutPutComponent(String calcName, JTextField jtf) {
         serie.addDiffMarkerOutPutComponent(calcName, jtf);
     }
-    
-    public MySerie getSerie(){
+
+    public MySerie getSerie() {
         return this.serie;
     }
-    
-    
+
     /**
-     * @deprecated 
-     * @param valueOrPoint 
+     * @deprecated @param valueOrPoint
      */
-    public void addPoint(Object valueOrPoint){
+    public void addPoint(Object valueOrPoint) {
         addPointBySerie(valueOrPoint, serie);
     }
-    
-    public void addPointWithDiffMarkerPointsDelete(Object valueOrPoint,boolean delete){
-        if(delete){
+
+    public void addPointWithDiffMarkerPointsDelete(Object valueOrPoint, boolean delete) {
+        if (delete) {
             resetDiffMarkerPoints();
         }
         //
         addPointBySerie(valueOrPoint, serie);
-        
+
     }
-    
-    public void resetDiffMarkerPoints(){
+
+    public void resetDiffMarkerPoints() {
         if (serie.DIFF_MARKER_POINTS != null) {
             serie.DIFF_MARKER_POINTS.MARKER_POINT_A = null;
             serie.DIFF_MARKER_POINTS.MARKER_POINT_B = null;
             serie.DIFF_MARKER_POINTS.resetDiffMarkerPoints(null);
         }
     }
-    
-    private void initialize(){
+
+    private void initialize() {
         initializeA();
         initializeB();
     }
-    
+
     public void initializeB() {
         serie = new MySerie(getTitle());
         //
@@ -86,7 +84,7 @@ public class MyXYGB extends MyXYGA {
         serie.setPointThickness(1);
 //        serie.setPointHighLightColor(Color.red);
 //        serie.setPointColor(Color.red);
-        
+
         serie.setDrawLines(true);
         serie.setLineThickness(1);
         serie.setLineDotted();
@@ -97,7 +95,7 @@ public class MyXYGB extends MyXYGA {
         //
         PointHighLighter.addSerie(serie);
     }
-    
+
     public void initializeA() {
         this.setTitleSize(20, true);
         this.setTitleSize(20, true);
@@ -120,11 +118,11 @@ public class MyXYGB extends MyXYGA {
         this.setMarkerInfo(1);
         this.setMarkerAutoReset(false);
     }
-    
-    
+
     public static void main(String[] args) {
         //
-        MyXYGB msxyg = new MyXYGB("speed",new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        MyXYGB msxyg = new MyXYGB("speed", new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        msxyg.addSerie(new MySerie("speed"), true, null);
         //
         JFrame jf = new JFrame(msxyg.getTitle());
         jf.setSize(new Dimension(800, 800));
@@ -132,15 +130,13 @@ public class MyXYGB extends MyXYGA {
         jf.add(msxyg.getGraph());
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898,358,965,879,253,96,1547,1625,1200};
-        
+
+        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898, 358, 965, 879, 253, 96, 1547, 1625, 1200};
+
 //        double[] dataSet = {3.5,1.7,2.3,1.3,4.5,7.8,6.7,8.7};
 //        
 //        double[] dataSet = {0.7,1.3,3.2,0.7,4.8};
-        
 //        double[] dataSet = {0.35,0.24,0.78,0.47,0.52};
-        
         msxyg.addDataSetBySerie(dataSet, "speed");
         //
 //        HelpA.addMouseListenerToAllComponentsOfComponent(jf.getRootPane());

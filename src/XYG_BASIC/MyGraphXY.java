@@ -81,6 +81,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public double LIMIT_MIN;
     public double LIMIT_MAX;
     //
+    public static boolean ADD_POINT_INFO_BASIC = true; //[2021-04-14]
+    //
 
     public MyGraphXY() {
         PANEL_AREA_PREV = getWidth() * getHeight();
@@ -635,6 +637,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      * name must differ from the existing ones
      *
      * @param serieToAdd
+     * @param createDiffMarkers
+     * @param caller
      * @return
      */
     public boolean addSerie(MySerie serieToAdd, boolean createDiffMarkers, Object caller) {
@@ -947,10 +951,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
     //===============================================================
     public void myPointClicked() {
+        //
         popup.removeAll();
-
         //==========================Batch Info displaying==================
-        addPointInfo();
+        if(ADD_POINT_INFO_BASIC){
+            addPointInfoBasic();
+        }
         //
         HashMap<String, String> b_info_map = MARKER_POINT.getBatchInfo();
         //
@@ -971,8 +977,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         //
     }
 
-    public void addPointInfo() {
-        //        MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
+    public void addPointInfoBasic() {
+        //        MARKER_POINT.addPointInfoBasic("serie", MARKER_POINT.getSerieName());
         MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
         MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Real);
         //

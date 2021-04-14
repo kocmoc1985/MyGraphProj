@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.swing.JComponent;
 
 /**
@@ -51,7 +52,8 @@ public class MyPoint extends JComponent {
     private boolean initialized_with_constructor_1 = false;
     private boolean initialized_with_constructor_2 = false;
     //===========================
-    private HashMap<String, String> batch_info_map = new HashMap<String, String>();
+//     private HashMap<String, String> batch_info_map = new HashMap<String, String>();
+    private LinkedHashMap<String, String> batch_info_map = new LinkedHashMap<String, String>(); // [2020-04-14]
 
     public MyPoint(int x, double y, double y_) {
         this.x_Real = x;
@@ -90,6 +92,8 @@ public class MyPoint extends JComponent {
      * Adds a info for the given point, for displaying it later when
      * clicking/pointing the point with mouse
      *
+     * @param key
+     * @param value
      * @param info
      */
     public void addPointInfo(String key, String value) {
