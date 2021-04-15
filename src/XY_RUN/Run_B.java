@@ -24,7 +24,9 @@ public class Run_B {
         String dateNow = HelpAA.get_date_yyyy_MM_dd();
         String dateFormat = "yyyy-DD-mm";
         //
-        XyGraph_BuhInvoice xghm = new XyGraph_BuhInvoice("test", new MyGraphXY_BuhInvoice(),
+        Buh_Invoice_Main__IF bim = null;
+        //
+        XyGraph_BuhInvoice xghm = new XyGraph_BuhInvoice("test", new MyGraphXY_BuhInvoice(bim),
                 MyGraphContainer.DISPLAY_MODE_FULL_SCREEN, dateNow, dateFormat);
         //
         System.out.println("Width: " + xghm.getGraph().getHeight() + " / " + xghm.getGraph().getWidth());

@@ -19,7 +19,12 @@ import java.awt.event.MouseEvent;
 public class MyGraphXY_BuhInvoice extends MyGraphXY {
 
     public MenuItem menu_item_goto_faktura = new MenuItem("Se faktura");
-    
+    private final Buh_Invoice_Main__IF bim;
+
+    public MyGraphXY_BuhInvoice(Buh_Invoice_Main__IF bim) {
+        this.bim = bim;
+    }
+
     @Override
     public void addAdditionalControlsPopups() {
         popup.add(menu_item_goto_faktura);
@@ -45,19 +50,17 @@ public class MyGraphXY_BuhInvoice extends MyGraphXY {
         }
         //
     }
-    
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         //
         if (ae.getSource() == menu_item_goto_faktura) {
-            
+            if (bim != null) {
+                bim.goToFaktura();
+            }
         }
         //
     }
-    
-    
-
 
     @Override
     public double defineJJ__y_axis(double vvv) {
@@ -91,6 +94,5 @@ public class MyGraphXY_BuhInvoice extends MyGraphXY {
         return jj;
         //
     }
-    
 
 }
