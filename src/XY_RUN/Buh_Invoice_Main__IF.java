@@ -11,6 +11,6 @@ package XY_RUN;
  */
 public interface Buh_Invoice_Main__IF {
     
-    public void goToFaktura();
+    public void goToFaktura(String fakturaNr);
     
 }

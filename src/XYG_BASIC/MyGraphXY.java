@@ -45,14 +45,14 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     private int PANEL_AREA_PREV;
     public PopupMenu popup = new PopupMenu("Popup");
     //==========================================
-    private int MARKER_X;
-    private int MARKER_Y;
+    public int MARKER_X;
+    public int MARKER_Y;
     public MyPoint MARKER_POINT;
     public MyPoint CLICK_RIGHT_POINT;
-    private Color MARKER_COLOR = Color.BLACK;
+    public Color MARKER_COLOR = Color.BLACK;
     private float[] MARKER_DOTTED = new float[]{10.0f, 6.0f};
-    private int DRAW_MARKER_INFO;
-    private boolean AUTO_RESET_MARKER = false; // this means that marker is leaved drawn at the last point you pointed on
+    public int DRAW_MARKER_INFO;
+    public boolean AUTO_RESET_MARKER = false; // this means that marker is leaved drawn at the last point you pointed on
     //===========================================
     public BasicStroke ORDINARY_STROKE;
     public BasicStroke MARKER_STROKE;
@@ -73,6 +73,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public boolean SCALE_Y_AXIS = true;
     public double COEFF_SMALL_GRID = 1;
     public boolean DRAW_MARKER = true;
+    public boolean DRAW_MARKER_INFO_ONLY = false; // [2020-04-15]
     //
     public MenuItem menu_item_fix_point = new MenuItem("Fix point");
     public MenuItem menu_item_unfix_point = new MenuItem("Unfix point");
@@ -295,21 +296,23 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
 
     public void DRAW(Graphics g) {
-        if (DRAW_MARKER) {
+        //
+        if (DRAW_MARKER || DRAW_MARKER_INFO_ONLY) {
             drawMarkerWhenPointing(g);
         }
-
+        //
         drawDiffMarkers(g);
-
+        //
         if (SCALE_XY_AXIS) {
             scaleOfXYAxis(g);
         }
-
+        //
         drawLines(g);
-
+        //
         drawPointsFixedSize(g);
-
+        //
         drawLimits(g);
+        //
     }
 
     public void drawDiffMarkers(Graphics g) {
@@ -335,11 +338,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     }
 
     public void drawMarkerWhenPointing(Graphics g) {
+        //
+        Graphics2D g2 = (Graphics2D) g;
+        //
+        //
         if (MARKER_POINT == null) {
             return;
         }
-        //
-        Graphics2D g2 = (Graphics2D) g;
         //
         ORDINARY_STROKE = (BasicStroke) g2.getStroke();
         //
@@ -349,17 +354,20 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         MARKER_X = MARKER_POINT.x;
         MARKER_Y = MARKER_POINT.y;
         //===================== DRAW MARKER======================================
+        drawMarkerWhenPointing_b(g2);
+        //Reset to ordinary stroke 
+//        g2.setStroke(ORDINARY_STROKE);
+    }
+
+    public void drawMarkerWhenPointing_b(Graphics2D g2) {
         if ((MARKER_POINT.getDrawMarker() || AUTO_RESET_MARKER == false)) {
             g2.drawLine(MARKER_X, 0, MARKER_X, getHeight()); // X
             g2.drawLine(0, MARKER_Y, getWidth(), MARKER_Y); // Y
             drawMarkerInfo(g2);
         }
-
-        //Reset to ordinary stroke 
-//        g2.setStroke(ORDINARY_STROKE);
     }
 
-    private void drawMarkerInfo(Graphics2D g2) {
+    public void drawMarkerInfo(Graphics2D g2) {
         if (DRAW_MARKER_INFO == 1) {
             g2.drawString(MARKER_POINT.getSerieName(), MARKER_X + 10, MARKER_Y + 20);
         } else if (DRAW_MARKER_INFO == 2) {
@@ -877,6 +885,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 }
                 //
                 switch_a = true;
+                //
             } else {
                 if (MARKER_POINT != null && switch_a) {
                     //
@@ -885,6 +894,11 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                     repaint_("highLightPointsOnMouseMovement()");
                     //
                     switch_a = false;
+                    //
+//                    System.out.println("Not pointing on MyPoint");
+                    //
+                    MARKER_POINT = null; // OBS! Very important added [2020-04-15]
+                    //
                 }
             }
         }
@@ -976,7 +990,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             addPointInfoBasic();
         }
         //
-        HashMap<String, String> b_info_map = MARKER_POINT.getBatchInfo();
+        HashMap<String, String> b_info_map = MARKER_POINT.getPointInfo();
         //
         Set set = b_info_map.keySet();
         Iterator it = set.iterator();

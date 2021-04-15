@@ -206,7 +206,7 @@ public class MyPoint extends JComponent {
      *
      * @return
      */
-    public HashMap<String, String> getBatchInfo() {
+    public HashMap<String, String> getPointInfo() {
         return this.batch_info_map;
     }
 

@@ -22,7 +22,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
 
     private final String DATE_NOW;
     private final String DATE_FORMAT;
-    
+
     // Corresponds to DBEraser -> BuhInvoice -> DB.public static final String STATIC__FAKTURA_TYPE_NORMAL__NUM = "0";
     public static final int FAKTURA_TYPE__NORMAL = 0;
     public static final int FAKTURA_TYPE__KREDIT = 1;
@@ -37,10 +37,12 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     public static final String KEY__FAKTURA_FORFALLODATUM = "forfallodatum";
     public static final String KEY__FAKTURA_KUND = "namn";
 
+    public static final String NICK__FAKTURA_KUND = "KUND";
+
     public HashMap<Integer, Color> colorMap = new HashMap<Integer, Color>();
     public HashMap<String, String> fakturaTypeMap = new HashMap<String, String>();
 
-    public XyGraph_BuhInvoice(String title, MyGraphXY xy, int displayMode,String dateNow,String dateFormat) {
+    public XyGraph_BuhInvoice(String title, MyGraphXY xy, int displayMode, String dateNow, String dateFormat) {
         super(title, xy, displayMode);
         this.DATE_NOW = dateNow;
         this.DATE_FORMAT = dateFormat;
@@ -69,9 +71,9 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             int betald = Integer.parseInt(map.get(KEY__FAKTURA_BETALD));
             int makulerad = Integer.parseInt(map.get(KEY__FAKTURA_MAKULERAD));
             String forfallodatum = map.get(KEY__FAKTURA_FORFALLODATUM);
-            boolean forfallen = isForfallen(fakturaTyp, betald, makulerad,forfallodatum);
+            boolean forfallen = isForfallen(fakturaTyp, betald, makulerad, forfallodatum);
             String faktura_kund = map.get(KEY__FAKTURA_KUND);
-            Color color = defineColor(fakturaTyp, betald,forfallen);
+            Color color = defineColor(fakturaTyp, betald, forfallen);
             //
             MyPoint p = new MyPoint((int) val, val, color);
             //
@@ -86,8 +88,8 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             }
             //
             //
-            p.addPointInfo("KUND", "" + faktura_kund);
-            p.addPointInfo("FAKTURANR", "" + fakturaNr);
+            p.addPointInfo(NICK__FAKTURA_KUND, "" + faktura_kund);
+            p.addPointInfo(KEY__FAKTURA_NR.toUpperCase(), "" + fakturaNr);
             p.addPointInfo("FAKTURATYP", fakturaTypeMap.get("" + fakturaTyp));
             p.addPointInfo(KEY_MAIN__VALUE, "" + val);
             //
@@ -106,11 +108,11 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
         //
     }
 
-    public boolean isForfallen(int fakturaType, int betald, int makulerad,String forfallodatum) {
+    public boolean isForfallen(int fakturaType, int betald, int makulerad, String forfallodatum) {
         boolean forfallen = HelpAA.compareDates(DATE_NOW, DATE_FORMAT, forfallodatum, DATE_FORMAT);
-        if(forfallen && fakturaType == 0 && betald == 0 && makulerad == 0){
+        if (forfallen && fakturaType == 0 && betald == 0 && makulerad == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -158,10 +160,11 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
         //
 //        this.setBackgroundColorOfGraph(Color.WHITE); // it is white by default
         //
-        this.setDrawMarker(false);
-        this.setMarkerDotted(true);
+        this.myGraphXY.DRAW_MARKER_INFO_ONLY = true;
         this.setMarkerInfo(1);
-        this.setMarkerAutoReset(false);
+//        this.setDrawMarker(false); // Will not work for the "BuhInvoice" branch
+//        this.setMarkerDotted(true); // Will not work for the "BuhInvoice" branch
+//        this.setMarkerAutoReset(false); // Will not work for the "BuhInvoice" branch
         //
     }
 

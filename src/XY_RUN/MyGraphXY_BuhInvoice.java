@@ -8,6 +8,9 @@ package XY_RUN;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.PointHighLighter;
+import java.awt.BasicStroke;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
@@ -23,12 +26,32 @@ public class MyGraphXY_BuhInvoice extends MyGraphXY {
 
     public MyGraphXY_BuhInvoice(Buh_Invoice_Main__IF bim) {
         this.bim = bim;
+        init();
+    }
+
+    private void init() {
+        menu_item_goto_faktura.addActionListener(this);
     }
 
     @Override
     public void addAdditionalControlsPopups() {
         popup.add(menu_item_goto_faktura);
     }
+
+    @Override
+    public void drawMarkerWhenPointing_b(Graphics2D g2) {
+         drawMarkerInfo(g2);
+    }
+
+    @Override
+    public void drawMarkerInfo(Graphics2D g2) {
+         if (DRAW_MARKER_INFO == 1) {
+            String toDraw = getPointInfo(MARKER_POINT, XyGraph_BuhInvoice.NICK__FAKTURA_KUND);
+            g2.drawString(toDraw, MARKER_X - 20, MARKER_Y - 25);
+        }
+    }
+    
+    
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -50,14 +73,22 @@ public class MyGraphXY_BuhInvoice extends MyGraphXY {
         }
         //
     }
+    
+    private String getPointInfo(MyPoint point,String key){
+       return  point.getPointInfo().get(key);
+    }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         //
         if (ae.getSource() == menu_item_goto_faktura) {
+            //
             if (bim != null) {
-                bim.goToFaktura();
+//                String fakturaNr = CLICK_RIGHT_POINT.getBatchInfo().get(XyGraph_BuhInvoice.KEY__FAKTURA_NR.toUpperCase());
+                String fakturaNr = getPointInfo(CLICK_RIGHT_POINT, XyGraph_BuhInvoice.KEY__FAKTURA_NR.toUpperCase());
+                bim.goToFaktura(fakturaNr);
             }
+            //
         }
         //
     }
