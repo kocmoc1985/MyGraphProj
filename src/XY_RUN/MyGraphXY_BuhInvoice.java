@@ -6,8 +6,11 @@
 package XY_RUN;
 
 import XYG_BASIC.MyGraphXY;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import XYG_BASIC.MyPoint;
+import XYG_BASIC.PointHighLighter;
+import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -15,9 +18,49 @@ import java.util.logging.Logger;
  */
 public class MyGraphXY_BuhInvoice extends MyGraphXY {
 
+    public MenuItem menu_item_goto_faktura = new MenuItem("Se faktura");
+    
+    @Override
+    public void addAdditionalControlsPopups() {
+        popup.add(menu_item_goto_faktura);
+    }
 
     @Override
-    public double defineJJ(double vvv) {
+    public void mouseClicked(MouseEvent e) {
+        //
+        if (e.getSource() instanceof MyPoint && SHOW_POP_UP_LEFT_CLICK && e.getButton() == 1) {
+            myPointClicked();
+        } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
+            CLICK_RIGHT_POINT = (MyPoint) e.getSource();
+            popup.removeAll();
+//            popup.add(menu_item_fix_point);
+            addAdditionalControlsPopups();
+            popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
+        } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT)) {
+            CLICK_RIGHT_POINT = (MyPoint) e.getSource();
+            popup.removeAll();
+//            popup.add(menu_item_unfix_point);
+            addAdditionalControlsPopups();
+            popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
+        }
+        //
+    }
+    
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        //
+        if (ae.getSource() == menu_item_goto_faktura) {
+            
+        }
+        //
+    }
+    
+    
+
+
+    @Override
+    public double defineJJ__y_axis(double vvv) {
         //
         double jj;
         //
@@ -48,5 +91,6 @@ public class MyGraphXY_BuhInvoice extends MyGraphXY {
         return jj;
         //
     }
+    
 
 }

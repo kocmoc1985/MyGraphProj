@@ -66,7 +66,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public boolean SHOW_SCALE = true;
     public Color GRID_COLOR = Color.LIGHT_GRAY;
     public Color BACKGROUND_COLOR = new Color(249, 249, 249);
-    private boolean SHOW_POP_UP_LEFT_CLICK = true;
+    public boolean SHOW_POP_UP_LEFT_CLICK = true;
     private boolean HIGH_LIGHT_ALL_POINTS = true;
     public boolean SCALE_XY_AXIS = true;
     public boolean SCALE_X_AXIS = true;
@@ -470,31 +470,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             //
             double vvv = (Y_MAX / ALL_SERIES_COEFF);
             //
-//            if (vvv > 100000 && vvv < 1000000) {
-//                jj = 10000;
-//            } else if (vvv > 10000 && vvv < 100000) {
-//                jj = 1000;
-//            } else if (vvv > 1000 && vvv < 10000) {
-//                jj = 500;
-//            } else if (vvv > 100 && vvv < 1000) {
-//                jj = 50;
-//            } else if (vvv > 10 && vvv < 100) {
-//                jj = 5;
-//            } else if (vvv > 5 && vvv < 10) {
-//                jj = 1;
-//            } else if (vvv > 1 && vvv < 3) {
-//                jj = 0.5;
-//            } else if (vvv > 0 && vvv < 3) {
-//                jj = 0.1;
-//            } else {
-//                jj = 1;
-//            }
-//            //
-//            if (vvv < 1) {
-//                jj = 0.02;
-//            }
             //
-            jj = defineJJ(vvv); // [2020-04-14]
+            jj = defineJJ__y_axis(vvv); // [2020-04-14]
             //
 //            System.out.println("JJ: " + jj + " / vvv: " + vvv + " / y_max: " + Y_MAX + " / coeff: " + ALL_SERIES_COEFF);
             //
@@ -527,7 +504,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
     }
 
-    public double defineJJ(double vvv) {
+    public double defineJJ__y_axis(double vvv) {
         //
         double jj;
         //
@@ -1027,10 +1004,9 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        //
         if (e.getSource() instanceof MyPoint && SHOW_POP_UP_LEFT_CLICK && e.getButton() == 1) {
             myPointClicked();
-
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
             CLICK_RIGHT_POINT = (MyPoint) e.getSource();
             popup.removeAll();
@@ -1044,6 +1020,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             addAdditionalControlsPopups();
             popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         }
+        //
     }
 
     public void addAdditionalControlsPopups() {

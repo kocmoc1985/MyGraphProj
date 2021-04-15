@@ -15,6 +15,7 @@ import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -53,6 +54,34 @@ public class HelpAA {
         DateFormat formatter = new SimpleDateFormat("yyyy_MM_dd HH_mm_ss");
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
+    }
+    
+    public static String get_date_yyyy_MM_dd() {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        return formatter.format(calendar.getTime());
+    }
+    
+    public static boolean compareDates(String date1, String date_format1, String date2, String date_format2) {
+        //
+        long ms_date1 = dateToMillisConverter3(date1, date_format1);
+        long ms_date2 = dateToMillisConverter3(date2, date_format2);
+        //
+        if (ms_date1 > ms_date2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static synchronized long dateToMillisConverter3(String date, String date_format) {
+        DateFormat formatter = new SimpleDateFormat(date_format);
+        try {
+            return formatter.parse(date).getTime();
+        } catch (ParseException ex) {
+            Logger.getLogger(HelpAA.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
     }
 
       //#.#
