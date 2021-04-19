@@ -7,8 +7,6 @@ package XY_RUN;
 
 import XYG_BASIC.MyGraphContainer;
 import XYG_BASIC.MyGraphXY;
-import XYG_BASIC.MySerie;
-import XYG_BASIC.MyXYGB;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
