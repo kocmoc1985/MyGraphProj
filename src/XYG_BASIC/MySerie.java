@@ -7,7 +7,9 @@ package XYG_BASIC;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.JTextField;
 
 /**
@@ -17,7 +19,8 @@ import javax.swing.JTextField;
 public class MySerie {
 
     public MyGraphXY myGraphXY;
-    public ArrayList<MyPoint> points = new ArrayList<MyPoint>();
+//    public ArrayList<MyPoint> points = new ArrayList<MyPoint>();
+    private final List<MyPoint> points = Collections.synchronizedList(new ArrayList<MyPoint>());
     private HashMap<Integer, MyPoint> pointsMap = new HashMap<Integer, MyPoint>();
     private String name;
     private Color curveColor = Color.BLACK;
@@ -98,7 +101,7 @@ public class MySerie {
         this.DIFF_MARKER_POINTS.addDiffMarkerOutPutComponent(calculatioName, jtf);
     }
 
-    public ArrayList<MyPoint> getPoints() {
+    public List<MyPoint> getPoints() {
         return points;
     }
 
@@ -227,7 +230,7 @@ public class MySerie {
      *
      * @return
      */
-    public ArrayList<MyPoint> getSerie() {
+    public List<MyPoint> getSerie() {
         return this.points;
     }
 

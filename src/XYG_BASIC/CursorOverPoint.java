@@ -4,7 +4,7 @@
  */
 package XYG_BASIC;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class CursorOverPoint {
 
     private MySerie serie;
-    private ArrayList<MyPoint> points;
+    private List<MyPoint> points;
     private MyPoint prevPoint;
     private boolean cursorOverPoint = false;
 

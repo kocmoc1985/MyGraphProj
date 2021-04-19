@@ -22,8 +22,10 @@ import java.awt.event.MouseMotionListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.logging.Level;
@@ -39,7 +41,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
     public double X_MAX = 1;
     public double Y_MAX = 1;
-    public final ArrayList<MySerie> SERIES = new ArrayList<MySerie>();
+//    public final ArrayList<MySerie> SERIES = new ArrayList<MySerie>();
+    private final List<MySerie> SERIES = Collections.synchronizedList(new ArrayList<MySerie>());
     public double ONE_UNIT_X = 1;
     public double ONE_UNIT_Y = 1;
     private int PANEL_AREA_PREV;
@@ -107,7 +110,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         menu_item_delete_point.addActionListener(this);
     }
 
-    public ArrayList<MySerie> getSeries() {
+    public List<MySerie> getSeries() {
         return SERIES;
     }
 
@@ -575,14 +578,33 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         //===================================
-        for (MySerie serie : SERIES) {
+//        for (MySerie serie : SERIES) { // This one causes "java.util.ConcurrentModificationException"
+//            //
+//            Color color = serie.getPointColor();
+//            //
+//            for (MyPoint point : serie.getSerie()) {
+//                if (serie.drawPoints()) {
+//                    point.drawPoint(g, color);
+//                }
+//            }
+//            //
+//        }
+        //
+        synchronized (SERIES) {
             //
-            Color color = serie.getPointColor();
-            //
-            for (MyPoint point : serie.getSerie()) {
-                if (serie.drawPoints()) {
-                    point.drawPoint(g, color);
+            for (MySerie serie : SERIES) {
+                //
+                final List<MyPoint> myPointList = Collections.synchronizedList(serie.getSerie());
+                //
+                synchronized (myPointList) { // IT'S OBLIGATORY for fixing "java.util.ConcurrentModificationException"
+                    //
+                    for (MyPoint point : myPointList) {
+                        if (serie.drawPoints()) {
+                            point.drawPoint(g, serie.getPointColor());
+                        }
+                    }
                 }
+                //
             }
         }
     }
@@ -600,7 +622,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
         try {
             for (MySerie serie : SERIES) {
-                ArrayList<MyPoint> act_serie = serie.getSerie();
+                List<MyPoint> act_serie = serie.getSerie();
                 g2.setPaint(serie.getCurveColor());
                 g2.setStroke(serie.getLineRenderer()); // adjust appereance
                 for (int i = 0; i < act_serie.size() - 1 && serie.drawLines(); i++) {
@@ -781,8 +803,10 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         while (getHeight() < 50) {
             try {
                 wait(50);
+
             } catch (InterruptedException ex) {
-                Logger.getLogger(MyGraphXY.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MyGraphXY.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -824,7 +848,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
         for (int x = 0; x < SERIES.size(); x++) {
             //
-            ArrayList<MyPoint> act_serie = SERIES.get(x).getSerie();
+            List<MyPoint> act_serie = SERIES.get(x).getSerie();
             //
             for (int i = 0; i < act_serie.size(); i++) {
                 //
@@ -1116,8 +1140,10 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                 try {
                     wait();
 //                    wait(100);
+
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(MyGraphXY.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MyGraphXY.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
                 setSize(getWidth() - 1, getHeight() - 1);
                 setSize(getWidth() + 1, getHeight() + 1);
