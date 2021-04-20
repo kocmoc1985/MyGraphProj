@@ -1,3 +1,8 @@
+FOR USING THIS LIBRARY WITH MCLabStats you should exclude following packages[2021-04-20]:
+- XYG_HISTO
+- other
+- sql
+
 OBS! The "READY WRAPPERS" ARE MyXYGA & MyXYGB
 
 

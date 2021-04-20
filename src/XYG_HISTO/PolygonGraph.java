@@ -14,7 +14,9 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -128,6 +130,17 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         }
     }
 
+    @Override
+    public void addData_B(double[] values) {
+        //
+        for (double val : values) {
+            buildHistogramDataSet(val, histoMap, null);
+        }
+        //
+        addPoints();
+        //
+    }
+
     public void addData(double[] values, String round) {
         for (double val : values) {
             buildHistogramDataSet(val, histoMap, round);
@@ -170,7 +183,7 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
     }
 
     @Override
-    public void rebuildData(ArrayList<MyPoint> points, String round) {
+    public void rebuildData(List<MyPoint> points, String round) {
         //
 //        getSerie().deleteAllPoints();
         deleteAllPointsFromSerie(serie);

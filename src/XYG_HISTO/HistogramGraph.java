@@ -84,6 +84,19 @@ public class HistogramGraph extends PolygonGraph {
         addDataH(list);
         //
     }
+    
+    @Override
+    public void addData_B(double[]values){
+        //
+        ArrayList<Double> list = new ArrayList<>();
+        //
+        for (Double val : values) {
+            list.add(val);
+        }
+        //
+        addDataH(list);
+        //
+    }
 
     @Override
     public void addData(Sql_B sql, String q, String valueColName) {
@@ -121,7 +134,9 @@ public class HistogramGraph extends PolygonGraph {
     }
 
     private void addDataH(ArrayList<Double> list) {
-        int steps = 10;
+        //
+        int steps = 30;
+        //
         stepList = new ArrayList<>();
         //
         Collections.sort(list);

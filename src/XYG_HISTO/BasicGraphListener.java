@@ -6,8 +6,7 @@ package XYG_HISTO;
 
 import XYG_BASIC.DiffMarkerAction;
 import XYG_BASIC.MyPoint;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComponent;
 import sql.Sql_B;
 
@@ -21,9 +20,11 @@ public interface BasicGraphListener extends DiffMarkerAction{
     
     public void addData(Sql_B sql,String q, String valueColName);
     
+    public void addData_B(double[]values);
+    
     public String getRound();
     
-    public void rebuildData(ArrayList<MyPoint> points,String round);
+    public void rebuildData(List<MyPoint> points,String round);
     
     public JComponent getGraph();
     
