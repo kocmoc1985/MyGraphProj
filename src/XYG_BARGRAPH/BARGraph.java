@@ -81,6 +81,9 @@ public class BARGraph extends HistogramGraph {
 
     @Override
     public void initializeB() {
+        //
+        this.myGraphXY.DRAW_MARKER_INFO_ONLY = true;
+        //
         serie = new MySerie_M(getTitle());
         //
         serie.setDrawPoints(true);
@@ -97,6 +100,8 @@ public class BARGraph extends HistogramGraph {
         this.addSerie(serie, false, this);
         //
         PointHighLighter.addSerieSingle(serie);
+        //
+       
     }
 
 }

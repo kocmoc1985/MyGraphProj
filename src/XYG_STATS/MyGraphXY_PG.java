@@ -57,7 +57,7 @@ public class MyGraphXY_PG extends MyGraphXY {
     @Override
     public void DRAW(Graphics g) {
         //
-        if (DRAW_MARKER) {
+        if (DRAW_MARKER || DRAW_MARKER_INFO_ONLY) {
             drawMarkerWhenPointing(g);
         }
         //

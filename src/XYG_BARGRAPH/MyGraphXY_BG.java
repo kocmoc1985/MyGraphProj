@@ -19,11 +19,23 @@ public class MyGraphXY_BG extends MyGraphXY_HG {
 
     @Override
     public void popUpShow() {
-         popup.show(this, MARKER_POINT.x, MARKER_POINT.y);
+        popup.show(this, MARKER_POINT.x, MARKER_POINT.y);
     }
 
-    
-    
+    @Override
+    public void drawMarkerWhenPointing_b(Graphics2D g2) {
+        if (DRAW_MARKER_INFO == 1) {
+            //
+            MyPoint_BG point = (MyPoint_BG) MARKER_POINT;
+            //
+            if (point.getBarName() != null) {
+                String toDraw = point.getBarName();
+                g2.drawString(toDraw, MARKER_X - 50, MARKER_Y - 25);
+            }
+            //
+        }
+    }
+
     @Override
     public void addPointInfoBasic() {
         //

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package XY_RUN;
+package XYG_BASIC;
 
+import XYG_BASIC.XyGraph_Basic;
 import XYG_BASIC.MyGraphContainer;
 import XYG_BASIC.MyGraphXY;
 import java.awt.Dimension;
@@ -15,7 +16,7 @@ import javax.swing.JFrame;
  *
  * @author KOCMOC
  */
-public class Run_A {
+public class RUN_A {
 
     public static void main(String[] args) {
         //

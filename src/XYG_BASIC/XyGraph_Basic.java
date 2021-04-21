@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package XY_RUN;
+package XYG_BASIC;
 
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;

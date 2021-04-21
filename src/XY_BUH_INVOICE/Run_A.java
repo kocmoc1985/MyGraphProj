@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package XY_RUN;
+package XY_BUH_INVOICE;
 
 import XYG_BASIC.HelpAA;
 import XYG_BASIC.MyGraphContainer;
@@ -17,7 +17,7 @@ import javax.swing.JFrame;
  *
  * @author KOCMOC
  */
-public class Run_B {
+public class Run_A {
 
     public static void main(String[] args) {
         //

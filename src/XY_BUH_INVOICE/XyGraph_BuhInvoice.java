@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package XY_RUN;
+package XY_BUH_INVOICE;
 
+import XYG_BASIC.XyGraph_Basic;
 import XYG_BASIC.HelpAA;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
