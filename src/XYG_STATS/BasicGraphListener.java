@@ -20,8 +20,6 @@ public interface BasicGraphListener extends DiffMarkerAction{
     
     public void addData(Sql_B sql,String q, String valueColName);
     
-    public void addData_B(double[]values);
-    
     public String getRound();
     
     public void rebuildData(List<MyPoint> points,String round);

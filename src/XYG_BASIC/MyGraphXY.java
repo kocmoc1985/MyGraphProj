@@ -520,9 +520,9 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         double jj;
         //
         if (vvv > 100000 && vvv < 1000000) {
-            jj = 10000;
+            jj = 50000;
         } else if (vvv > 10000 && vvv < 100000) {
-            jj = 1000;
+            jj = 5000;
         } else if (vvv > 1000 && vvv < 10000) {
             jj = 500;
         } else if (vvv > 100 && vvv < 1000) {
@@ -1029,7 +1029,8 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
 
         //=================================================================
-        popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
+//        popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
+        popUpShow();
         //
     }
 
@@ -1048,19 +1049,21 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
             CLICK_RIGHT_POINT = (MyPoint) e.getSource();
             popup.removeAll();
-//            popup.add(menu_item_fix_point);
             addBasicPopItems(menu_item_fix_point);
             addAdditionalControlsPopups();
-            popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
+            popUpShow();
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT)) {
             CLICK_RIGHT_POINT = (MyPoint) e.getSource();
             popup.removeAll();
-//            popup.add(menu_item_unfix_point);
             addBasicPopItems(menu_item_unfix_point);
             addAdditionalControlsPopups();
-            popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
+            popUpShow();
         }
         //
+    }
+    
+    public void popUpShow(){
+        popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
     }
     
     public void addBasicPopItems(MenuItem item){

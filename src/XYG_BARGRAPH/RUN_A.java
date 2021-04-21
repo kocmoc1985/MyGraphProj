@@ -16,7 +16,9 @@ import XYG_BASIC.MyPoint;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import other.StringDouble;
 
 /**
  *
@@ -40,7 +42,7 @@ public class RUN_A implements BarGraphListener {
         //
         this.mgxyhm = new MyGraphXY_BG();
         this.mgxyhm.addBarGraphListener(this);
-        this.gg = new BARGraph("Test BG-B", mgxyhm, MyGraphContainer.DISPLAY_MODE_FOOT_DISABLED); // MyGraphContainer.DISPLAY_MODE_FOOT_DISABLED
+        this.gg = new BARGraph("Test BG-B", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN); // MyGraphContainer.DISPLAY_MODE_FOOT_DISABLED
         //
         xygraph.setGistoGraph(gg);
         //
@@ -52,9 +54,20 @@ public class RUN_A implements BarGraphListener {
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //
-        double[] values = new double[]{10, 15, 11, 14, 17, 9, 79, 140, 55, 98, 14};
-        gg.addData_B(values);
+//        double[] values = new double[]{10, 15, 11, 14, 17, 9, 79, 140, 55, 98, 14,0};
+//        BARGraph barg = (BARGraph)gg;
+//        barg.addData(values);
         //
+        ArrayList<StringDouble> vl = new ArrayList<>();
+        vl.add(new StringDouble("Januari", 47900));
+        vl.add(new StringDouble("Februari", 69800));
+        vl.add(new StringDouble("Mars", 36010));
+        vl.add(new StringDouble("April", 52310));
+        vl.add(new StringDouble("Maj", 89900));
+        vl.add(new StringDouble("Juni", 58900));
+        //
+        BARGraph barg = (BARGraph)gg;
+        barg.addData(vl);
     }
 
     @Override

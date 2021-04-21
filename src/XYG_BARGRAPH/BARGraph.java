@@ -11,6 +11,7 @@ import XYG_STATS.HistogramGraph;
 import XYG_STATS.MySerie_M;
 import java.awt.Color;
 import java.util.ArrayList;
+import other.StringDouble;
 
 /**
  *
@@ -19,13 +20,35 @@ import java.util.ArrayList;
 public class BARGraph extends HistogramGraph {
 
     private final ArrayList<Double> values_list = new ArrayList<>();
+    private ArrayList<StringDouble> values_list_b = new ArrayList<>();
 
     public BARGraph(String title, MyGraphXY_PG mgxyh, int displayMode) {
         super(title, mgxyh, displayMode);
     }
 
-    @Override
-    public void addData_B(double[] values) {
+    
+    public void addData(ArrayList<StringDouble> values) {
+        //
+        boolean diffMarkerPointsDeleteFlag = true;
+        //
+        this.values_list_b = values;
+        //
+        for (int i = 0; i < values_list_b.size(); i++) {
+            //
+            StringDouble value = values_list_b.get(i);
+            //
+            MyPoint_BG p = new MyPoint_BG(value.getParam_2(), value.getParam_2(), value.getParam_1());
+            //
+             this.addPointWithDiffMarkerPointsDelete(p, diffMarkerPointsDeleteFlag);
+            //
+            diffMarkerPointsDeleteFlag = false;
+            //
+        }
+        //
+        //
+    }
+
+    public void addData(double[] values) {
         //
         for (Double val : values) {
             values_list.add(val);
@@ -54,8 +77,9 @@ public class BARGraph extends HistogramGraph {
         }
         //
     }
-    
-   @Override
+
+
+    @Override
     public void initializeB() {
         serie = new MySerie_M(getTitle());
         //

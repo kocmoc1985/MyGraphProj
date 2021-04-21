@@ -130,16 +130,6 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
         }
     }
 
-    @Override
-    public void addData_B(double[] values) {
-        //
-        for (double val : values) {
-            buildHistogramDataSet(val, histoMap, null);
-        }
-        //
-        addPoints();
-        //
-    }
 
     public void addData(double[] values, String round) {
         for (double val : values) {

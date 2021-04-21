@@ -16,8 +16,19 @@ import java.awt.Graphics2D;
  */
 public class MyPoint_BG extends MyPoint{
 
+    private String barName;
+    
     public MyPoint_BG(double y, double y_) {
         super(y, y_);
+    }
+    
+    public MyPoint_BG(double y, double y_,String barName) {
+        super(y, y_);
+        this.barName = barName;
+    }
+
+    public String getBarName() {
+        return barName;
     }
     
      @Override

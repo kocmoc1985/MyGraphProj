@@ -8,6 +8,7 @@ package XYG_BARGRAPH;
 import XYG_STATS.BarGraphListener;
 import XYG_STATS.MyGraphXY_HG;
 import XYG_STATS.MyPoint_HG;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
 /**
@@ -16,13 +17,24 @@ import java.awt.event.MouseEvent;
  */
 public class MyGraphXY_BG extends MyGraphXY_HG {
 
+    @Override
+    public void popUpShow() {
+         popup.show(this, MARKER_POINT.x, MARKER_POINT.y);
+    }
 
+    
+    
     @Override
     public void addPointInfoBasic() {
-        // MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
+        //
+        MyPoint_BG point = (MyPoint_BG) MARKER_POINT;
+        //
+        if (point.getBarName() != null) {
+            point.addPointInfo("Månad", point.getBarName());
+        }
+        //
     }
-    
-    
+
     @Override
     public void callEventWatchersHover(MouseEvent e) {
         for (BarGraphListener bgl : bg_listener_list) {

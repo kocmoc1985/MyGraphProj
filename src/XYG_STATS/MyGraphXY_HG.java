@@ -18,13 +18,7 @@ public class MyGraphXY_HG extends MyGraphXY_PG {
 
     public final ArrayList<BarGraphListener> bg_listener_list = new ArrayList<>();
 
-//    @Override
-//    public void addPointInfo() {
-//        MyPoint_HG m = (MyPoint_HG) MARKER_POINT;
-//        MARKER_POINT.addPointInfo("serie", m.getSerieName());
-//        MARKER_POINT.addPointInfo("y", "" + (m.y_Display));
-//        MARKER_POINT.addPointInfo("x", "" + m.getRangeStart() + " -> " + m.getRangeEnd());
-//    }
+
     @Override
     public void addPointInfoBasic() {
         //

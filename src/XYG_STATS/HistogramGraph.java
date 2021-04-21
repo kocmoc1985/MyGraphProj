@@ -86,18 +86,6 @@ public class HistogramGraph extends PolygonGraph {
         //
     }
     
-    @Override
-    public void addData_B(double[]values){
-        //
-        ArrayList<Double> list = new ArrayList<>();
-        //
-        for (Double val : values) {
-            list.add(val);
-        }
-        //
-        addDataH(list);
-        //
-    }
 
     @Override
     public void addData(Sql_B sql, String q, String valueColName) {
