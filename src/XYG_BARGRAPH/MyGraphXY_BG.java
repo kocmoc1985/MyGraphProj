@@ -7,7 +7,6 @@ package XYG_BARGRAPH;
 
 import XYG_STATS.BarGraphListener;
 import XYG_STATS.MyGraphXY_HG;
-import XYG_STATS.MyPoint_HG;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 

@@ -63,12 +63,16 @@ public class MyPoint_BG extends MyPoint{
         //
         int y_ = y;
         int height = getSerie().myGraphXY.getHeight() - y;
+        //
+        x_ += 10; // margin-left
+        //
         g2d.fill3DRect(x_, y_, width, height, true);
         //==================================IMPORTNAT=============================
         //Sets the size of the component which reffers to this point
         //
         this.setLocation(x_, y_);
         this.setSize(width, height);
+        //
     }
     
 }

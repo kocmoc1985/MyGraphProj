@@ -7,9 +7,6 @@ package XYG_BARGRAPH;
 
 import XYG_STATS.BarGraphListener;
 import XYG_STATS.BasicGraphListener;
-import XYG_STATS.MyPoint_HG;
-import XYG_STATS.MyGraphXY_HG;
-import XYG_STATS.HistogramGraph;
 import XYG_STATS.XyGraph_M;
 import XYG_BASIC.MyGraphContainer;
 import XYG_BASIC.MyPoint;
@@ -65,15 +62,16 @@ public class RUN_A implements BarGraphListener {
         vl.add(new StringDouble("Apr", 52310));
         vl.add(new StringDouble("Maj", 89900));
         vl.add(new StringDouble("Jun", 58900));
-        vl.add(new StringDouble("Juli", 58900));
-        vl.add(new StringDouble("Aug", 58900));
-        vl.add(new StringDouble("Sept", 58900));
-        vl.add(new StringDouble("Okt", 58900));
-        vl.add(new StringDouble("Nov", 58900));
-        vl.add(new StringDouble("Dec", 58900));
+        vl.add(new StringDouble("Juli", 78600));
+        vl.add(new StringDouble("Aug", 71298));
+        vl.add(new StringDouble("Sept", 36789));
+        vl.add(new StringDouble("Okt", 98767));
+        vl.add(new StringDouble("Nov", 43987));
+        vl.add(new StringDouble("Dec", 55436));
         //
         BARGraph barg = (BARGraph)gg;
         barg.addData(vl);
+        //
     }
 
     @Override
