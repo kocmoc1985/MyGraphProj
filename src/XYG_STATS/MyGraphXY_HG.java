@@ -11,32 +11,36 @@ import java.util.ArrayList;
 
 /**
  * MyGraphXY_HG = MyGraphXY for the HISTOGRAM GRAPH
+ *
  * @author KOCMOC
  */
 public class MyGraphXY_HG extends MyGraphXY_PG {
 
     public final ArrayList<BarGraphListener> bg_listener_list = new ArrayList<>();
 
+//    @Override
+//    public void addPointInfo() {
+//        MyPoint_HG m = (MyPoint_HG) MARKER_POINT;
+//        MARKER_POINT.addPointInfo("serie", m.getSerieName());
+//        MARKER_POINT.addPointInfo("y", "" + (m.y_Display));
+//        MARKER_POINT.addPointInfo("x", "" + m.getRangeStart() + " -> " + m.getRangeEnd());
+//    }
     @Override
-    public void addPointInfo() {
-        MyPoint_HG m = (MyPoint_HG) MARKER_POINT;
-        MARKER_POINT.addPointInfo("serie", m.getSerieName());
-        MARKER_POINT.addPointInfo("y", "" + (m.y_Display));
-        MARKER_POINT.addPointInfo("x", "" + m.getRangeStart() + " -> " + m.getRangeEnd());
+    public void addPointInfoBasic() {
+        //
+        super.addPointInfoBasic(); //To change body of generated methods, choose Tools | Templates.
+        //
+        if (MARKER_POINT instanceof MyPoint_HG) {
+            MyPoint_HG m = (MyPoint_HG) MARKER_POINT;
+            MARKER_POINT.addPointInfo("x", "" + m.getRangeStart() + " -> " + m.getRangeEnd());
+        }
+        //
     }
 
     @Override
     public void addAdditionalControlsPopups() {
-         if (MARKER_POINT.isDiffMarkerPoint() == false) {
-            popup.add(menu_item_diff_marker_add);
-        } else if (MARKER_POINT.isDiffMarkerPoint()) {
-            popup.add(menu_item_diff_marker_remove);
-        }
         //
-//        popup.add(menu_item_delete_point);
     }
-    
-    
 
     public void addBarGraphListener(BarGraphListener bgl) {
         bg_listener_list.add(bgl);
@@ -44,7 +48,7 @@ public class MyGraphXY_HG extends MyGraphXY_PG {
 
     @Override
     public void scaleX(Graphics2D g2) {
-       // Yes it shall overwrite
+        // Yes it shall overwrite
     }
 
     @Override

@@ -7,6 +7,7 @@ package XYG_BARGRAPH;
 
 import XYG_STATS.BarGraphListener;
 import XYG_STATS.MyGraphXY_HG;
+import XYG_STATS.MyPoint_HG;
 import java.awt.event.MouseEvent;
 
 /**
@@ -15,6 +16,13 @@ import java.awt.event.MouseEvent;
  */
 public class MyGraphXY_BG extends MyGraphXY_HG {
 
+
+    @Override
+    public void addPointInfoBasic() {
+        // MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
+    }
+    
+    
     @Override
     public void callEventWatchersHover(MouseEvent e) {
         for (BarGraphListener bgl : bg_listener_list) {

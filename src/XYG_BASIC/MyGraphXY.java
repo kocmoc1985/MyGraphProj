@@ -1048,17 +1048,23 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
             CLICK_RIGHT_POINT = (MyPoint) e.getSource();
             popup.removeAll();
-            popup.add(menu_item_fix_point);
+//            popup.add(menu_item_fix_point);
+            addBasicPopItems(menu_item_fix_point);
             addAdditionalControlsPopups();
             popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT)) {
             CLICK_RIGHT_POINT = (MyPoint) e.getSource();
             popup.removeAll();
-            popup.add(menu_item_unfix_point);
+//            popup.add(menu_item_unfix_point);
+            addBasicPopItems(menu_item_unfix_point);
             addAdditionalControlsPopups();
             popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
         }
         //
+    }
+    
+    public void addBasicPopItems(MenuItem item){
+        popup.add(item);
     }
 
     public void addAdditionalControlsPopups() {

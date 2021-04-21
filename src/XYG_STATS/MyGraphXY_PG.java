@@ -10,6 +10,7 @@ import XYG_BASIC.MyPoint;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MenuItem;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -23,6 +24,11 @@ public class MyGraphXY_PG extends MyGraphXY {
     public ArrayList<String> xValuesList;
     public int STEP_IDENTIFIER_X_AXIS = -1;
     private final ArrayList<PointGraphListener> pointGraphListeners = new ArrayList<>();
+
+    @Override
+    public void addBasicPopItems(MenuItem item) {
+        // YES IT SHALL BE EMPTY [2021-04-21]
+    }
 
     public void addPointGraphListener(PointGraphListener pgl) {
         pointGraphListeners.add(pgl);
@@ -217,20 +223,11 @@ public class MyGraphXY_PG extends MyGraphXY {
         }
     }
 
-   
-    public void addPointInfo() {
-        MARKER_POINT.addPointInfo("serie", MARKER_POINT.getSerieName());
-        MARKER_POINT.addPointInfo("y", "" + (MARKER_POINT.y_Display));
-        MARKER_POINT.addPointInfo("x", "" + MARKER_POINT.x_Display);
-    }
+
 
     @Override
     public void addAdditionalControlsPopups() {
-        if (MARKER_POINT.isDiffMarkerPoint() == false) {
-            popup.add(menu_item_diff_marker_add);
-        } else if (MARKER_POINT.isDiffMarkerPoint()) {
-            popup.add(menu_item_diff_marker_remove);
-        }
+        //
     }
 
     @Override
