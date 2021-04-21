@@ -3,14 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG_HISTO;
+package XYG_BARGRAPH;
 
+import XYG_STATS.BarGraphListener;
+import XYG_STATS.BasicGraphListener;
+import XYG_STATS.MyPoint_HG;
+import XYG_STATS.MyGraphXY_HG;
+import XYG_STATS.HistogramGraph;
+import XYG_STATS.XyGraph_M;
 import XYG_BASIC.MyGraphContainer;
+import XYG_BASIC.MyPoint;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
-import sql.SQL_Q;
 
 /**
  *
@@ -19,8 +25,8 @@ import sql.SQL_Q;
 public class RUN_A implements BarGraphListener {
 
     private BasicGraphListener gg;
-    private MyGraphXY_HG mgxyhm;
-    private final XyGraph_M xygraph = new XyGraph_M("mooney", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+    private MyGraphXY_BG mgxyhm;
+    private final XyGraph_M xygraph = new XyGraph_M("Test BG-A", MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
 
     public RUN_A() {
         init();
@@ -32,9 +38,9 @@ public class RUN_A implements BarGraphListener {
 
     private void init() {
         //
-        this.mgxyhm = new MyGraphXY_HG();
+        this.mgxyhm = new MyGraphXY_BG();
         this.mgxyhm.addBarGraphListener(this);
-        this.gg = new HistogramGraph("Test HG", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        this.gg = new BARGraph("Test BG-B", mgxyhm, MyGraphContainer.DISPLAY_MODE_FOOT_DISABLED); // MyGraphContainer.DISPLAY_MODE_FOOT_DISABLED
         //
         xygraph.setGistoGraph(gg);
         //
@@ -46,17 +52,19 @@ public class RUN_A implements BarGraphListener {
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //
-        double[] values = new double[]{10, 15, 11, 14, 17, 9};
+        double[] values = new double[]{10, 15, 11, 14, 17, 9, 79, 140, 55, 98, 14};
         gg.addData_B(values);
         //
     }
 
     @Override
-    public void barGraphHoverEvent(MouseEvent e, MyPoint_HG point) {
+    public void barGraphHoverEvent(MouseEvent e, MyPoint point) {
+        // See MCLabStats 
     }
 
     @Override
     public void barGraphHoverOutEvent(MouseEvent e) {
+        // See MCLabStats
     }
 
 }

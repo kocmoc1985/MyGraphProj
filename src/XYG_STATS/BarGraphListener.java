@@ -1,4 +1,4 @@
-package XYG_HISTO;
+package XYG_STATS;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -7,6 +7,8 @@ package XYG_HISTO;
  */
 
 
+import XYG_BASIC.MyPoint;
+import XYG_STATS.MyPoint_HG;
 import java.awt.event.MouseEvent;
 
 /**
@@ -15,7 +17,7 @@ import java.awt.event.MouseEvent;
  */
 public interface BarGraphListener {
 
-    public void barGraphHoverEvent(MouseEvent e, MyPoint_HG point);
+    public void barGraphHoverEvent(MouseEvent e, MyPoint point);
 
     public void barGraphHoverOutEvent(MouseEvent e);
 

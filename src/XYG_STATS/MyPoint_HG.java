@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG_HISTO;
+package XYG_STATS;
 
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.MyPoint;
@@ -16,8 +16,8 @@ import java.awt.Graphics2D;
  */
 public class MyPoint_HG extends MyPoint {
 
-    private double rangeStart;
-    private double rangeEnd;
+    private final double rangeStart;
+    private final double rangeEnd;
 
     public MyPoint_HG(double y, double y_, double rangeStart, double rangeEnd) {
         super(y, y_);

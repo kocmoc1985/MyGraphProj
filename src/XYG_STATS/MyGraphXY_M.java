@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG_HISTO;
+package XYG_STATS;
 
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
@@ -38,7 +38,7 @@ public class MyGraphXY_M extends MyGraphXY {
         //
         if (point.y_Scaled < 0 && MINUS_VALUES_PRESENT == false) {
             MINUS_VALUES_PRESENT = true;
-            System.out.println("minus");
+//            System.out.println("minus");
         }
         //
         if (Math.abs(point.y_Scaled) > Y_MAX / 1.2) {

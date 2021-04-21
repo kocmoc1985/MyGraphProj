@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG_HISTO;
+package XYG_STATS;
 
+import XYG_STATS.PolygonGraph;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.PointHighLighter;
@@ -41,8 +42,8 @@ public class HistogramGraph extends PolygonGraph {
 
     class RebuildDataThread implements Runnable {
 
-        private int markerAPointIndex;
-        private int markerBPointIndex;
+        private final int markerAPointIndex;
+        private final int markerBPointIndex;
 
         public RebuildDataThread(int markerAPointIndex, int markerBPointIndex) {
             this.markerAPointIndex = markerAPointIndex;
@@ -133,15 +134,14 @@ public class HistogramGraph extends PolygonGraph {
         //
     }
 
-    private void addDataH(ArrayList<Double> list) {
+    public void addDataH(ArrayList<Double> list) {
         //
-        int steps = 30;
+        int steps = 6;
         //
         stepList = new ArrayList<>();
         //
         Collections.sort(list);
         double min = list.get(0);
-//        double min = 0.5;
         double step = calcStep(list, min, steps);
         stepList = defineSteps(min, step, steps, list);
         //

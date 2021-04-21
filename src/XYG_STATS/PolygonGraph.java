@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG_HISTO;
+package XYG_STATS;
 
 import XYG_BASIC.DiffMarkerAction;
 import XYG_BASIC.HelpAA;
@@ -259,7 +259,6 @@ public class PolygonGraph extends MyXYGB implements DiffMarkerAction, BasicGraph
 
     @Override
     public void initializeA() {
-        this.setTitleSize(20, true);
         this.setTitleSize(20, true);
         this.setTitleColor(Color.black);
 //        this.setBorderHeadAndFootComponents(BorderFactory.createLineBorder(Color.darkGray));

@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package XYG_HISTO;
+package XYG_STATS;
 
+import XYG_STATS.MyGraphXY_HG;
+import XYG_STATS.DiffMarkerPoints_RS;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MySerie;
 import java.awt.Color;
