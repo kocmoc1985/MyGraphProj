@@ -29,6 +29,12 @@ public class MyGraphXY_BuhInvoice extends MyGraphXY {
         init();
     }
 
+    @Override
+    public void RESET_MARKER_POINT__IMPORTANT() {
+        MARKER_POINT = null; // If not activated does not remove the "name" after "mouse-out" from a point
+    }
+    
+
     private void init() {
         menu_item_goto_faktura.addActionListener(this);
     }

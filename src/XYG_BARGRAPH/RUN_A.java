@@ -59,12 +59,18 @@ public class RUN_A implements BarGraphListener {
 //        barg.addData(values);
         //
         ArrayList<StringDouble> vl = new ArrayList<>();
-        vl.add(new StringDouble("Januari", 47900));
-        vl.add(new StringDouble("Februari", 69800));
-        vl.add(new StringDouble("Mars", 36010));
-        vl.add(new StringDouble("April", 52310));
+        vl.add(new StringDouble("Jan", 47900));
+        vl.add(new StringDouble("Feb", 69800));
+        vl.add(new StringDouble("Mar", 36010));
+        vl.add(new StringDouble("Apr", 52310));
         vl.add(new StringDouble("Maj", 89900));
-        vl.add(new StringDouble("Juni", 58900));
+        vl.add(new StringDouble("Jun", 58900));
+        vl.add(new StringDouble("Juli", 58900));
+        vl.add(new StringDouble("Aug", 58900));
+        vl.add(new StringDouble("Sept", 58900));
+        vl.add(new StringDouble("Okt", 58900));
+        vl.add(new StringDouble("Nov", 58900));
+        vl.add(new StringDouble("Dec", 58900));
         //
         BARGraph barg = (BARGraph)gg;
         barg.addData(vl);

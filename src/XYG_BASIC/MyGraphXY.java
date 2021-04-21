@@ -921,12 +921,17 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
                     //
 //                    System.out.println("Not pointing on MyPoint");
                     //
-                    MARKER_POINT = null; // OBS! Very important added [2020-04-15]
+                    RESET_MARKER_POINT__IMPORTANT();// [2021-04-16] OBS! OBS! *************************************
                     //
                 }
             }
         }
     }
+    
+    public void RESET_MARKER_POINT__IMPORTANT(){
+        // HERE IT MUST BE EMPTY
+    }
+    
     public MyPoint prevPoint;
 
     public void highLightOnePointOnMouseMovement(MouseEvent e) {
@@ -1061,12 +1066,12 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         }
         //
     }
-    
-    public void popUpShow(){
+
+    public void popUpShow() {
         popup.show(this, MARKER_POINT.x + 5, MARKER_POINT.y + 5);
     }
-    
-    public void addBasicPopItems(MenuItem item){
+
+    public void addBasicPopItems(MenuItem item) {
         popup.add(item);
     }
 
