@@ -46,7 +46,11 @@ public class MyXYGA {
      * @return
      */
     public JComponent getGraph() {
-        return my_graph_container.getGraph();
+        //
+        JComponent comp = my_graph_container.getGraph();
+        comp.setSize(200, 200);//[#WAIT-FOR-HEIGHT#]
+        //
+        return comp;
     }
 
     /**

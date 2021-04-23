@@ -1,3 +1,7 @@
-Histogramgraph
+The BarGraph is drawn by MyPoint_BG
 
-The BarGraph is drawn by MyPoint_HG
+
+OBS! Set margin left -> see MyPoint_BG -> search for "margin-left"
+
+
+THis one is important: [#WAIT-FOR-HEIGHT#]

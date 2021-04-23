@@ -41,12 +41,12 @@ public class RUN_A implements BarGraphListener {
         this.mgxyhm.addBarGraphListener(this);
         this.gg = new BARGraph("Test BG-B", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN); // MyGraphContainer.DISPLAY_MODE_FOOT_DISABLED
         //
-        xygraph.setGistoGraph(gg);
+        xygraph.setGraph(gg);
         //
         JFrame jf = new JFrame(xygraph.getTitle()); //****
         jf.setSize(new Dimension(800, 400));
         jf.setLayout(new GridLayout(1, 0));
-        jf.add(gg.getGraph()); //*****
+        jf.add(gg.getGraph()); //***** [#WAIT-FOR-HEIGHT#]
         System.out.println("Width: " + gg.getGraph().getHeight() + " / " + gg.getGraph().getWidth());
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

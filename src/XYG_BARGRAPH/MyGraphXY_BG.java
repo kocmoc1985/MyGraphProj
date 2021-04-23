@@ -5,6 +5,7 @@
  */
 package XYG_BARGRAPH;
 
+import XYG_BASIC.MyGraphXY;
 import XYG_STATS.BarGraphListener;
 import XYG_STATS.MyGraphXY_HG;
 import java.awt.Graphics2D;
@@ -16,6 +17,14 @@ import java.awt.event.MouseEvent;
  */
 public class MyGraphXY_BG extends MyGraphXY_HG {
 
+    public MyGraphXY_BG() {
+        init();
+    }
+
+    private void init(){
+        MyGraphXY.ADD_POINT_INFO_BASIC = true;
+    }
+    
     @Override
     public void RESET_MARKER_POINT__IMPORTANT() {
         MARKER_POINT = null; // If not activated does not remove the "name" after "mouse-out" from a point/component
@@ -60,4 +69,38 @@ public class MyGraphXY_BG extends MyGraphXY_HG {
             bgl.barGraphHoverEvent(e, MARKER_POINT);
         }
     }
+    
+     @Override
+    public double defineJJ__y_axis(double vvv) {
+        //
+        double jj;
+        //
+        if (vvv > 100000 && vvv < 1000000) {
+            jj = 50000; // adjusted [2021-04-14]
+        } else if (vvv > 10000 && vvv < 100000) {
+            jj = 10000; // adjusted [2021-04-14]
+        } else if (vvv > 1000 && vvv < 10000) {
+            jj = 2000; // adjusted [2021-04-14]
+        } else if (vvv > 100 && vvv < 1000) {
+            jj = 200;
+        } else if (vvv > 10 && vvv < 100) {
+            jj = 5;
+        } else if (vvv > 5 && vvv < 10) {
+            jj = 1;
+        } else if (vvv > 1 && vvv < 3) {
+            jj = 0.5;
+        } else if (vvv > 0 && vvv < 3) {
+            jj = 0.1;
+        } else {
+            jj = 1;
+        }
+        //
+        if (vvv < 1) {
+            jj = 0.02;
+        }
+        //
+        return jj;
+        //
+    }
+    
 }

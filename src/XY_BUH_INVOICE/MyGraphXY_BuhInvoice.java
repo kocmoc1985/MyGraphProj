@@ -8,8 +8,6 @@ package XY_BUH_INVOICE;
 import XYG_BASIC.MyGraphXY;
 import XYG_BASIC.MyPoint;
 import XYG_BASIC.PointHighLighter;
-import java.awt.BasicStroke;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;

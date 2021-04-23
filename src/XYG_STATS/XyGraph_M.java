@@ -28,22 +28,22 @@ public class XyGraph_M extends MyXYGB implements PointDeletedAction {
 
     private MySerie serieLimitL;
     private MySerie serieLimitU;
-    private BasicGraphListener gistoGraph;
+    private BasicGraphListener basicGraphListener;
 
     public XyGraph_M(String title, int displayMode) {
         super(title, new MyGraphXY_M(), displayMode);
         init();
     }
 
-    public void setGistoGraph(BasicGraphListener gg) {
-        this.gistoGraph = gg;
+    public void setGraph(BasicGraphListener gg) {
+        this.basicGraphListener = gg;
         // THIS triggers event which is processed in gg class
         this.addDiffMarkersSetListener(gg);
     }
 
     @Override
     public void pointDeleted(MyPoint mp) {
-        gistoGraph.rebuildData(serie.getPoints(), gistoGraph.getRound());
+        basicGraphListener.rebuildData(serie.getPoints(), basicGraphListener.getRound());
         this.rebuildData();
     }
 

@@ -800,13 +800,11 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      * failures in rescaling & others..
      */
     private synchronized void waitForPanelHeightIsInitialized() {
-        while (getHeight() < 50) {
+        while (getHeight() < 50) { //[#WAIT-FOR-HEIGHT#]
             try {
                 wait(50);
-
             } catch (InterruptedException ex) {
-                Logger.getLogger(MyGraphXY.class
-                        .getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MyGraphXY.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
