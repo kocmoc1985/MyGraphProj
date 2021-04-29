@@ -769,7 +769,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
 
     public synchronized void add(MyPoint point, MySerie serie) {
         serie.addPoint(point);
-        waitForPanelHeightIsInitialized(); //Must be!!!!
+        waitForPanelHeightIsInitialized(); //Must be!!!! [#WAIT-FOR-HEIGHT#]
         serie.checkRecalc(point, getHeight());
         defineMaxForXYAxis(point);//!!!
         //============================
@@ -800,12 +800,13 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      * failures in rescaling & others..
      */
     private synchronized void waitForPanelHeightIsInitialized() {
-        while (getHeight() < 50) { //[#WAIT-FOR-HEIGHT#]
+        while (getHeight() < 50) { //[#WAIT-FOR-HEIGHT#] IMPORTANT **************************************
             try {
                 wait(50);
             } catch (InterruptedException ex) {
                 Logger.getLogger(MyGraphXY.class.getName()).log(Level.SEVERE, null, ex);
             }
+            //
         }
     }
 

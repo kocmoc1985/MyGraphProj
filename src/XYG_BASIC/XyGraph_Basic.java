@@ -5,12 +5,6 @@
  */
 package XYG_BASIC;
 
-import XYG_BASIC.MyGraphXY;
-import XYG_BASIC.MyPoint;
-import XYG_BASIC.MySerie;
-import XYG_BASIC.MyXYGB;
-import XYG_BASIC.PointDeletedAction;
-import XYG_BASIC.PointHighLighter;
 import java.awt.Color;
 import java.util.ArrayList;
 
