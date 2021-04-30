@@ -55,22 +55,29 @@ public class RUN_A implements BarGraphListener {
 //        BARGraph barg = (BARGraph)gg;
 //        barg.addData(values);
         //
-        ArrayList<StringDouble> vl = new ArrayList<>();
-        vl.add(new StringDouble("Jan", 47900));
-        vl.add(new StringDouble("Feb", 69800));
-        vl.add(new StringDouble("Mar", 36010));
-        vl.add(new StringDouble("Apr", 52310));
-        vl.add(new StringDouble("Maj", 89900));
-        vl.add(new StringDouble("Jun", 58900));
-        vl.add(new StringDouble("Juli", 78600));
-        vl.add(new StringDouble("Aug", 71298));
-        vl.add(new StringDouble("Sept", 36789));
-        vl.add(new StringDouble("Okt", 98767));
-        vl.add(new StringDouble("Nov", 43987));
-        vl.add(new StringDouble("Dec", 55436));
+        new Thread(() -> {
+            //
+            ArrayList<StringDouble> vl = new ArrayList<>();
+            vl.add(new StringDouble("Jan", 47900));
+            vl.add(new StringDouble("Feb", 69800));
+            vl.add(new StringDouble("Mar", 36010));
+            vl.add(new StringDouble("Apr", 52310));
+            vl.add(new StringDouble("Maj", 89900));
+            vl.add(new StringDouble("Jun", 58900));
+            vl.add(new StringDouble("Juli", 78600));
+            vl.add(new StringDouble("Aug", 71298));
+            vl.add(new StringDouble("Sept", 36789));
+            vl.add(new StringDouble("Okt", 98767));
+            vl.add(new StringDouble("Nov", 43987));
+            vl.add(new StringDouble("Dec", 55436));
+            //
+            java.awt.EventQueue.invokeLater(() -> {
+                BARGraph barg = (BARGraph) gg;
+                barg.addData(vl);
+            });
+            //
+        }).start();
         //
-        BARGraph barg = (BARGraph)gg;
-        barg.addData(vl);
         //
     }
 

@@ -39,46 +39,49 @@ public class Run_A {
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //
-        ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+        new Thread(() -> {
+            ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+            //
+            HashMap<String, String> map_1 = new HashMap<String, String>();
+            map_1.put("fakturanr", "1");
+            map_1.put("namn", "Telenor");
+            map_1.put("total_ink_moms", "8242.5");
+            map_1.put("fakturadatum", "2021-03-13");
+            map_1.put("forfallodatum", "2021-04-12");
+            map_1.put("fakturatyp", "0");
+            map_1.put("betald", "0");
+            map_1.put("makulerad", "0");
+            //
+            HashMap<String, String> map_2 = new HashMap<String, String>();
+            map_2.put("fakturanr", "2");
+            map_2.put("namn", "Vodafone");
+            map_2.put("total_ink_moms", "3999.5");
+            map_2.put("fakturadatum", "2021-04-25");
+            map_2.put("forfallodatum", "2021-05-25");
+            map_2.put("fakturatyp", "1");
+            map_2.put("betald", "1");
+            map_2.put("makulerad", "0");
+            //
+            HashMap<String, String> map_3 = new HashMap<String, String>();
+            map_3.put("fakturanr", "3");
+            map_3.put("namn", "Securitas");
+            map_3.put("total_ink_moms", "1489");
+            map_3.put("fakturadatum", "2021-05-25");
+            map_3.put("forfallodatum", "2021-06-25");
+            map_3.put("fakturatyp", "3");
+            map_3.put("betald", "0");
+            map_3.put("makulerad", "0");
+            //
+            list.add(map_3);
+            list.add(map_2);
+            list.add(map_1);
+            //
+            java.awt.EventQueue.invokeLater(() -> {
+                xghm.addData(list, new String[]{"fakturadatum", "forfallodatum"});
+            });
+            //
+        }).start();
         //
-        HashMap<String, String> map_1 = new HashMap<String, String>();
-        map_1.put("fakturanr", "1");
-        map_1.put("namn", "Telenor");
-        map_1.put("total_ink_moms", "8242.5");
-        map_1.put("fakturadatum", "2021-03-13");
-        map_1.put("forfallodatum", "2021-04-12");
-        map_1.put("fakturatyp", "0");
-        map_1.put("betald", "0");
-        map_1.put("makulerad", "0");
-        //
-        HashMap<String, String> map_2 = new HashMap<String, String>();
-        map_2.put("fakturanr", "2");
-        map_2.put("namn", "Vodafone");
-        map_2.put("total_ink_moms", "3999.5");
-        map_2.put("fakturadatum", "2021-04-25");
-        map_2.put("forfallodatum", "2021-05-25");
-        map_2.put("fakturatyp", "1");
-        map_2.put("betald", "1");
-        map_2.put("makulerad", "0");
-        //
-        HashMap<String, String> map_3 = new HashMap<String, String>();
-        map_3.put("fakturanr", "3");
-        map_3.put("namn", "Securitas");
-        map_3.put("total_ink_moms", "1489");
-        map_3.put("fakturadatum", "2021-05-25");
-        map_3.put("forfallodatum", "2021-06-25");
-        map_3.put("fakturatyp", "3");
-        map_3.put("betald", "0");
-        map_3.put("makulerad", "0");
-        //
-        //
-        list.add(map_3);
-        list.add(map_2);
-        list.add(map_1);
-        //
-        System.out.println("Width: " + xghm.getGraph().getHeight() + " / " + xghm.getGraph().getWidth());
-        //
-        xghm.addData(list, new String[]{"fakturadatum", "forfallodatum"});
         //
 //        HelpA.addMouseListenerToAllComponentsOfComponent(jf.getRootPane()); 
         //

@@ -20,7 +20,7 @@ public class RUN_A {
 
     public static void main(String[] args) {
         //
-        XyGraph_Basic xyGraph_A = new XyGraph_Basic("test",new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
+        XyGraph_Basic xyGraph_A = new XyGraph_Basic("test", new MyGraphXY(), MyGraphContainer.DISPLAY_MODE_FULL_SCREEN);
         //
         JFrame jf = new JFrame(xyGraph_A.getTitle()); //****
         jf.setSize(new Dimension(800, 400));
@@ -33,8 +33,15 @@ public class RUN_A {
 //        double[] dataSet = {0.7,1.3,3.2,0.7,4.8};
 //        double[] dataSet = {0.35,0.24,0.78,0.47,0.52};
         //
-        double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898, 358, 965, 879, 253, 96, 1547, 1625, 1200};
-        xyGraph_A.addDataSetBySerie(dataSet, "test");
+        new Thread(() -> {
+            //
+            double[] dataSet = {1201.2, 1159.5, 1325, 1588, 1100, 1265, 1333, 2200, 2300, 2159, 2789, 1565, 1898, 358, 965, 879, 253, 96, 1547, 1625, 1200};
+            //
+            java.awt.EventQueue.invokeLater(() -> {
+                xyGraph_A.addDataSetBySerie(dataSet, "test");
+            });
+            //
+        }).start();
         //
 //        HelpA.addMouseListenerToAllComponentsOfComponent(jf.getRootPane()); 
         //
