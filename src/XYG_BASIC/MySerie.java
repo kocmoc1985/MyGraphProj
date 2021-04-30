@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.JTextField;
 
 /**
@@ -96,6 +97,9 @@ public class MySerie {
         this.SCALE_SAME_ALL_SERIES = overalScaling;
         adjustRenderer();
     }
+
+    
+
 
     public void addDiffMarkerOutPutComponent(String calculatioName, JTextField jtf) {
         this.DIFF_MARKER_POINTS.addDiffMarkerOutPutComponent(calculatioName, jtf);
@@ -464,4 +468,39 @@ public class MySerie {
     public ArrayList getDiffCursors() {
         return this.DIFF_MARKER_POINTS.getCursors();
     }
+    
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final MySerie other = (MySerie) obj;
+//        if (Double.doubleToLongBits(this.COEFF) != Double.doubleToLongBits(other.COEFF)) {
+//            return false;
+//        }
+//        if (Double.doubleToLongBits(this.MAX) != Double.doubleToLongBits(other.MAX)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.name, other.name)) {
+//            return false;
+//        }
+//        return true;
+//    }
+//    
+//
+//    @Override
+//    public int hashCode() {
+//        int hash = 5;
+//        hash = 67 * hash + Objects.hashCode(this.name);
+//        hash = 67 * hash + (int) (Double.doubleToLongBits(this.COEFF) ^ (Double.doubleToLongBits(this.COEFF) >>> 32));
+//        hash = 67 * hash + (int) (Double.doubleToLongBits(this.MAX) ^ (Double.doubleToLongBits(this.MAX) >>> 32));
+//        return hash;
+//    }
+    
 }

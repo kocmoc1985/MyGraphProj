@@ -17,20 +17,24 @@ import java.awt.event.MouseEvent;
  */
 public class MyGraphXY_BG extends MyGraphXY_HG {
 
-    public MyGraphXY_BG() {
+    private final String point_info_basic__part_1;
+    private final String point_info_basic__part_2;
+
+    public MyGraphXY_BG(String point_info_basic__part_1, String point_info_basic__part_2) {
+        this.point_info_basic__part_1 = point_info_basic__part_1;
+        this.point_info_basic__part_2 = point_info_basic__part_2;
         init();
     }
 
-    private void init(){
+    private void init() {
         MyGraphXY.ADD_POINT_INFO_BASIC = true;
     }
-    
+
     @Override
     public void RESET_MARKER_POINT__IMPORTANT() {
         MARKER_POINT = null; // If not activated does not remove the "name" after "mouse-out" from a point/component
     }
 
-    
     @Override
     public void popUpShow() {
         popup.show(this, MARKER_POINT.x, MARKER_POINT.y);
@@ -58,7 +62,7 @@ public class MyGraphXY_BG extends MyGraphXY_HG {
         MyPoint_BG point = (MyPoint_BG) MARKER_POINT;
         //
         if (point.getBarName() != null) {
-            point.addPointInfo("Total", "" + (int) point.y_Display + ":-");
+            point.addPointInfo(point_info_basic__part_1, "" + (int) point.y_Display + point_info_basic__part_2);
         }
         //
     }
@@ -69,8 +73,8 @@ public class MyGraphXY_BG extends MyGraphXY_HG {
             bgl.barGraphHoverEvent(e, MARKER_POINT);
         }
     }
-    
-     @Override
+
+    @Override
     public double defineJJ__y_axis(double vvv) {
         //
         double jj;
@@ -79,7 +83,7 @@ public class MyGraphXY_BG extends MyGraphXY_HG {
             jj = 50000; // adjusted [2021-04-14]
         } else if (vvv > 10000 && vvv < 100000) {
             jj = 20000; // adjusted [2021-04-14]
-        }else if (vvv > 10000 && vvv < 50000) {
+        } else if (vvv > 10000 && vvv < 50000) {
             jj = 10000; // adjusted [2021-04-14]
         } else if (vvv > 1000 && vvv < 10000) {
             jj = 2000; // adjusted [2021-04-14]
@@ -104,5 +108,5 @@ public class MyGraphXY_BG extends MyGraphXY_HG {
         return jj;
         //
     }
-    
+
 }

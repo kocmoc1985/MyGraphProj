@@ -37,7 +37,7 @@ public class RUN_A implements BarGraphListener {
 
     private void init() {
         //
-        this.mgxyhm = new MyGraphXY_BG();
+        this.mgxyhm = new MyGraphXY_BG("Total",":-");
         this.mgxyhm.addBarGraphListener(this);
         this.gg = new BARGraph("Test BG-B", mgxyhm, MyGraphContainer.DISPLAY_MODE_FULL_SCREEN); // MyGraphContainer.DISPLAY_MODE_FOOT_DISABLED
         //

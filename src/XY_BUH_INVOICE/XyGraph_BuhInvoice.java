@@ -187,7 +187,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
         //
         this.addSerie(serie, true, this);
         //
-        PointHighLighter.addSerie(serie);
+        PointHighLighter.addSerieSingle(serie);
         //
 //        myGraphXY.SHOW_SCALE = false; // OBS! To not to show scaling on Y and X axises
     }
