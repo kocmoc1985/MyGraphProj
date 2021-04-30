@@ -31,7 +31,6 @@ public class MyGraphXY_BuhInvoice extends MyGraphXY {
     public void RESET_MARKER_POINT__IMPORTANT() {
         MARKER_POINT = null; // If not activated does not remove the "name" after "mouse-out" from a point
     }
-    
 
     private void init() {
         menu_item_goto_faktura.addActionListener(this);
@@ -44,18 +43,16 @@ public class MyGraphXY_BuhInvoice extends MyGraphXY {
 
     @Override
     public void drawMarkerWhenPointing_b(Graphics2D g2) {
-         drawMarkerInfo(g2);
+        drawMarkerInfo(g2);
     }
 
     @Override
     public void drawMarkerInfo(Graphics2D g2) {
-         if (DRAW_MARKER_INFO == 1) {
+        if (DRAW_MARKER_INFO == 1) {
             String toDraw = getPointInfo(MARKER_POINT, XyGraph_BuhInvoice.NICK__FAKTURA_KUND);
             g2.drawString(toDraw, MARKER_X - 20, MARKER_Y - 25);
         }
     }
-    
-    
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -77,9 +74,9 @@ public class MyGraphXY_BuhInvoice extends MyGraphXY {
         }
         //
     }
-    
-    private String getPointInfo(MyPoint point,String key){
-       return  point.getPointInfo().get(key);
+
+    private String getPointInfo(MyPoint point, String key) {
+        return point.getPointInfo().get(key);
     }
 
     @Override
@@ -104,8 +101,10 @@ public class MyGraphXY_BuhInvoice extends MyGraphXY {
         //
         if (vvv > 100000 && vvv < 1000000) {
             jj = 50000; // adjusted [2021-04-14]
+        } else if (vvv > 10000 && vvv < 50000) {
+            jj = 10000;
         } else if (vvv > 10000 && vvv < 100000) {
-            jj = 10000; // adjusted [2021-04-14]
+            jj = 20000; // adjusted [2021-04-14]
         } else if (vvv > 1000 && vvv < 10000) {
             jj = 2000; // adjusted [2021-04-14]
         } else if (vvv > 100 && vvv < 1000) {

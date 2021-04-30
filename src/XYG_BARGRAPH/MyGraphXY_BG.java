@@ -44,7 +44,7 @@ public class MyGraphXY_BG extends MyGraphXY_HG {
             MyPoint_BG point = (MyPoint_BG) MARKER_POINT;
             //
             if (point.getBarName() != null) {
-                g2.drawString(point.getBarName(), MARKER_X - 40, MARKER_Y - 25);
+                g2.drawString(point.getBarName(), MARKER_X - 40, 20); // MARKER_Y - 25
 //                g2.drawString("" + point.y_Real + ":-", MARKER_X - 50, MARKER_Y - 10);
             }
             //
