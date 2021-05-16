@@ -7,6 +7,7 @@ package XYG_BASIC;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.swing.JComponent;
@@ -54,6 +55,8 @@ public class MyPoint extends JComponent {
     //===========================
 //     private HashMap<String, String> batch_info_map = new HashMap<String, String>();
     private LinkedHashMap<String, String> batch_info_map = new LinkedHashMap<String, String>(); // [2020-04-14]
+    //
+    private Color POINT_BORDER_COLOR__OVAL = null;
 
     public MyPoint(int x, double y, double y_) {
         this.x_Real = x;
@@ -100,6 +103,10 @@ public class MyPoint extends JComponent {
         batch_info_map.put(key, value);
     }
 
+    public void setPointBorder(Color borderColor){
+        this.POINT_BORDER_COLOR__OVAL = borderColor;
+    }
+    
     /**
      * For adjusting of the point size
      *
@@ -230,7 +237,19 @@ public class MyPoint extends JComponent {
         if (DRAW_RECT) {
             g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
         } else {
-            g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
+            if(POINT_BORDER_COLOR__OVAL == null){
+                g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
+            }else{
+                //
+                g2d.setColor(POINT_BORDER_COLOR__OVAL);
+                int point_d_temp = POINT_D + 4;
+                g2d.fillOval((int) (x - point_d_temp / 2), (int) (y - point_d_temp / 2), point_d_temp, point_d_temp);
+                //
+                g2d.setColor(POINT_COLOR);
+                g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
+                //
+            }
+            
         }
 
         point_area = (int) 3.14 * (int) Math.pow(POINT_D / 2, 2);

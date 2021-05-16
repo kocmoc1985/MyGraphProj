@@ -36,6 +36,8 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     public static final String KEY__FAKTURA_BETALD = "betald";
     public static final String KEY__FAKTURA_MAKULERAD = "makulerad";
     public static final String KEY__FAKTURA_FORFALLODATUM = "forfallodatum";
+    public static final String KEY__IS_PERSON = "is_person";
+    public static final String KEY__RUTAVDRAG = "rutavdrag";
     public static final String KEY__FAKTURA_KUND = "namn";
 
     public static final String NICK__FAKTURA_KUND = "KUND";
@@ -73,18 +75,29 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             int makulerad = Integer.parseInt(map.get(KEY__FAKTURA_MAKULERAD));
             String forfallodatum = map.get(KEY__FAKTURA_FORFALLODATUM);
             boolean forfallen = isForfallen(fakturaTyp, betald, makulerad, forfallodatum);
+            int is_person = Integer.parseInt(map.get(KEY__IS_PERSON));
+            boolean is_rut = isRut(map.get(KEY__RUTAVDRAG));
             String faktura_kund = map.get(KEY__FAKTURA_KUND);
-            Color color = defineColor(fakturaTyp, betald, forfallen);
+            Color color = defineColor(fakturaTyp, betald, forfallen, is_person);
             //
             MyPoint p = new MyPoint((int) val, val, color);
             //
+            if (is_person == 1) {
+                p.addPointInfo("PRIVATPERSON", "Ja");
+            }
+            //
+            if (is_rut) {
+                p.setPointBorder(Color.BLACK);
+                p.addPointInfo("RUT / ROT", "Ja");
+            }
+            //
             if (betald == 1) {
-                p.setPointDrawRect(true);
+//                p.setPointDrawRect(true);
                 p.addPointInfo("BETALD", "Ja");
             }
             //
             if (forfallen) {
-                p.setPointDrawRect(true);
+//                p.setPointDrawRect(true);
                 p.addPointInfo("FÖRFALLEN", "Ja");
             }
             //
@@ -109,6 +122,11 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
         //
     }
 
+    public boolean isRut(String rutavdrag) {
+        double rut_total = Double.parseDouble(rutavdrag);
+        return rut_total != 0;
+    }
+
     public boolean isForfallen(int fakturaType, int betald, int makulerad, String forfallodatum) {
         boolean forfallen = HelpAA.compareDates(DATE_NOW, DATE_FORMAT, forfallodatum, DATE_FORMAT);
         if (forfallen && fakturaType == 0 && betald == 0 && makulerad == 0) {
@@ -125,11 +143,13 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
         fakturaTypeMap.put("" + FAKTURA_TYPE__OFFERT, "OFFERT");
     }
 
-    public Color defineColor(int fakturaType, int betald, boolean forfallen) {
+    public Color defineColor(int fakturaType, int betald, boolean forfallen, int is_person) {
         if (betald == 1) {
             return Color.GREEN;
         } else if (forfallen) {
             return Color.RED;
+        } else if (is_person == 1) {
+            return Color.CYAN;
         } else {
             return colorMap.get(fakturaType);
         }
