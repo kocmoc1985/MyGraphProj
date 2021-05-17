@@ -39,6 +39,7 @@ public class MyPoint extends JComponent {
     public Color POINT_COLOR_B = null;
     public Color INITIAL_POINT_COLOR = null;
     public boolean DRAW_RECT;
+    public boolean DRAW_RECT__INITIAL = false;
     public boolean highLightSet = false;
     //point dimenssion
     public int POINT_D = 7; // default 7
@@ -57,6 +58,7 @@ public class MyPoint extends JComponent {
     private LinkedHashMap<String, String> batch_info_map = new LinkedHashMap<String, String>(); // [2020-04-14]
     //
     private Color POINT_BORDER_COLOR__OVAL = null;
+    private Color POINT_BORDER_COLOR__RECT = null;
 
     public MyPoint(int x, double y, double y_) {
         this.x_Real = x;
@@ -103,10 +105,14 @@ public class MyPoint extends JComponent {
         batch_info_map.put(key, value);
     }
 
-    public void setPointBorder(Color borderColor){
+    public void setPointBorder(Color borderColor) {
         this.POINT_BORDER_COLOR__OVAL = borderColor;
     }
-    
+
+    public void setPointRectBorder(Color borderColor) {
+        this.POINT_BORDER_COLOR__RECT = borderColor;
+    }
+
     /**
      * For adjusting of the point size
      *
@@ -128,13 +134,17 @@ public class MyPoint extends JComponent {
     public void resetPointColor() {
         this.POINT_COLOR_B = this.INITIAL_POINT_COLOR;
     }
-    
-    public void resetPointDimenssion(){
+
+    public void resetPointDimenssion() {
         this.POINT_D = POINT_D_SET;
     }
 
     public void setPointDrawRect(boolean bln) {
         this.DRAW_RECT = bln;
+    }
+
+    public void setPointDrawRectInitial(boolean bln) {
+        this.DRAW_RECT__INITIAL = bln;
     }
 
     /**
@@ -234,12 +244,23 @@ public class MyPoint extends JComponent {
 
         g2d.setColor(POINT_COLOR);
 
-        if (DRAW_RECT) {
-            g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
+        if (DRAW_RECT || DRAW_RECT__INITIAL) {
+            if (POINT_BORDER_COLOR__RECT == null) {
+                g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
+            } else {
+                //
+                g2d.setColor(POINT_BORDER_COLOR__RECT);
+                int point_d_temp = POINT_D + 4;
+                g2d.fill3DRect((int) (x - point_d_temp / 2), (int) (y - point_d_temp / 2), point_d_temp, point_d_temp, true);
+                //
+                g2d.setColor(POINT_COLOR);
+                g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
+                //
+            }
         } else {
-            if(POINT_BORDER_COLOR__OVAL == null){
+            if (POINT_BORDER_COLOR__OVAL == null) {
                 g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
-            }else{
+            } else {
                 //
                 g2d.setColor(POINT_BORDER_COLOR__OVAL);
                 int point_d_temp = POINT_D + 4;
@@ -249,7 +270,7 @@ public class MyPoint extends JComponent {
                 g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
                 //
             }
-            
+
         }
 
         point_area = (int) 3.14 * (int) Math.pow(POINT_D / 2, 2);

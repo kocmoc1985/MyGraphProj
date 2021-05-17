@@ -46,7 +46,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     public HashMap<Integer, Color> colorMap = new HashMap<Integer, Color>();
     public HashMap<String, String> fakturaTypeMap = new HashMap<String, String>();
 
-    public XyGraph_BuhInvoice(String title,String keyMainValue, MyGraphXY xy, int displayMode, String dateNow, String dateFormat) {
+    public XyGraph_BuhInvoice(String title, String keyMainValue, MyGraphXY xy, int displayMode, String dateNow, String dateFormat) {
         super(title, xy, displayMode);
         this.DATE_NOW = dateNow;
         this.DATE_FORMAT = dateFormat;
@@ -81,21 +81,22 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             boolean is_rut = isRut(map.get(KEY__RUTAVDRAG));
             boolean is_omvant_skatt = isOmvantSkatt(map.get(KEY__OMVANT_SKATT));
             String faktura_kund = map.get(KEY__FAKTURA_KUND);
-            Color color = defineColor(fakturaTyp, betald, forfallen, is_person);
+            Color color = defineColor(fakturaTyp, betald, forfallen,is_person);
             //
             MyPoint p = new MyPoint((int) val, val, color);
             //
             if (is_person == 1) {
+                p.setPointDrawRectInitial(true);
                 p.addPointInfo("PRIVATPERSON", "Ja");
             }
             //
             if (is_rut) {
-                p.setPointBorder(Color.BLACK);
+                p.setPointRectBorder(Color.BLACK);
                 p.addPointInfo("RUT / ROT", "Ja");
             }
             //
-            if(is_omvant_skatt){
-                p.setPointDrawRect(true);
+            if (is_omvant_skatt) {
+                p.setPointBorder(Color.BLACK);
                 p.addPointInfo("OMVÄND MOMS", "Ja");
             }
             //
@@ -157,12 +158,12 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
         fakturaTypeMap.put("" + FAKTURA_TYPE__OFFERT, "OFFERT");
     }
 
-    public Color defineColor(int fakturaType, int betald, boolean forfallen, int is_person) {
+    public Color defineColor(int fakturaType, int betald, boolean forfallen, int isPerson) {
         if (betald == 1) {
             return Color.GREEN;
         } else if (forfallen) {
             return Color.RED;
-        } else if (is_person == 1) {
+        } else if (fakturaType == 0 && isPerson == 1) {
             return Color.CYAN;
         } else {
             return colorMap.get(fakturaType);

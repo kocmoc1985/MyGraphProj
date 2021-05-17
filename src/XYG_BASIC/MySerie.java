@@ -360,7 +360,11 @@ public class MySerie {
 
     public void resetPointsColorAndForm() {
         for (MyPoint point : points) {
-            point.setPointDrawRect(false);
+            //
+            if(point.DRAW_RECT__INITIAL == false){
+                point.setPointDrawRect(false);
+            }
+            //
             point.resetPointColor();
             point.resetPointDimenssion();
         }
