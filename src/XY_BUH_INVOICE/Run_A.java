@@ -53,6 +53,7 @@ public class Run_A {
             map_1.put("fakturatyp", "0");
             map_1.put("betald", "0");
             map_1.put("makulerad", "0");
+            map_1.put("omvant_skatt", "1");
             //
             HashMap<String, String> map_2 = new HashMap<String, String>();
             map_2.put("fakturanr", "2");
@@ -65,6 +66,7 @@ public class Run_A {
             map_2.put("fakturatyp", "1");
             map_2.put("betald", "1");
             map_2.put("makulerad", "0");
+            map_2.put("omvant_skatt", "0");
             //
             HashMap<String, String> map_3 = new HashMap<String, String>();
             map_3.put("fakturanr", "3");
@@ -74,9 +76,10 @@ public class Run_A {
             map_3.put("total_ink_moms", "1489");
             map_3.put("fakturadatum", "2021-05-25");
             map_3.put("forfallodatum", "2021-06-25");
-            map_3.put("fakturatyp", "3");
+            map_3.put("fakturatyp", "0");
             map_3.put("betald", "0");
             map_3.put("makulerad", "0");
+            map_3.put("omvant_skatt", "1");
             //
             HashMap<String, String> map_4 = new HashMap<String, String>();
             map_4.put("fakturanr", "4");
@@ -89,11 +92,12 @@ public class Run_A {
             map_4.put("fakturatyp", "0");
             map_4.put("betald", "0");
             map_4.put("makulerad", "0");
+            map_4.put("omvant_skatt", "0");
             //
+            list.add(map_4);
             list.add(map_3);
             list.add(map_2);
             list.add(map_1);
-            list.add(map_4);
             //
             java.awt.EventQueue.invokeLater(() -> {
                 xghm.addData(list, new String[]{"fakturadatum", "forfallodatum"});

@@ -39,6 +39,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     public static final String KEY__IS_PERSON = "is_person";
     public static final String KEY__RUTAVDRAG = "rutavdrag";
     public static final String KEY__FAKTURA_KUND = "namn";
+    public static final String KEY__OMVANT_SKATT = "omvant_skatt";
 
     public static final String NICK__FAKTURA_KUND = "KUND";
 
@@ -77,6 +78,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             boolean forfallen = isForfallen(fakturaTyp, betald, makulerad, forfallodatum);
             int is_person = Integer.parseInt(map.get(KEY__IS_PERSON));
             boolean is_rut = isRut(map.get(KEY__RUTAVDRAG));
+            boolean is_omvant_skatt = isOmvantSkatt(map.get(KEY__OMVANT_SKATT));
             String faktura_kund = map.get(KEY__FAKTURA_KUND);
             Color color = defineColor(fakturaTyp, betald, forfallen, is_person);
             //
@@ -89,6 +91,11 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             if (is_rut) {
                 p.setPointBorder(Color.BLACK);
                 p.addPointInfo("RUT / ROT", "Ja");
+            }
+            //
+            if(is_omvant_skatt){
+                p.setPointDrawRect(true);
+                p.addPointInfo("OMVÄND MOMS", "Ja");
             }
             //
             if (betald == 1) {
@@ -120,6 +127,11 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
 //            //
 //        }
         //
+    }
+
+    public boolean isOmvantSkatt(String omvantskatt) {
+        double omvand = Double.parseDouble(omvantskatt);
+        return omvand != 0;
     }
 
     public boolean isRut(String rutavdrag) {
