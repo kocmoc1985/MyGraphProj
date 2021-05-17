@@ -26,7 +26,7 @@ public class Run_A {
         //
         Buh_Invoice_Main__IF bim = null;
         //
-        XyGraph_BuhInvoice xghm = new XyGraph_BuhInvoice("test", new MyGraphXY_BuhInvoice(bim),
+        XyGraph_BuhInvoice xghm = new XyGraph_BuhInvoice("test","total_ink_moms", new MyGraphXY_BuhInvoice(bim),
                 MyGraphContainer.DISPLAY_MODE_FULL_SCREEN, dateNow, dateFormat);
         //
         System.out.println("Width: " + xghm.getGraph().getHeight() + " / " + xghm.getGraph().getWidth());

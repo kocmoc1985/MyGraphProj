@@ -30,7 +30,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     public static final int FAKTURA_TYPE__KONTANT = 2;
     public static final int FAKTURA_TYPE__OFFERT = 3;
 
-    public static final String KEY_MAIN__VALUE = "total_ink_moms";
+    private final String KEY_MAIN__VALUE;
     public static final String KEY__FAKTURA_NR = "fakturanr";
     public static final String KEY__FAKTURA_TYPE = "fakturatyp";
     public static final String KEY__FAKTURA_BETALD = "betald";
@@ -46,10 +46,11 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     public HashMap<Integer, Color> colorMap = new HashMap<Integer, Color>();
     public HashMap<String, String> fakturaTypeMap = new HashMap<String, String>();
 
-    public XyGraph_BuhInvoice(String title, MyGraphXY xy, int displayMode, String dateNow, String dateFormat) {
+    public XyGraph_BuhInvoice(String title,String keyMainValue, MyGraphXY xy, int displayMode, String dateNow, String dateFormat) {
         super(title, xy, displayMode);
         this.DATE_NOW = dateNow;
         this.DATE_FORMAT = dateFormat;
+        this.KEY_MAIN__VALUE = keyMainValue;
         init();
     }
 
@@ -115,6 +116,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             p.addPointInfo(KEY_MAIN__VALUE, "" + val);
             //
             for (String infoKey : hashMapKeysInfo) {
+                //OBS!OBS! YES! "fakturadatum" & "forfallodatum" are added here
                 p.addPointInfo(infoKey, map.get(infoKey));
             }
             //
