@@ -55,6 +55,7 @@ public class Run_A {
             map_1.put("makulerad", "0");
             map_1.put("omvant_skatt", "1");
             map_1.put("sent_with_email", "0");
+            map_1.put("is_printed", "1");
             //
             HashMap<String, String> map_2 = new HashMap<String, String>();
             map_2.put("fakturanr", "2");
@@ -69,6 +70,7 @@ public class Run_A {
             map_2.put("makulerad", "1");
             map_2.put("omvant_skatt", "0");
             map_2.put("sent_with_email", "0");
+            map_2.put("is_printed", "0");
             //
             HashMap<String, String> map_3 = new HashMap<String, String>();
             map_3.put("fakturanr", "3");
@@ -83,6 +85,7 @@ public class Run_A {
             map_3.put("makulerad", "0");
             map_3.put("omvant_skatt", "1");
             map_3.put("sent_with_email", "0");
+            map_3.put("is_printed", "0");
             //
             HashMap<String, String> map_4 = new HashMap<String, String>();
             map_4.put("fakturanr", "4");
@@ -93,15 +96,16 @@ public class Run_A {
             map_4.put("fakturadatum", "2021-06-25");
             map_4.put("forfallodatum", "2021-07-25");
             map_4.put("fakturatyp", "0");
-            map_4.put("betald", "0");
-            map_4.put("makulerad", "1");
+            map_4.put("betald", "1");
+            map_4.put("makulerad", "0");
             map_4.put("omvant_skatt", "0");
-            map_4.put("sent_with_email", "1");
+            map_4.put("sent_with_email", "0");
+            map_4.put("is_printed", "0");
             //
             list.add(map_4);
-            list.add(map_3);
-            list.add(map_2);
-            list.add(map_1);
+//            list.add(map_3);
+//            list.add(map_2);
+//            list.add(map_1);
             //
             java.awt.EventQueue.invokeLater(() -> {
                 xghm.addData(list, new String[]{"fakturadatum", "forfallodatum"});

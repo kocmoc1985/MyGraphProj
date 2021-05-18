@@ -130,6 +130,11 @@ public class MyPoint extends JComponent {
     public void setPointColor(Color c) {
         this.POINT_COLOR_B = c;
     }
+    
+    public void setPointColorInitial(Color c) {
+        this.POINT_COLOR_B = c;
+        this.INITIAL_POINT_COLOR = c;
+    }
 
     public void resetPointColor() {
         this.POINT_COLOR_B = this.INITIAL_POINT_COLOR;

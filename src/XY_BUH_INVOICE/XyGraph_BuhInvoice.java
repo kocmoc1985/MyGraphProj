@@ -41,6 +41,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     public static final String KEY__FAKTURA_KUND = "namn";
     public static final String KEY__OMVANT_SKATT = "omvant_skatt";
     public static final String KEY__IS_SENT_FAKTURA = "sent_with_email";
+    public static final String KEY__IS_PRINTED = "is_printed";
 
     public static final String NICK__FAKTURA_KUND = "KUND";
 
@@ -72,7 +73,6 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             HashMap<String, String> map = list.get(i);
             //
             double val = Double.parseDouble(map.get(KEY_MAIN__VALUE));
-            int fakturaNr = Integer.parseInt(map.get(KEY__FAKTURA_NR));
             int fakturaTyp = Integer.parseInt(map.get(KEY__FAKTURA_TYPE));
             int betald = Integer.parseInt(map.get(KEY__FAKTURA_BETALD));
             int makulerad = Integer.parseInt(map.get(KEY__FAKTURA_MAKULERAD));
@@ -82,25 +82,65 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             boolean is_rut = isRut(map.get(KEY__RUTAVDRAG));
             boolean is_omvant_skatt = isOmvantSkatt(map.get(KEY__OMVANT_SKATT));
             int is_sent = Integer.parseInt(map.get(KEY__IS_SENT_FAKTURA));
-            String faktura_kund = map.get(KEY__FAKTURA_KUND);
-            Color color = defineColor(fakturaTyp, betald, forfallen,is_person);
+            int is_printed = Integer.parseInt(map.get(KEY__IS_PRINTED));
             //
+            Color color = defineColor(fakturaTyp, betald, forfallen, is_person);
             MyPoint p = new MyPoint((int) val, val, color);
             //
-            if(is_sent == 0 && is_person == 1 && betald == 0 && makulerad == 0){
-                p.setPointRectBorder(Color.RED);
-                p.addPointInfo("SKICKAT", "Nej");
+            //
+            if (makulerad == 1 && is_person == 1) {
+                p.setPointColorInitial(Color.WHITE); // better add to define Color
+                p.setPointDrawRectInitial(true);
+                p.addPointInfo("MAKULERAD", "Ja");
+                addData_help(p, map, hashMapKeysInfo);
+                continue;
+            } else if (makulerad == 1 && is_person == 0) {
+                p.setPointColorInitial(Color.WHITE);
+                p.addPointInfo("MAKULERAD", "Ja");
+                addData_help(p, map, hashMapKeysInfo);
+                continue;
             }
             //
-            if(is_sent == 0 && is_person == 0 && betald == 0 && makulerad == 0){
-                p.setPointBorder(Color.RED);
-                p.addPointInfo("SKICKAT", "Nej");
+            //
+            if (betald == 1 && is_person == 1) {
+                p.setPointDrawRectInitial(true);
+                p.addPointInfo("BETALD", "Ja");
+                addData_help(p, map, hashMapKeysInfo);
+                continue;
+            } else if (betald == 1 && is_person == 0) {
+                p.addPointInfo("BETALD", "Ja");
+                addData_help(p, map, hashMapKeysInfo);
+                continue;
             }
+            //
+            //
+            if (forfallen && is_person == 1) {
+                p.setPointDrawRectInitial(true);
+                p.addPointInfo("FÖRFALLEN", "Ja");
+                addData_help(p, map, hashMapKeysInfo);
+                continue;
+            } else if (forfallen && is_person == 0) {
+                p.addPointInfo("FÖRFALLEN", "Ja");
+                addData_help(p, map, hashMapKeysInfo);
+                continue;
+            }
+            //
+            //====================================================
             //
             if (is_person == 1) {
                 p.setPointDrawRectInitial(true);
                 p.addPointInfo("PRIVATPERSON", "Ja");
             }
+            //
+            //
+            if ((is_sent == 0 && is_printed == 0) && is_person == 1 && betald == 0) {
+                p.setPointRectBorder(Color.RED);
+                p.addPointInfo("SKICKAT / UTSKRIVEN", "Nej");
+            } else if ((is_sent == 0 && is_printed == 0) && is_person == 0 && betald == 0) {
+                p.setPointBorder(Color.RED);
+                p.addPointInfo("SKICKAT / UTSKRIVEN", "Nej");
+            }
+            //
             //
             if (is_rut) {
                 p.setPointRectBorder(Color.WHITE);
@@ -112,40 +152,32 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
                 p.addPointInfo("OMVÄND MOMS", "Ja");
             }
             //
-            if (betald == 1) {
-//                p.setPointDrawRect(true);
-                p.addPointInfo("BETALD", "Ja");
-            }
             //
-            if (forfallen) {
-//                p.setPointDrawRect(true);
-                p.addPointInfo("FÖRFALLEN", "Ja");
-            }
+            addData_help(p, map, hashMapKeysInfo);
             //
-            if(makulerad == 1){
-                 p.setPointColor(Color.WHITE);
-                 p.addPointInfo("MAKULERAD", "Ja");
-            }
-            //
-            //
-            p.addPointInfo(NICK__FAKTURA_KUND, "" + faktura_kund);
-            p.addPointInfo(KEY__FAKTURA_NR.toUpperCase(), "" + fakturaNr);
-            p.addPointInfo("FAKTURATYP", fakturaTypeMap.get("" + fakturaTyp));
-            p.addPointInfo(KEY_MAIN__VALUE, "" + val);
-            //
-            for (String infoKey : hashMapKeysInfo) {
-                //OBS!OBS! YES! "fakturadatum" & "forfallodatum" are added here
-                p.addPointInfo(infoKey, map.get(infoKey));
-            }
-            //
-            addPointWithDiffMarkerPointsDelete(p, true);
             //
         }
         //
-//        for (HashMap<String, String> map : list) {
-//            
-//            //
-//        }
+    }
+
+    private void addData_help(MyPoint p, HashMap<String, String> map, String[] hashMapKeysInfo) {
+        //
+        String faktura_kund = map.get(KEY__FAKTURA_KUND);
+        int fakturaNr = Integer.parseInt(map.get(KEY__FAKTURA_NR));
+        int fakturaTyp = Integer.parseInt(map.get(KEY__FAKTURA_TYPE));
+        double val = Double.parseDouble(map.get(KEY_MAIN__VALUE));
+        //
+        p.addPointInfo(NICK__FAKTURA_KUND, "" + faktura_kund);
+        p.addPointInfo(KEY__FAKTURA_NR.toUpperCase(), "" + fakturaNr);
+        p.addPointInfo("FAKTURATYP", fakturaTypeMap.get("" + fakturaTyp));
+        p.addPointInfo(KEY_MAIN__VALUE, "" + val);
+        //
+        for (String infoKey : hashMapKeysInfo) {
+            //OBS!OBS! YES! "fakturadatum" & "forfallodatum" are added here
+            p.addPointInfo(infoKey, map.get(infoKey));
+        }
+        //
+        addPointWithDiffMarkerPointsDelete(p, true);
         //
     }
 
