@@ -98,9 +98,6 @@ public class MySerie {
         adjustRenderer();
     }
 
-    
-
-
     public void addDiffMarkerOutPutComponent(String calculatioName, JTextField jtf) {
         this.DIFF_MARKER_POINTS.addDiffMarkerOutPutComponent(calculatioName, jtf);
     }
@@ -359,9 +356,17 @@ public class MySerie {
     }
 
     public void resetPointsColorAndForm() {
+        //
         for (MyPoint point : points) {
             //
-            if(point.DRAW_RECT__INITIAL == false){
+            if (point.POINT_BORDER_COLOR__RECT__PREV != null) {
+                point.setPointRectBorder(new Color(point.POINT_BORDER_COLOR__RECT__PREV.getRGB()), true);
+            } else if (point.POINT_BORDER_COLOR__OVAL__PREV != null) {
+                point.setPointBorder(new Color(point.POINT_BORDER_COLOR__OVAL__PREV.getRGB()), true);
+            }
+            //
+            //
+            if (point.DRAW_RECT__INITIAL == false) {
                 point.setPointDrawRect(false);
             }
             //
@@ -472,7 +477,7 @@ public class MySerie {
     public ArrayList getDiffCursors() {
         return this.DIFF_MARKER_POINTS.getCursors();
     }
-    
+
 //    @Override
 //    public boolean equals(Object obj) {
 //        if (this == obj) {
@@ -506,5 +511,4 @@ public class MySerie {
 //        hash = 67 * hash + (int) (Double.doubleToLongBits(this.MAX) ^ (Double.doubleToLongBits(this.MAX) >>> 32));
 //        return hash;
 //    }
-    
 }

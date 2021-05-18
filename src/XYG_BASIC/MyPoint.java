@@ -59,6 +59,8 @@ public class MyPoint extends JComponent {
     //
     private Color POINT_BORDER_COLOR__OVAL = null;
     private Color POINT_BORDER_COLOR__RECT = null;
+    public Color POINT_BORDER_COLOR__RECT__PREV = null;
+    public Color POINT_BORDER_COLOR__OVAL__PREV = null;
 
     public MyPoint(int x, double y, double y_) {
         this.x_Real = x;
@@ -105,12 +107,19 @@ public class MyPoint extends JComponent {
         batch_info_map.put(key, value);
     }
 
-    public void setPointBorder(Color borderColor) {
+    public void setPointBorder(Color borderColor,boolean setPrev) {
         this.POINT_BORDER_COLOR__OVAL = borderColor;
+        if(setPrev){
+            this.POINT_BORDER_COLOR__OVAL__PREV = borderColor;
+        }
+        
     }
 
-    public void setPointRectBorder(Color borderColor) {
+    public void setPointRectBorder(Color borderColor,boolean setPrev) {
         this.POINT_BORDER_COLOR__RECT = borderColor;
+        if(setPrev){
+          this.POINT_BORDER_COLOR__RECT__PREV = borderColor;  
+        }
     }
 
     /**
@@ -235,6 +244,7 @@ public class MyPoint extends JComponent {
     /**
      *
      * @param g
+     * @param pointColor
      * @param point_rescale_coeff
      */
     protected void drawPoint(Graphics g, Color pointColor) {

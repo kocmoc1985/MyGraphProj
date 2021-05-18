@@ -84,12 +84,11 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             int is_sent = Integer.parseInt(map.get(KEY__IS_SENT_FAKTURA));
             int is_printed = Integer.parseInt(map.get(KEY__IS_PRINTED));
             //
-            Color color = defineColor(fakturaTyp, betald, forfallen, is_person);
+            Color color = defineColor(fakturaTyp, betald, forfallen, is_person, makulerad);
             MyPoint p = new MyPoint((int) val, val, color);
             //
             //
             if (makulerad == 1 && is_person == 1) {
-                p.setPointColorInitial(Color.WHITE); // better add to define Color
                 p.setPointDrawRectInitial(true);
                 p.addPointInfo("MAKULERAD", "Ja");
                 addData_help(p, map, hashMapKeysInfo);
@@ -134,21 +133,25 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             //
             //
             if ((is_sent == 0 && is_printed == 0) && is_person == 1 && betald == 0) {
-                p.setPointRectBorder(Color.RED);
+                p.setPointRectBorder(Color.RED, true);
                 p.addPointInfo("SKICKAT / UTSKRIVEN", "Nej");
+                addData_help(p, map, hashMapKeysInfo);
+                continue;
             } else if ((is_sent == 0 && is_printed == 0) && is_person == 0 && betald == 0) {
-                p.setPointBorder(Color.RED);
+                p.setPointBorder(Color.RED, true);
                 p.addPointInfo("SKICKAT / UTSKRIVEN", "Nej");
+                addData_help(p, map, hashMapKeysInfo);
+                continue;
             }
             //
             //
             if (is_rut) {
-                p.setPointRectBorder(Color.WHITE);
+                p.setPointRectBorder(Color.WHITE, true);
                 p.addPointInfo("RUT / ROT", "Ja");
             }
             //
             if (is_omvant_skatt) {
-                p.setPointBorder(Color.WHITE);
+                p.setPointBorder(Color.WHITE, true);
                 p.addPointInfo("OMVÄND MOMS", "Ja");
             }
             //
@@ -207,8 +210,10 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
         fakturaTypeMap.put("" + FAKTURA_TYPE__OFFERT, "OFFERT");
     }
 
-    public Color defineColor(int fakturaType, int betald, boolean forfallen, int isPerson) {
-        if (betald == 1) {
+    public Color defineColor(int fakturaType, int betald, boolean forfallen, int isPerson, int makulerad) {
+        if (makulerad == 1) {
+            return Color.WHITE;
+        } else if (betald == 1) {
             return Color.GREEN;
         } else if (forfallen) {
             return Color.RED;
