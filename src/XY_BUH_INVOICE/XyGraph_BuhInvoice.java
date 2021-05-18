@@ -40,6 +40,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     public static final String KEY__RUTAVDRAG = "rutavdrag";
     public static final String KEY__FAKTURA_KUND = "namn";
     public static final String KEY__OMVANT_SKATT = "omvant_skatt";
+    public static final String KEY__IS_SENT_FAKTURA = "sent_with_email";
 
     public static final String NICK__FAKTURA_KUND = "KUND";
 
@@ -80,10 +81,21 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             int is_person = Integer.parseInt(map.get(KEY__IS_PERSON));
             boolean is_rut = isRut(map.get(KEY__RUTAVDRAG));
             boolean is_omvant_skatt = isOmvantSkatt(map.get(KEY__OMVANT_SKATT));
+            int is_sent = Integer.parseInt(map.get(KEY__IS_SENT_FAKTURA));
             String faktura_kund = map.get(KEY__FAKTURA_KUND);
             Color color = defineColor(fakturaTyp, betald, forfallen,is_person);
             //
             MyPoint p = new MyPoint((int) val, val, color);
+            //
+            if(is_sent == 0 && is_person == 1 && betald == 0 && makulerad == 0){
+                p.setPointRectBorder(Color.RED);
+                p.addPointInfo("SKICKAT", "Nej");
+            }
+            //
+            if(is_sent == 0 && is_person == 0 && betald == 0 && makulerad == 0){
+                p.setPointBorder(Color.RED);
+                p.addPointInfo("SKICKAT", "Nej");
+            }
             //
             if (is_person == 1) {
                 p.setPointDrawRectInitial(true);
@@ -91,12 +103,12 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             }
             //
             if (is_rut) {
-                p.setPointRectBorder(Color.BLACK);
+                p.setPointRectBorder(Color.WHITE);
                 p.addPointInfo("RUT / ROT", "Ja");
             }
             //
             if (is_omvant_skatt) {
-                p.setPointBorder(Color.BLACK);
+                p.setPointBorder(Color.WHITE);
                 p.addPointInfo("OMVÄND MOMS", "Ja");
             }
             //
@@ -108,6 +120,11 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             if (forfallen) {
 //                p.setPointDrawRect(true);
                 p.addPointInfo("FÖRFALLEN", "Ja");
+            }
+            //
+            if(makulerad == 1){
+                 p.setPointColor(Color.WHITE);
+                 p.addPointInfo("MAKULERAD", "Ja");
             }
             //
             //

@@ -249,12 +249,12 @@ public class MyPoint extends JComponent {
                 g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
             } else {
                 //
-                g2d.setColor(POINT_BORDER_COLOR__RECT);
-                int point_d_temp = POINT_D + 4;
-                g2d.fill3DRect((int) (x - point_d_temp / 2), (int) (y - point_d_temp / 2), point_d_temp, point_d_temp, true);
-                //
                 g2d.setColor(POINT_COLOR);
                 g2d.fill3DRect((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D, true);
+                //
+                g2d.setColor(POINT_BORDER_COLOR__RECT);
+                int point_d_temp = POINT_D - 4;
+                g2d.fill3DRect((int) (x - point_d_temp / 2), (int) (y - point_d_temp / 2), point_d_temp, point_d_temp, true);
                 //
             }
         } else {
@@ -262,12 +262,12 @@ public class MyPoint extends JComponent {
                 g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
             } else {
                 //
-                g2d.setColor(POINT_BORDER_COLOR__OVAL);
-                int point_d_temp = POINT_D + 4;
-                g2d.fillOval((int) (x - point_d_temp / 2), (int) (y - point_d_temp / 2), point_d_temp, point_d_temp);
-                //
                 g2d.setColor(POINT_COLOR);
                 g2d.fillOval((int) (x - POINT_D / 2), (int) (y - POINT_D / 2), POINT_D, POINT_D);
+                //
+                g2d.setColor(POINT_BORDER_COLOR__OVAL);
+                int point_d_temp = POINT_D - 4;
+                g2d.fillOval((int) (x - point_d_temp / 2), (int) (y - point_d_temp / 2), point_d_temp, point_d_temp);
                 //
             }
 
