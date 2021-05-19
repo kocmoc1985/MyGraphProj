@@ -32,6 +32,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
 
     private final String KEY_MAIN__VALUE;
     public static final String KEY__FAKTURA_NR = "fakturanr";
+    public static final String KEY__FAKTURA_NR_ALT = "fakturanr_alt";
     public static final String KEY__FAKTURA_TYPE = "fakturatyp";
     public static final String KEY__FAKTURA_BETALD = "betald";
     public static final String KEY__FAKTURA_MAKULERAD = "makulerad";
@@ -167,11 +168,17 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
         //
         String faktura_kund = map.get(KEY__FAKTURA_KUND);
         int fakturaNr = Integer.parseInt(map.get(KEY__FAKTURA_NR));
+        int fakturaNrAlt = Integer.parseInt(map.get(KEY__FAKTURA_NR_ALT));
         int fakturaTyp = Integer.parseInt(map.get(KEY__FAKTURA_TYPE));
         double val = Double.parseDouble(map.get(KEY_MAIN__VALUE));
         //
         p.addPointInfo(NICK__FAKTURA_KUND, "" + faktura_kund);
         p.addPointInfo(KEY__FAKTURA_NR.toUpperCase(), "" + fakturaNr);
+        //
+        if(fakturaNrAlt != 0){
+            p.addPointInfo(KEY__FAKTURA_NR_ALT.toUpperCase().replaceAll("_", " "), "" + fakturaNrAlt);
+        }
+        //
         p.addPointInfo("FAKTURATYP", fakturaTypeMap.get("" + fakturaTyp));
         p.addPointInfo(KEY_MAIN__VALUE, "" + val);
         //

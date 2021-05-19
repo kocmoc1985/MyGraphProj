@@ -44,6 +44,7 @@ public class Run_A {
             //
             HashMap<String, String> map_1 = new HashMap<String, String>();
             map_1.put("fakturanr", "1");
+            map_1.put("fakturanr_alt", "0");
             map_1.put("namn", "Telenor");
             map_1.put("is_person", "0");
             map_1.put("rutavdrag", "0");
@@ -59,6 +60,7 @@ public class Run_A {
             //
             HashMap<String, String> map_2 = new HashMap<String, String>();
             map_2.put("fakturanr", "2");
+            map_2.put("fakturanr_alt", "0");
             map_2.put("namn", "Vodafone");
             map_2.put("is_person", "0");
             map_2.put("rutavdrag", "0");
@@ -74,7 +76,7 @@ public class Run_A {
             //
             HashMap<String, String> map_3 = new HashMap<String, String>();
             map_3.put("fakturanr", "3");
-            map_3.put("namn", "Securitas");
+            map_3.put("fakturanr_alt", "0");
             map_3.put("is_person", "0");
             map_3.put("rutavdrag", "0");
             map_3.put("total_ink_moms", "1489");
@@ -89,6 +91,7 @@ public class Run_A {
             //
             HashMap<String, String> map_4 = new HashMap<String, String>();
             map_4.put("fakturanr", "4");
+            map_4.put("fakturanr_alt", "10015");
             map_4.put("namn", "Henrik Johansson");
             map_4.put("is_person", "1");
             map_4.put("rutavdrag", "0");
