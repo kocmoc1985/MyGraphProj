@@ -81,12 +81,18 @@ public class MyGraphXY_BG extends MyGraphXY_HG {
         //
         if (vvv > 100000 && vvv < 1000000) {
             jj = 50000; // adjusted [2021-04-14]
+        } else if (vvv > 10000 && vvv < 20000) {
+            jj = 5000; // adjusted [2021-04-14]
+        }else if (vvv > 10000 && vvv < 50000) {
+            jj = 10000; // adjusted [2021-04-14]
         } else if (vvv > 10000 && vvv < 100000) {
             jj = 20000; // adjusted [2021-04-14]
-        } else if (vvv > 10000 && vvv < 50000) {
-            jj = 10000; // adjusted [2021-04-14]
-        } else if (vvv > 1000 && vvv < 10000) {
+        }  else if (vvv > 1000 && vvv < 5000) {
+            jj = 1000; // adjusted [2021-04-14]
+        }else if (vvv > 1000 && vvv < 10000) {
             jj = 2000; // adjusted [2021-04-14]
+        }else if (vvv > 100 && vvv < 500) {
+            jj = 100;
         } else if (vvv > 100 && vvv < 1000) {
             jj = 200;
         } else if (vvv > 10 && vvv < 100) {
