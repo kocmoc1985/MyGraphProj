@@ -17,18 +17,24 @@ import java.awt.Graphics2D;
 public class MyPoint_BG extends MyPoint{
 
     private String barName;
+    private BARGraph bARGraph;
     
     public MyPoint_BG(double y, double y_) {
         super(y, y_);
     }
     
-    public MyPoint_BG(double y, double y_,String barName) {
+    public MyPoint_BG(double y, double y_,String barName,BARGraph bARGraph) {
         super(y, y_);
+        this.bARGraph = bARGraph;
         this.barName = barName;
     }
 
     public String getBarName() {
         return barName;
+    }
+    
+    public BARGraph getBarGraph(){
+        return this.bARGraph;
     }
     
      @Override
