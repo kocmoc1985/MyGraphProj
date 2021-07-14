@@ -104,11 +104,12 @@ public class Run_A {
             map_4.put("omvant_skatt", "0");
             map_4.put("sent_with_email", "0");
             map_4.put("is_printed", "0");
+            map_4.put("important_komment", "SPCS 465");
             //
             list.add(map_4);
-//            list.add(map_3);
-//            list.add(map_2);
-//            list.add(map_1);
+            list.add(map_3);
+            list.add(map_2);
+            list.add(map_1);
             //
             java.awt.EventQueue.invokeLater(() -> {
                 xghm.addData(list, new String[]{"fakturadatum", "forfallodatum"});

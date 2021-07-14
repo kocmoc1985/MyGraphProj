@@ -43,6 +43,7 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     public static final String KEY__OMVANT_SKATT = "omvant_skatt";
     public static final String KEY__IS_SENT_FAKTURA = "sent_with_email";
     public static final String KEY__IS_PRINTED = "is_printed";
+     public static final String KEY__KOMMENT = "important_komment";
 
     public static final String NICK__FAKTURA_KUND = "KUND";
 
@@ -84,10 +85,15 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             boolean is_omvant_skatt = isOmvantSkatt(map.get(KEY__OMVANT_SKATT));
             int is_sent = Integer.parseInt(map.get(KEY__IS_SENT_FAKTURA));
             int is_printed = Integer.parseInt(map.get(KEY__IS_PRINTED));
+            String komment = map.get(KEY__KOMMENT);
             //
             Color color = defineColor(fakturaTyp, betald, forfallen, is_person, makulerad);
             MyPoint p = new MyPoint((int) val, val, color);
             //
+            //
+            if(komment != null && komment.isEmpty() == false){
+                p.addPointInfo("ANTECKNING", komment);
+            }
             //
             if (makulerad == 1 && is_person == 1) {
                 p.setPointDrawRectInitial(true);
