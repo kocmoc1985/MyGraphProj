@@ -56,7 +56,7 @@ public class MyGraphXY_BuhInvoice extends MyGraphXY {
     @Override
     public void drawMarkerInfo(Graphics2D g2) {
         if (DRAW_MARKER_INFO == 1) {
-            String toDraw = getPointInfo(MARKER_POINT, XyGraph_BuhInvoice.NICK__FAKTURA_KUND);
+            String toDraw = getPointInfo(MARKER_POINT, XyGraph_BuhInvoice.NICK__FAKTURA_KUND); // !IMPORTANT!
             g2.drawString(toDraw, MARKER_X - 20, MARKER_Y - 25);
         }
     }

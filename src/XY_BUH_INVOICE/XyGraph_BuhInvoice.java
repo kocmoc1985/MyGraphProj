@@ -43,10 +43,13 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     public static final String KEY__OMVANT_SKATT = "omvant_skatt";
     public static final String KEY__IS_SENT_FAKTURA = "sent_with_email";
     public static final String KEY__IS_PRINTED = "is_printed";
-     public static final String KEY__KOMMENT = "important_komment";
+    public static final String KEY__KOMMENT = "important_komment";
+    public static final String KEY__KUND_KATEGORI = "kund_kategori";
 
     public static final String NICK__FAKTURA_KUND = "KUND";
-
+    public static final String KUND_KATEGORI__EU_EUR = "EU EUR";
+    public static final String KUND_KATEGORI__UTL_EUR = "UTL EUR";
+    
     public HashMap<Integer, Color> colorMap = new HashMap<Integer, Color>();
     public HashMap<String, String> fakturaTypeMap = new HashMap<String, String>();
 
@@ -86,13 +89,18 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
             int is_sent = Integer.parseInt(map.get(KEY__IS_SENT_FAKTURA));
             int is_printed = Integer.parseInt(map.get(KEY__IS_PRINTED));
             String komment = map.get(KEY__KOMMENT);
+            String kund_kategori = map.get(KEY__KUND_KATEGORI);
             //
             Color color = defineColor(fakturaTyp, betald, forfallen, is_person, makulerad);
             MyPoint p = new MyPoint((int) val, val, color);
             //
             //
-            if(komment != null && komment.isEmpty() == false){
+            if (komment != null && komment.isEmpty() == false) {
                 p.addPointInfo("ANTECKNING", komment);
+            }
+            //
+            if(kund_kategori.equals(KUND_KATEGORI__EU_EUR) || kund_kategori.equals(KUND_KATEGORI__UTL_EUR)){
+                 p.addPointInfo("VALUTA", "EUR");
             }
             //
             if (makulerad == 1 && is_person == 1) {
@@ -173,15 +181,21 @@ public class XyGraph_BuhInvoice extends XyGraph_Basic {
     private void addData_help(MyPoint p, HashMap<String, String> map, String[] hashMapKeysInfo) {
         //
         String faktura_kund = map.get(KEY__FAKTURA_KUND);
+        String kund_kategori = map.get(KEY__KUND_KATEGORI);
         int fakturaNr = Integer.parseInt(map.get(KEY__FAKTURA_NR));
         int fakturaNrAlt = Integer.parseInt(map.get(KEY__FAKTURA_NR_ALT));
         int fakturaTyp = Integer.parseInt(map.get(KEY__FAKTURA_TYPE));
         double val = Double.parseDouble(map.get(KEY_MAIN__VALUE));
         //
-        p.addPointInfo(NICK__FAKTURA_KUND, "" + faktura_kund);
+        if(kund_kategori.equals(KUND_KATEGORI__EU_EUR) || kund_kategori.equals(KUND_KATEGORI__UTL_EUR)){
+           p.addPointInfo(NICK__FAKTURA_KUND, "" + faktura_kund + " (EUR)"); 
+        }else{
+           p.addPointInfo(NICK__FAKTURA_KUND, "" + faktura_kund); 
+        }
+        //
         p.addPointInfo(KEY__FAKTURA_NR.toUpperCase(), "" + fakturaNr);
         //
-        if(fakturaNrAlt != 0){
+        if (fakturaNrAlt != 0) {
             p.addPointInfo(KEY__FAKTURA_NR_ALT.toUpperCase().replaceAll("_", " "), "" + fakturaNrAlt);
         }
         //
