@@ -1017,7 +1017,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         if (ADD_POINT_INFO_BASIC) {
             addPointInfoBasic();
         }
-        //
+        //#TAG-TEMP-A-01#
         HashMap<String, String> b_info_map = MARKER_POINT.getPointInfo();
         //
         Set set = b_info_map.keySet();
@@ -1049,6 +1049,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
     public void mouseClicked(MouseEvent e) {
         //
         if (e.getSource() instanceof MyPoint && SHOW_POP_UP_LEFT_CLICK && e.getButton() == 1) {
+            //#TAG-TEMP-A-01#
             myPointClicked();
         } else if (e.getSource() instanceof MyPoint && e.getButton() == 3 && PointHighLighter.isFixed(MARKER_POINT) == false) {
             CLICK_RIGHT_POINT = (MyPoint) e.getSource();
@@ -1080,13 +1081,14 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         } else if (MARKER_POINT.isDiffMarkerPoint()) {
             popup.add(menu_item_diff_marker_remove);
         }
-        //
+        //#TAG-TEMP-A-01#
         popup.add(menu_item_delete_point);
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == menu_item_fix_point) { // Fix point
+            //#TAG-TEMP-A-01#
             fixPoint();
         } else if (ae.getSource() == menu_item_unfix_point) {//Unfix point
             unfixPoint();
