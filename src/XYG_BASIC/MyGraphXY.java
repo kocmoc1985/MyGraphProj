@@ -777,7 +777,9 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
         point.addMouseListener(this);
 //        System.out.println("Adding point: " + point.POINT_INDEX + " / " + point.getSerieName());
         this.add(point); // Adds the point component to the graph panel component
-        notify();
+//        notify();
+//         setSize(getWidth() - 1, getHeight() - 1);
+//                setSize(getWidth() + 1, getHeight() + 1);
     }
 
     /**
@@ -801,6 +803,7 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      */
     private synchronized void waitForPanelHeightIsInitialized() {
         while (getHeight() < 50) { //[#WAIT-FOR-HEIGHT#] IMPORTANT **************************************
+            //
             try {
                 wait(50);
             } catch (InterruptedException ex) {
@@ -926,11 +929,11 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
             }
         }
     }
-    
-    public void RESET_MARKER_POINT__IMPORTANT(){
+
+    public void RESET_MARKER_POINT__IMPORTANT() {
         // HERE IT MUST BE EMPTY
     }
-    
+
     public MyPoint prevPoint;
 
     public void highLightOnePointOnMouseMovement(MouseEvent e) {
@@ -1150,21 +1153,21 @@ public class MyGraphXY extends JPanel implements ComponentListener, MouseListene
      */
     @Override
     public void run() {
-        while (true) {
-            synchronized (this) {
-                try {
-                    wait();
-//                    wait(100);
-
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(MyGraphXY.class
-                            .getName()).log(Level.SEVERE, null, ex);
-                }
-                setSize(getWidth() - 1, getHeight() - 1);
-                setSize(getWidth() + 1, getHeight() + 1);
-//                System.out.println("sizeSet() done");
-            }
-        }
+//        while (true) {
+//            synchronized (this) {
+//                try {
+////                    wait();
+//                    wait(1000);
+//
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(MyGraphXY.class
+//                            .getName()).log(Level.SEVERE, null, ex);
+//                }
+//                setSize(getWidth() - 1, getHeight() - 1);
+//                setSize(getWidth() + 1, getHeight() + 1);
+////                System.out.println("sizeSet() done");
+//            }
+//        }
     }
     //=================================================================
 
